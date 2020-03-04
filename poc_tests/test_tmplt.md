@@ -19,7 +19,7 @@ TEST(TestSuiteName, TestName) {
 ```
 ## Use of macros
 * Gtest поддерживает два вида - ASSERT_* и EXPECT_* . В большинстве случаев использовать  EXPECT_* , чтобы несмотря на падение одного теста, остальные в этой функции выполнились. 
-* Если в тестах приходится использовать сложные assert-ы, то возможно стоит взглянуть на google mock - есть удобные matchers. Например, проверка элементов массива через простые EXPECT-ы и используя mock:
+* Если в тестах приходится использовать сложные assert-ы, то возможно стоит взглянуть на google mock (https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md) - есть удобные matchers. Например, проверка элементов массива через простые EXPECT-ы и используя mock:
 ```c++
 // Bad way
   for (std::size_t i = 0; i < v.size(); i++) {

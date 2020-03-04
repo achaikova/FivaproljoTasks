@@ -1,0 +1,30 @@
+#!/bin/zsh
+if [ $# = 0 ]
+then
+	echo "Missing argument (build or clean)"
+elif [ $# = 1 ] || [ $# = 2 ]
+then
+	if [[ $1 == build ]]
+	then
+		if [ ! -d build ]
+		then
+			mkdir build
+		fi
+		(cd build && cmake ../ && make $2)
+	elif [[ $1 == clean ]]
+	then
+		rm -rf build
+		for file in *
+		do
+			if [ -x $file ] && [ ! -d $file ] && [[ ! $file == fvmake ]]
+			then
+				rm -rf $file
+			fi
+		done
+		echo "Cleaned!"
+	else
+		echo "What is $1? (type build or clean)"
+	fi
+else
+	echo "Too many arguments"
+fi

@@ -8,8 +8,6 @@ include_directories(include)
 
 SET(CMAKE_CXX_FLAGS  "-Wall -Wextra -Werror")
 
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
-
 SET(CMAKE_EXE_LINKER_FLAGS  "-lncurses")
 
 add_executable(hw_02

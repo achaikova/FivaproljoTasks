@@ -12,9 +12,19 @@ do
 			then
 				if [ ! -d build ]
 				then
-					mkdir build
+					mkdir build 
 				fi
 			(cd build && cmake ../ && make $2)
+			(
+				cd build
+				for file in *
+				do
+					if [ -x $file ] && [ ! -d $file ]
+					then
+						mv $file ../$file
+					fi
+				done
+			)
 			elif [[ $1 == clean ]]
 			then
 				rm -rf build

@@ -1,7 +1,6 @@
 #include "Block.h"
 
-
-Block::Block (QPoint point){
-    setPixmap(QPixmap("../images/platform.png"));
-    setPos(100, 100);
+Block::Block(QPoint position) {
+    setPixmap(QPixmap("../images/black_block.png").scaled(72, 72));
+    setPos(position);
 }

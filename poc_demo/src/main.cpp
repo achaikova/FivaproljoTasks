@@ -1,11 +1,10 @@
 #include <iostream>
 #include <QApplication>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsItem>
-#include <QGraphicsPixmapItem>
+#include "scene.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    Scene *scene = new Scene();
+    scene->show();
     return a.exec();
 }

@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/Object.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/Object.cpp.o"
   "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Block.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Block.cpp.o"
   "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Model.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Model.cpp.o"
   "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Player.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Player.cpp.o"

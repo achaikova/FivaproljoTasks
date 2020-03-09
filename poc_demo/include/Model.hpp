@@ -4,19 +4,12 @@
 
 #ifndef DEMO_MODEL_HPP
 #define DEMO_MODEL_HPP
-
+#include <QGraphicsPixmapItem>
 #include "Player.hpp"
-#include <QGraphicsScene>
 
-//enum class direction {
-//    left
-//    right
-//};
-
-class Model {
+class Model : public QGraphicsPixmapItem{
 public:
-    static Player *add_player(int x, int y, int width, int height);
+    Player* add_player(double x, double y, int width, int height);
 };
-
 
 #endif //DEMO_MODEL_HPP

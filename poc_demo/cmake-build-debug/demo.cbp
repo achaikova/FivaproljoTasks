@@ -112,6 +112,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/Object.cpp">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/Object.hpp">
+			<Option target="demo"/>
+		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Block.h">
 			<Option target="demo"/>
 		</Unit>
@@ -125,6 +131,9 @@
 			<Option target="demo"/>
 		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/scene.h">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/staff.hpp">
 			<Option target="demo"/>
 		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Block.cpp">

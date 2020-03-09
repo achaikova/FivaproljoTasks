@@ -1,11 +1,12 @@
 //
 // Created by daniel on 09.03.2020.
 //
-
 #include "Model.hpp"
+#include <QSize>
 
-Player *Model::add_player(int x, int y, int width, int height){
-    Player *new_player = new Player(x, y, width, height);
-    scene();
-    return new_player;
+Player *Model::add_player(double x, double y, int width, int height) {
+    Player *new_player = new Player();
+    new_player->setPos(x, y);
+    QSize size = QSize(100, 100);
+    size.
 }

@@ -4,12 +4,12 @@
 
 #ifndef DEMO_PLAYER_HPP
 #define DEMO_PLAYER_HPP
+#include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 
 
-class Player:public QGraphicsRectItem {
-public:
-    Player(int scene_x, int scene_y, int width, int height);
+class Player : public QGraphicsPixmapItem {
+
 };
 
 

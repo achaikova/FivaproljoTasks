@@ -1,0 +1,18 @@
+/snap/clion/103/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/daniel/Desktop/FivaproljoTasks/poc_demo
+-- Configuring done
+CMake Warning at CMakeLists.txt:7 (add_executable):
+  Cannot generate a safe runtime search path for target demo because files in
+  some directories may conflict with libraries in implicit directories:
+
+    runtime library [libQt5Widgets.so.5] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /home/daniel/Qt5.14.1/5.14.1/gcc_64/lib
+    runtime library [libQt5Gui.so.5] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /home/daniel/Qt5.14.1/5.14.1/gcc_64/lib
+    runtime library [libQt5Core.so.5] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /home/daniel/Qt5.14.1/5.14.1/gcc_64/lib
+
+  Some of these libraries may not be found correctly.
+
+
+-- Generating done
+-- Build files have been written to: /home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug

@@ -5,11 +5,9 @@
 #include <QTimer>
 #include <QAbstractAnimation>
 #include <QDebug>
+#include <QObject>
 
-class Scene : public QGraphicsScene {
-    QObject
 
-};
 
 
 #endif //DEMO_SCENE_H

@@ -4,11 +4,23 @@
 
 #include "Object.hpp"
 #include <QGraphicsScene>
+#include <scene.h>
+
 
 Object::Object()
     : QGraphicsPixmapItem(nullptr)
+    , walkable (false)
     , collideable(true)
-    , walkable (false){
+    {}
 
-    scene()->addItem(this);
+bool Object::is_collideable() {
+    return collideable;
 }
+
+bool Object::is_walkable() {
+    return walkable;
+}
+
+
+
+

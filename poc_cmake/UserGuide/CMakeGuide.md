@@ -1,25 +1,25 @@
 # CMake guide
-```
+```Cmake
 cmake_minimum_required(VERSION 3.15) 
 ```
 Этой версии вроде бы хватает, поэтому условимся использовать хотя бы ее.
 
-```
+```cmake
 project(hw_02) 
 ```
 Название проекта, у нас всегда будет `fivaproljo`.
 
-``` 
+``` cmake
 include_directories(include) 
 ```
 Здесь указываются папки с заголовочными файлами, по умолчанию называем ее `include`.
 
-``` 
+``` cmake
 SET(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 ```
 Флаги для компиляции, по дефолты там установлены флаги `"-Wall -Wextra -Werror"` (устанавливаемые флаги пишутся в кавычках). 
 
-```
+```cmake
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(WINDOWS TRUE)
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -46,13 +46,13 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 ```
 Кусок для `qt`, возможно, придется менять путь до файла...
 
-``` 
+``` cmake
 SET(CMAKE_EXE_LINKE_FLAGS "-lncurses") 
 ```
 Флаги для линковки.
 
 ** Сборка исполняемого файла. Синтакси следующий:
-```
+```cmake
 add_executable( OutputExecutableFileName
         srcFile1
 	srcFile2

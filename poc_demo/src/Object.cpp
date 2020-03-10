@@ -1,10 +1,6 @@
-//
-// Created by daniel on 09.03.2020.
-//
-
-#include "Object.hpp"
+#include "Object.h"
 #include <QGraphicsScene>
-#include <scene.h>
+#include <Scene.h>
 
 
 Object::Object()

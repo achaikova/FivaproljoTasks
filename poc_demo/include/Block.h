@@ -5,7 +5,7 @@
 
 class Block : public QGraphicsPixmapItem {
 public:
-    Block(QPoint position);
+    Block(QPoint position, const QString &name, int w, int h);
 };
 
 #endif //DEMO_BLOCK_H

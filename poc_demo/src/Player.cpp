@@ -1,28 +1,9 @@
-//
-// Created by daniel on 09.03.2020.
-//
-
-#include "Player.hpp"
+#include "Player.h"
 
 Player::Player()
-        : Object()
-        , moving_speed(1)
-        , jump_speed(2)
-        , moving_speed_dv(2)
-        , direction(Direction::RIGHT)
-        , moving(true)
-        , dead(false)
-        , dying(false)
-        , jumping(false)
-        , falling(false)
-        , collectable(false)
-        , falling_speed(2)
-        , previous_posision()
-        , death_counter(0)
-        , jump_duration(30)
-        , death_duration(100)
-        , walkable_object(nullptr)
-{}
+        : Object(), moving_speed(1), jump_speed(2), moving_speed_dv(2), direction(Direction::RIGHT), moving(true),
+          dead(false), dying(false), jumping(false), falling(false), collectable(false), falling_speed(2),
+          previous_posision(), death_counter(0), jump_duration(30), death_duration(100), walkable_object(nullptr) {}
 
 void Player::start_jumping() {
     if (falling || jumping) return;
@@ -41,7 +22,7 @@ void Player::end_jumping() {
 
 void Player::advance() {
 
-    if (!dying){
+    if (!dying) {
         previous_posision = pos();
     }
 
@@ -56,28 +37,28 @@ void Player::advance() {
         solve_collisions();
     }
 
-    if (jumping){
+    if (jumping) {
         setY(y() - jump_speed);
         jump_counter += jump_speed;
 
-        if (jump_counter > jump_duration){
+        if (jump_counter > jump_duration) {
             end_jumping();
         }
         solve_collisions();
     }
 
     /// TO DO Interaction with walkable object; ------------------------------------------------!
-    if (walkable_object ){}
+    if (walkable_object) {}
 
-    if (falling){
+    if (falling) {
         setY(y() + falling_speed);
         solve_collisions();
     }
 
     /// TO DO death from falling; ------------------------------------------------!
-    if (0){}
+    if (0) {}
 
-    if (dying){
+    if (dying) {
         /// TO DO animation???
         dead = true;
     }

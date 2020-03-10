@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/103/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/103/bin/cmake/linux/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/daniel/Desktop/FivaproljoTasks/poc_demo
+CMAKE_SOURCE_DIR = /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-deb
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/103/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/103/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles /home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,32 +123,32 @@ demo/fast:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
 .PHONY : demo/fast
 
-Object.o: Object.cpp.o
+src/Background.o: src/Background.cpp.o
 
-.PHONY : Object.o
+.PHONY : src/Background.o
 
 # target to build an object file
-Object.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/Object.cpp.o
-.PHONY : Object.cpp.o
+src/Background.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Background.cpp.o
+.PHONY : src/Background.cpp.o
 
-Object.i: Object.cpp.i
+src/Background.i: src/Background.cpp.i
 
-.PHONY : Object.i
+.PHONY : src/Background.i
 
 # target to preprocess a source file
-Object.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/Object.cpp.i
-.PHONY : Object.cpp.i
+src/Background.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Background.cpp.i
+.PHONY : src/Background.cpp.i
 
-Object.s: Object.cpp.s
+src/Background.s: src/Background.cpp.s
 
-.PHONY : Object.s
+.PHONY : src/Background.s
 
 # target to generate assembly for a file
-Object.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/Object.cpp.s
-.PHONY : Object.cpp.s
+src/Background.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Background.cpp.s
+.PHONY : src/Background.cpp.s
 
 src/Block.o: src/Block.cpp.o
 
@@ -204,6 +204,33 @@ src/Model.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Model.cpp.s
 .PHONY : src/Model.cpp.s
 
+src/Object.o: src/Object.cpp.o
+
+.PHONY : src/Object.o
+
+# target to build an object file
+src/Object.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Object.cpp.o
+.PHONY : src/Object.cpp.o
+
+src/Object.i: src/Object.cpp.i
+
+.PHONY : src/Object.i
+
+# target to preprocess a source file
+src/Object.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Object.cpp.i
+.PHONY : src/Object.cpp.i
+
+src/Object.s: src/Object.cpp.s
+
+.PHONY : src/Object.s
+
+# target to generate assembly for a file
+src/Object.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Object.cpp.s
+.PHONY : src/Object.cpp.s
+
 src/Player.o: src/Player.cpp.o
 
 .PHONY : src/Player.o
@@ -231,32 +258,59 @@ src/Player.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Player.cpp.s
 .PHONY : src/Player.cpp.s
 
-src/background.o: src/background.cpp.o
+src/Scene.o: src/Scene.cpp.o
 
-.PHONY : src/background.o
+.PHONY : src/Scene.o
 
 # target to build an object file
-src/background.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/background.cpp.o
-.PHONY : src/background.cpp.o
+src/Scene.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Scene.cpp.o
+.PHONY : src/Scene.cpp.o
 
-src/background.i: src/background.cpp.i
+src/Scene.i: src/Scene.cpp.i
 
-.PHONY : src/background.i
+.PHONY : src/Scene.i
 
 # target to preprocess a source file
-src/background.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/background.cpp.i
-.PHONY : src/background.cpp.i
+src/Scene.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Scene.cpp.i
+.PHONY : src/Scene.cpp.i
 
-src/background.s: src/background.cpp.s
+src/Scene.s: src/Scene.cpp.s
 
-.PHONY : src/background.s
+.PHONY : src/Scene.s
 
 # target to generate assembly for a file
-src/background.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/background.cpp.s
-.PHONY : src/background.cpp.s
+src/Scene.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Scene.cpp.s
+.PHONY : src/Scene.cpp.s
+
+src/demo_level.o: src/demo_level.cpp.o
+
+.PHONY : src/demo_level.o
+
+# target to build an object file
+src/demo_level.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo_level.cpp.o
+.PHONY : src/demo_level.cpp.o
+
+src/demo_level.i: src/demo_level.cpp.i
+
+.PHONY : src/demo_level.i
+
+# target to preprocess a source file
+src/demo_level.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo_level.cpp.i
+.PHONY : src/demo_level.cpp.i
+
+src/demo_level.s: src/demo_level.cpp.s
+
+.PHONY : src/demo_level.s
+
+# target to generate assembly for a file
+src/demo_level.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo_level.cpp.s
+.PHONY : src/demo_level.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -285,33 +339,6 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/scene.o: src/scene.cpp.o
-
-.PHONY : src/scene.o
-
-# target to build an object file
-src/scene.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/scene.cpp.o
-.PHONY : src/scene.cpp.o
-
-src/scene.i: src/scene.cpp.i
-
-.PHONY : src/scene.i
-
-# target to preprocess a source file
-src/scene.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/scene.cpp.i
-.PHONY : src/scene.cpp.i
-
-src/scene.s: src/scene.cpp.s
-
-.PHONY : src/scene.s
-
-# target to generate assembly for a file
-src/scene.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/scene.cpp.s
-.PHONY : src/scene.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -319,29 +346,32 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... demo"
 	@echo "... edit_cache"
-	@echo "... Object.o"
-	@echo "... Object.i"
-	@echo "... Object.s"
+	@echo "... demo"
+	@echo "... src/Background.o"
+	@echo "... src/Background.i"
+	@echo "... src/Background.s"
 	@echo "... src/Block.o"
 	@echo "... src/Block.i"
 	@echo "... src/Block.s"
 	@echo "... src/Model.o"
 	@echo "... src/Model.i"
 	@echo "... src/Model.s"
+	@echo "... src/Object.o"
+	@echo "... src/Object.i"
+	@echo "... src/Object.s"
 	@echo "... src/Player.o"
 	@echo "... src/Player.i"
 	@echo "... src/Player.s"
-	@echo "... src/background.o"
-	@echo "... src/background.i"
-	@echo "... src/background.s"
+	@echo "... src/Scene.o"
+	@echo "... src/Scene.i"
+	@echo "... src/Scene.s"
+	@echo "... src/demo_level.o"
+	@echo "... src/demo_level.i"
+	@echo "... src/demo_level.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/scene.o"
-	@echo "... src/scene.i"
-	@echo "... src/scene.s"
 .PHONY : help
 
 

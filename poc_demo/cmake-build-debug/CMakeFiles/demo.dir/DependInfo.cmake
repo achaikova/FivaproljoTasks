@@ -4,15 +4,16 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/Object.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/Object.cpp.o"
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Block.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Block.cpp.o"
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Model.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Model.cpp.o"
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Player.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Player.cpp.o"
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/background.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/background.cpp.o"
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/main.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/main.cpp.o"
-  "/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/scene.cpp" "/home/daniel/Desktop/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/scene.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Background.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Background.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Block.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Block.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Model.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Model.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Object.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Object.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Player.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Player.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Scene.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/Scene.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/demo_level.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/demo_level.cpp.o"
+  "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/main.cpp" "/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/cmake-build-debug/CMakeFiles/demo.dir/src/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
@@ -26,14 +27,18 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
-  "/usr/include/x86_64-linux-gnu/qt5"
-  "/usr/include/x86_64-linux-gnu/qt5/QtWidgets"
-  "/usr/include/x86_64-linux-gnu/qt5/QtGui"
-  "/usr/include/x86_64-linux-gnu/qt5/QtCore"
-  "/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"
-  "/home/daniel/Qt5.14.1/5.14.1/gcc_64/include"
-  "/home/daniel/Qt5.14.1/5.14.1/gcc_64/include/QtMultimedia"
-  "/home/daniel/Qt5.14.1/5.14.1/gcc_64/include/QtNetwork"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtGui.framework"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers"
+  "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtCore.framework"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.1/./mkspecs/macx-clang"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtMultimedia.framework"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtMultimedia.framework/Headers"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtNetwork.framework"
+  "/usr/local/Cellar/qt/5.14.1/lib/QtNetwork.framework/Headers"
   )
 
 # Targets to which this target links.

@@ -9,7 +9,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "Block.h"
-
+#include <Player.h>
 
 class Scene : public QGraphicsView {
 public:
@@ -21,8 +21,7 @@ public:
 
     QGraphicsScene *scene;
     //  Player * player;
-    Block *block_1;
-    Block *block_2;
+
 };
 
 

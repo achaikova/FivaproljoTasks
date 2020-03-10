@@ -1,7 +1,3 @@
-//
-// Created by daniel on 09.03.2020.
-//
-
 #pragma once
 
 #include <QGraphicsPixmapItem>

@@ -1,11 +1,8 @@
-//
-// Created by daniel on 09.03.2020.
-//
+#pragma once
 
-#pragma once;
-
-#include "Object.hpp"
+#include "Object.h"
 #include <QPointF>
+#include <QKeyEvent> //tmp
 
 class Player : public Object {
 protected:
@@ -27,6 +24,7 @@ protected:
     QPointF previous_posision;
 
     virtual void start_jumping();
+
     virtual void end_jumping();
 
     int death_counter;
@@ -36,19 +34,26 @@ protected:
 
 public:
     Player();
+
     bool is_dead();
+
     bool is_falling();
+
     bool is_collectable();
 
     virtual void set_direction(Direction) = 0; /// TO DO
     virtual void set_moving(bool) = 0; /// TO DO
     virtual void advance();
+
     virtual void solve_collisions() override = 0; /// TO DO
 
-    virtual std::string name()            override = 0;
-    virtual void animate()                override = 0;
+    virtual std::string name() override = 0;
+
+    virtual void animate() override = 0;
+
     virtual void hit(Object *, Direction) override = 0;
 
     virtual void die() = 0;
+
 };
 

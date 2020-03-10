@@ -21,6 +21,7 @@ Scene::Scene(QWidget *parent) {
 
 
     //meh
+    //just tmp scene
     Block *platform_1 = new Block(QPoint(400, 150), "../images/9blocks.jpg", 450, 50);
     scene->addItem(platform_1);
     Block *platform_2 = new Block(QPoint(150, 250), "../images/3blocks.jpg", 150, 50);

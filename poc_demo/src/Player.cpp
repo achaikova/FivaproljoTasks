@@ -11,7 +11,6 @@ Player::Player()
         , dying(false)
         , jumping(false)
         , falling(false)
-        , collectable(false)
         , falling_speed(2)
         , previous_posision()
         , death_counter(0)
@@ -90,10 +89,6 @@ void Player::die() {
     dying = true;
     death_counter = 0;
     moving = false;
-}
-
-bool Player::is_collectable() {
-    return collectable;
 }
 
 bool Player::is_falling() {

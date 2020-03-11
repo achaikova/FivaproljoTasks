@@ -17,6 +17,14 @@ bool Object::is_walkable() {
     return walkable;
 }
 
+Direction Object::collision_direction(Object *item) {
+    QRectF curr_rect = sceneBoundingRect();
+    QRectF item_rect = item->sceneBoundingRect();
+
+    if (!curr_rect.intersects(item_rect))
+        return UNKNOW;
+}
+
 
 
 

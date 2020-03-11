@@ -6,13 +6,13 @@ Player::Player()
         , jump_speed(2)
         , moving_speed_dv(2)
         , direction(Direction::RIGHT)
-        , moving(true)
+        , moving(false)
         , dead(false)
         , dying(false)
         , jumping(false)
         , falling(false)
         , falling_speed(2)
-        , previous_posision()
+        , previous_position()
         , death_counter(0)
         , jump_duration(30)
         , death_duration(100)
@@ -33,52 +33,22 @@ void Player::end_jumping() {
     falling = true;
 }
 
-void Player::advance() {
-
-    if (!dying) {
-        previous_posision = pos();
-    }
-
-    if (moving) {
-        if (direction == Direction::RIGHT) {
-            setX(x() + moving_speed);
-        } else if (direction == Direction::LEFT) {
-            setX(x() - moving_speed);
-        } else if (direction == Direction::UP) {
-            setY(y() - moving_speed);
-        }
-        solve_collisions();
-    }
-
-    if (jumping) {
-        setY(y() - jump_speed);
-        jump_counter += jump_speed;
-
-        if (jump_counter > jump_duration) {
-            end_jumping();
-        }
-        solve_collisions();
-    }
-
-    /// TO DO Interaction with walkable object; ------------------------------------------------!
-    if (walkable_object) {}
-
-    if (falling) {
-        setY(y() + falling_speed);
-        solve_collisions();
-    }
-
-    /// TO DO death from falling; ------------------------------------------------!
-    if (0) {}
-
-    if (dying) {
-        /// TO DO animation???
-        dead = true;
-    }
-}
-
 void Player::solve_collisions() {
     if (!collideable || dead) return;
+
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+
+    for (auto &item : colliding_items){
+        auto *obj = dynamic_cast<Object*> (item);
+
+        if (!obj) continue;
+
+        if(!obj->is_collideable()) continue;
+
+        if (dynamic_cast<Player*>(obj)) continue;
+
+        Direction collision_dir = collision_direction(obj);
+    }
 
     /// TO DO collision solving; ------------------------------------------------!
 }
@@ -89,14 +59,6 @@ void Player::die() {
     dying = true;
     death_counter = 0;
     moving = false;
-}
-
-bool Player::is_falling() {
-    return falling;
-}
-
-bool Player::is_dead() {
-    return dead;
 }
 
 

@@ -38,6 +38,8 @@ void Player::solve_collisions() {
 
     QList<QGraphicsItem *> colliding_items = collidingItems();
 
+    bool revert = false; // if needed to go to prev_pos
+
     for (auto &item : colliding_items){
         auto *obj = dynamic_cast<Object*> (item);
 
@@ -48,9 +50,25 @@ void Player::solve_collisions() {
         if (dynamic_cast<Player*>(obj)) continue;
 
         Direction collision_dir = collision_direction(obj);
+
+        if (collision_dir == Direction::UNKNOWN) continue; // if it is not possible to calculate it,
+                                                                // we skip current collision
+        // case 1: touching a walkable object while falling
+        if (collision_dir == Direction::DOWN && falling && obj->is_walkable()){
+            falling = false;
+            walkable_object = obj;
+        }
+        // case 2: touching an object while jumping
+        if (collision_dir == Direction::UP && jumping){
+            end_jumping();
+        }
+
+        revert = true; // if we got here we need to go back
     }
 
-    /// TO DO collision solving; ------------------------------------------------!
+    if (revert){
+        setPos(previous_position);
+    }
 }
 
 void Player::die() {

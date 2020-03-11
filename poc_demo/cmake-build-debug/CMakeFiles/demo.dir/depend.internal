@@ -30,16 +30,21 @@ CMakeFiles/demo.dir/src/Model.cpp.o
 CMakeFiles/demo.dir/src/Object.cpp.o
  ../include/Block.h
  ../include/Object.h
+ ../include/Player.h
  ../include/Scene.h
  ../include/staff.hpp
  /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Object.cpp
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QDebug
+ /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QPointF
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qabstractanimation.h
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qdebug.h
+ /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qpoint.h
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qtimer.h
+ /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QKeyEvent
  /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QPixmap
+ /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qevent.h
  /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qpixmap.h
  /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsPixmapItem
  /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsScene
@@ -66,7 +71,7 @@ CMakeFiles/demo.dir/src/Scene.cpp.o
  ../include/Block.h
  ../include/Object.h
  ../include/Player.h
- ../include/scene.h
+ ../include/Scene.h
  ../include/staff.hpp
  /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Scene.cpp
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
@@ -101,8 +106,8 @@ CMakeFiles/demo.dir/src/Scene.cpp.o
 CMakeFiles/demo.dir/src/demo_level.cpp.o
  ../include/Background.h
  ../include/Block.h
+ ../include/demo_level.h
  /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/demo_level.cpp
- /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/demo_level.h
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QDebug
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
@@ -115,14 +120,23 @@ CMakeFiles/demo.dir/src/demo_level.cpp.o
  /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qgraphicsscene.h
 CMakeFiles/demo.dir/src/main.cpp.o
  ../include/Block.h
+ ../include/Object.h
+ ../include/Player.h
  ../include/scene.h
+ ../include/staff.hpp
  /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/main.cpp
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QDebug
+ /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QPointF
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qabstractanimation.h
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qdebug.h
+ /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qpoint.h
  /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qtimer.h
+ /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QKeyEvent
+ /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QPixmap
+ /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qevent.h
+ /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qpixmap.h
  /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QApplication
  /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsPixmapItem
  /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsScene

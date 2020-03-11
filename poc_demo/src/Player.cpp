@@ -1,7 +1,8 @@
 #include "Player.h"
 
 Player::Player()
-        : Object(), moving_speed(1), jump_speed(2), moving_speed_dv(2), direction(Direction::RIGHT), moving(true),
+        : Object(),
+          moving_speed(1), jump_speed(2), moving_speed_dv(2), direction(Direction::RIGHT), moving(true),
           dead(false), dying(false), jumping(false), falling(false), collectable(false), falling_speed(2),
           previous_posision(), death_counter(0), jump_duration(30), death_duration(100), walkable_object(nullptr) {}
 

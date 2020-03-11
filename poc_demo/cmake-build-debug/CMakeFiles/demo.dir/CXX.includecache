@@ -6,15 +6,13 @@
 
 #IncludeRegexTransform: 
 
-../include/Block.h
+../include/Background.h
 QGraphicsPixmapItem
 -
 
-../include/Model.h
+../include/Block.h
 QGraphicsPixmapItem
 -
-Player.h
-../include/Player.h
 
 ../include/Object.h
 QGraphicsPixmapItem
@@ -29,6 +27,40 @@ QPointF
 -
 QKeyEvent
 -
+
+../include/Scene.h
+QGraphicsScene
+-
+QTimer
+-
+QAbstractAnimation
+-
+QDebug
+-
+QGraphicsView
+-
+QWidget
+-
+QGraphicsScene
+-
+Block.h
+../include/Block.h
+Player.h
+-
+
+../include/demo_level.h
+QGraphicsScene
+-
+QTimer
+-
+QAbstractAnimation
+-
+QDebug
+-
+Block.h
+-
+Background.h
+../include/Background.h
 
 ../include/scene.h
 QGraphicsScene
@@ -56,19 +88,21 @@ QPixmap
 string
 -
 
-/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Model.cpp
-Model.h
-/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Model.h
-QSize
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Block.cpp
+Block.h
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Block.h
+
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Object.cpp
+Object.h
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Object.h
+QGraphicsScene
+-
+Scene.h
 -
 
-/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Player.cpp
-Player.h
-/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Player.h
-
 /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Scene.cpp
-scene.h
-/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/scene.h
+Scene.h
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/Scene.h
 QTimer
 -
 QGraphicsTextItem
@@ -82,6 +116,18 @@ QBrush
 QImage
 -
 
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/demo_level.cpp
+demo_level.h
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/demo_level.h
+
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/main.cpp
+iostream
+-
+QApplication
+-
+scene.h
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/src/scene.h
+
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
 qabstractanimation.h
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qabstractanimation.h
@@ -93,10 +139,6 @@ qdebug.h
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QPointF
 qpoint.h
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qpoint.h
-
-/usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QSize
-qsize.h
-/usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qsize.h
 
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
 qtimer.h
@@ -140,12 +182,6 @@ utility
 
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qpoint.h
 QtCore/qnamespace.h
--
-
-/usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qsize.h
-QtCore/qnamespace.h
--
-QtCore/qmargins.h
 -
 
 /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qtimer.h
@@ -298,6 +334,10 @@ QtMultimedia/qaudio.h
 QtNetwork/qnetworkconfiguration.h
 -
 
+/usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QApplication
+qapplication.h
+/usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qapplication.h
+
 /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsPixmapItem
 qgraphicsitem.h
 /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qgraphicsitem.h
@@ -317,6 +357,24 @@ qgraphicsview.h
 /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QWidget
 qwidget.h
 /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qwidget.h
+
+/usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qapplication.h
+QtWidgets/qtwidgetsglobal.h
+-
+QtCore/qcoreapplication.h
+-
+QtGui/qwindowdefs.h
+-
+QtCore/qpoint.h
+-
+QtCore/qsize.h
+-
+QtGui/qcursor.h
+-
+QtWidgets/qdesktopwidget.h
+-
+QtGui/qguiapplication.h
+-
 
 /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qgraphicsitem.h
 QtWidgets/qtwidgetsglobal.h

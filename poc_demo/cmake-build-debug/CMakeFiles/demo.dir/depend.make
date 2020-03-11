@@ -29,16 +29,21 @@ CMakeFiles/demo.dir/src/Model.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.f
 
 CMakeFiles/demo.dir/src/Object.cpp.o: ../include/Block.h
 CMakeFiles/demo.dir/src/Object.cpp.o: ../include/Object.h
+CMakeFiles/demo.dir/src/Object.cpp.o: ../include/Player.h
 CMakeFiles/demo.dir/src/Object.cpp.o: ../include/Scene.h
 CMakeFiles/demo.dir/src/Object.cpp.o: ../include/staff.hpp
 CMakeFiles/demo.dir/src/Object.cpp.o: ../src/Object.cpp
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QDebug
+CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QPointF
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qabstractanimation.h
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qdebug.h
+CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qpoint.h
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qtimer.h
+CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QKeyEvent
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QPixmap
+CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qevent.h
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qpixmap.h
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsPixmapItem
 CMakeFiles/demo.dir/src/Object.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsScene
@@ -65,7 +70,7 @@ CMakeFiles/demo.dir/src/Player.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.
 CMakeFiles/demo.dir/src/Scene.cpp.o: ../include/Block.h
 CMakeFiles/demo.dir/src/Scene.cpp.o: ../include/Object.h
 CMakeFiles/demo.dir/src/Scene.cpp.o: ../include/Player.h
-CMakeFiles/demo.dir/src/Scene.cpp.o: ../include/scene.h
+CMakeFiles/demo.dir/src/Scene.cpp.o: ../include/Scene.h
 CMakeFiles/demo.dir/src/Scene.cpp.o: ../include/staff.hpp
 CMakeFiles/demo.dir/src/Scene.cpp.o: ../src/Scene.cpp
 CMakeFiles/demo.dir/src/Scene.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
@@ -100,8 +105,8 @@ CMakeFiles/demo.dir/src/Scene.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.f
 
 CMakeFiles/demo.dir/src/demo_level.cpp.o: ../include/Background.h
 CMakeFiles/demo.dir/src/demo_level.cpp.o: ../include/Block.h
+CMakeFiles/demo.dir/src/demo_level.cpp.o: ../include/demo_level.h
 CMakeFiles/demo.dir/src/demo_level.cpp.o: ../src/demo_level.cpp
-CMakeFiles/demo.dir/src/demo_level.cpp.o: ../src/demo_level.h
 CMakeFiles/demo.dir/src/demo_level.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
 CMakeFiles/demo.dir/src/demo_level.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QDebug
 CMakeFiles/demo.dir/src/demo_level.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
@@ -114,14 +119,23 @@ CMakeFiles/demo.dir/src/demo_level.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidg
 CMakeFiles/demo.dir/src/demo_level.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/qgraphicsscene.h
 
 CMakeFiles/demo.dir/src/main.cpp.o: ../include/Block.h
+CMakeFiles/demo.dir/src/main.cpp.o: ../include/Object.h
+CMakeFiles/demo.dir/src/main.cpp.o: ../include/Player.h
 CMakeFiles/demo.dir/src/main.cpp.o: ../include/scene.h
+CMakeFiles/demo.dir/src/main.cpp.o: ../include/staff.hpp
 CMakeFiles/demo.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QAbstractAnimation
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QDebug
+CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QPointF
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/QTimer
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qabstractanimation.h
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qdebug.h
+CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qpoint.h
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtCore.framework/Headers/qtimer.h
+CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QKeyEvent
+CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/QPixmap
+CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qevent.h
+CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtGui.framework/Headers/qpixmap.h
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QApplication
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsPixmapItem
 CMakeFiles/demo.dir/src/main.cpp.o: /usr/local/Cellar/qt/5.14.1/lib/QtWidgets.framework/Headers/QGraphicsScene

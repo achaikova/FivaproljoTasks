@@ -11,7 +11,7 @@ enum class Direction{
     RIGHT, LEFT, UP, DOWN
 };
 
-static QPixmap loadTexture(const std::string file){
+static QPixmap loadTexture(const std::string &file){
     return QPixmap(file.c_str());
 }
 

@@ -89,6 +89,7 @@ Scene::Scene(QWidget *parent) {
         ceiling.push_back(new Block(QPoint(50 + i * block_width, 0), "../images/1block.jpg"));
         scene->addItem(ceiling[i]);
     }
+
     show();
 }
 

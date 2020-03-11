@@ -39,7 +39,7 @@ public:
 
     void solve_collisions() override ; /// TO DO
 
-    std::string& name() override;
+    std::string& name() override = 0;
 
     void animate() override = 0;
 

@@ -184,6 +184,7 @@ CMakeFiles/demo.dir/src/Model.cpp.o: ../include/staff.hpp
 CMakeFiles/demo.dir/src/Model.cpp.o: ../src/Model.cpp
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/QPointF
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/QSize
+CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qarraydata.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic.h
@@ -191,6 +192,7 @@ CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qa
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_cxx11.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_msvc.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasicatomic.h
+CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearraylist.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h
@@ -246,6 +248,7 @@ CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qs
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qsystemdetection.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qtcore-config.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h
+CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qtypeinfo.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h
 CMakeFiles/demo.dir/src/Model.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtCore/qurlquery.h

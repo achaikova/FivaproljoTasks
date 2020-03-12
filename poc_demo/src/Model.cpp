@@ -10,24 +10,24 @@
 
 
 void Model::advance_players() {
-    for (auto player : players_v){
+    for (auto player : players_v) {
         if (!player->dead) {
-            player->previous_position = pos();
+            player->previous_position = player->pos();
         }
 
         if (player->moving) {
             if (player->direction == Direction::RIGHT) {
-                setX(x() + player->moving_speed);
+                player->setX(player->x() + player->moving_speed);
             } else if (player->direction == Direction::LEFT) {
-                setX(x() - player->moving_speed);
+                player->setX(player->x() - player->moving_speed);
             } else if (player->direction == Direction::UP) {
-                setY(y() - player->moving_speed);
+                player->setY(player->y() - player->moving_speed);
             }
             player->solve_collisions();
         }
 
         if (player->jumping) {
-            setY(y() - player->jump_speed);
+            player->setY(player->y() - player->jump_speed);
             player->jump_counter += player->jump_speed;
 
             if (player->jump_counter > player->jump_duration) {
@@ -40,7 +40,7 @@ void Model::advance_players() {
         if (player->walkable_object) {}
 
         if (player->falling) {
-            setY(y() + player->falling_speed);
+            player->setY(player->y() + player->falling_speed);
             player->solve_collisions();
         }
 
@@ -57,19 +57,24 @@ void Model::advance_players() {
 void Model::advance_scene() {
     auto *timer = new QTimer(this);
     timer->start(20);
-    while (true){
+    while (true) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        if (!timer->isActive()){
+        if (!timer->isActive()) {
             QObject::connect(timer, SIGNAL(timeout()), this, SLOT(advance_players()));
             timer->start(20);
         }
-        if (!game_on){
+        if (!game_on) {
             return;
         }
     }
 }
 
-void Model::start_game() {
+Model::Model()
+: QObject()
+, game_on(1)
+, players_v()
+, scene(new Scene()){
     //TODO get players from VIEW;
+    scene->show();
     advance_scene();
 }

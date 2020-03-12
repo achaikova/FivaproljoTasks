@@ -9,18 +9,18 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "Block.h"
-#include <Player.h>
+#include <Entity.h>
 
 class Scene : public QGraphicsView {
 public:
     Scene(QWidget *parent = 0);
 
-    void add_item(QGraphicsItem *);
+    //void add_item(QGraphicsItem *);
 
     QGraphicsScene *get_scene();
 
     QGraphicsScene *scene;
-    //  Player * player;
+    //  Entity * player;
 
 };
 

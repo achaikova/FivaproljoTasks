@@ -1,0 +1,3 @@
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/CMakeFiles/rebuild_cache.dir
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/CMakeFiles/edit_cache.dir
+/Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/CMakeFiles/demo.dir

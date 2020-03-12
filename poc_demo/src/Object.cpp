@@ -6,8 +6,10 @@
 Object::Object()
     : QGraphicsPixmapItem(nullptr)
     , walkable (false)
-    , collideable(true)
-    {}
+    , collideable(true){
+
+    scene()->addItem(this);
+    }
 
 bool Object::is_collideable() {
     return collideable;

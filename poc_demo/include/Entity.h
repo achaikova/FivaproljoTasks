@@ -4,7 +4,7 @@
 #include <QPointF>
 #include <QKeyEvent> //tmp
 
-class Player : public Object {
+class Entity : public Object {
 public:
     int moving_speed;
     int jump_speed;
@@ -32,20 +32,20 @@ public:
     Object *walkable_object; // object on which current entity is walking if any
 
 
-    Player();
+    Entity();
 
-    virtual void set_direction(Direction) = 0; /// TO DO
-    virtual void set_moving(bool) = 0; /// TO DO
+    //  virtual void set_direction(Direction) = 0; /// TO DO
+    //  virtual void set_moving(bool) = 0; /// TO DO
 
-    void solve_collisions() override ; /// TO DO
+    void solve_collisions() override; /// TO DO
 
-    std::string& name() override = 0;
+    // std::string& name() override ;
 
-    void animate() override = 0;
+    //void animate() override ;
 
-    void hit(Object *, Direction) override = 0;
+    //void hit(Object *, Direction) override ;
 
-    void die();
+      void die();
 
 };
 

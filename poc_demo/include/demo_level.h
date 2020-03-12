@@ -60,7 +60,7 @@ private:
     QTimer fall_timer;
     int field_width;
 
-//   Player *m_player;????
+//   Entity *m_player;????
     Block *ground;
     Block **platform;
 

@@ -1,17 +1,21 @@
 #ifndef DEMO_MODEL_H
 #define DEMO_MODEL_H
+
 #include <QGraphicsPixmapItem>
-#include "Player.h"
+#include "Entity.h"
+#include "Scene.h"
 #include <vector>
 
-class Model : public QObject, public QGraphicsPixmapItem {
+class Model : public QObject {
     Q_OBJECT
 public:
-    void start_game();
+    Model();
 private:
     void advance_scene();
+
     bool game_on;
-    QVector<Player *> players_v;
+    QVector<Entity *> players_v;
+    Scene *scene;
 private slots:
     void advance_players();
 };

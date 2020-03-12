@@ -1,6 +1,6 @@
-#include "Player.h"
+#include "Entity.h"
 
-Player::Player()
+Entity::Entity()
         : Object()
         , moving_speed(1)
         , jump_speed(2)
@@ -16,16 +16,17 @@ Player::Player()
         , death_counter(0)
         , jump_duration(30)
         , death_duration(100)
-        , walkable_object(nullptr) {}
+        , walkable_object(nullptr)
+        {}
 
-void Player::start_jumping() {
+void Entity::start_jumping() {
     if (falling || jumping) return;
 
     walkable_object = nullptr;
     jumping = true;
 }
 
-void Player::end_jumping() {
+void Entity::end_jumping() {
     if (!jumping) return;
 
     jumping = false;
@@ -33,7 +34,7 @@ void Player::end_jumping() {
     falling = true;
 }
 
-void Player::solve_collisions() {
+void Entity::solve_collisions() {
     if (!collideable || dead) return;
 
     QList<QGraphicsItem *> colliding_items = collidingItems();
@@ -47,7 +48,7 @@ void Player::solve_collisions() {
 
         if(!obj->is_collideable()) continue;
 
-        if (dynamic_cast<Player*>(obj)) continue;
+        if (dynamic_cast<Entity*>(obj)) continue;
 
         Direction collision_dir = collision_direction(obj);
 
@@ -71,7 +72,7 @@ void Player::solve_collisions() {
     }
 }
 
-void Player::die() {
+void Entity::die() {
     if (dying || dead) return;
 
     dying = true;

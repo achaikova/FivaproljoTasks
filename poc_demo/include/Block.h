@@ -5,7 +5,12 @@
 
 class Block : public QGraphicsPixmapItem {
 public:
-    Block(QPoint position, const QString &name, int w, int h);
+    Block(QPoint position, const QString &name);
+
+private:
+    size_t block_width = 50;
+    size_t block_height = 50;
+
 };
 
 #endif //DEMO_BLOCK_H

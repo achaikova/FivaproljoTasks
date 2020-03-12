@@ -6,13 +6,13 @@ Player::Player()
         , jump_speed(2)
         , moving_speed_dv(2)
         , direction(Direction::RIGHT)
-        , moving(true)
+        , moving(false)
         , dead(false)
         , dying(false)
         , jumping(false)
         , falling(false)
         , falling_speed(2)
-        , previous_posision()
+        , previous_position()
         , death_counter(0)
         , jump_duration(30)
         , death_duration(100)
@@ -33,54 +33,42 @@ void Player::end_jumping() {
     falling = true;
 }
 
-void Player::advance() {
-
-    if (!dying) {
-        previous_posision = pos();
-    }
-
-    if (moving) {
-        if (direction == Direction::RIGHT) {
-            setX(x() + moving_speed);
-        } else if (direction == Direction::LEFT) {
-            setX(x() - moving_speed);
-        } else if (direction == Direction::UP) {
-            setY(y() - moving_speed);
-        }
-        solve_collisions();
-    }
-
-    if (jumping) {
-        setY(y() - jump_speed);
-        jump_counter += jump_speed;
-
-        if (jump_counter > jump_duration) {
-            end_jumping();
-        }
-        solve_collisions();
-    }
-
-    /// TO DO Interaction with walkable object; ------------------------------------------------!
-    if (walkable_object) {}
-
-    if (falling) {
-        setY(y() + falling_speed);
-        solve_collisions();
-    }
-
-    /// TO DO death from falling; ------------------------------------------------!
-    if (0) {}
-
-    if (dying) {
-        /// TO DO animation???
-        dead = true;
-    }
-}
-
 void Player::solve_collisions() {
     if (!collideable || dead) return;
 
-    /// TO DO collision solving; ------------------------------------------------!
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+
+    bool revert = false; // if needed to go to prev_pos
+
+    for (auto &item : colliding_items){
+        auto *obj = dynamic_cast<Object*> (item);
+
+        if (!obj) continue;
+
+        if(!obj->is_collideable()) continue;
+
+        if (dynamic_cast<Player*>(obj)) continue;
+
+        Direction collision_dir = collision_direction(obj);
+
+        if (collision_dir == Direction::UNKNOWN) continue; // if it is not possible to calculate it,
+                                                                // we skip current collision
+        // case 1: touching a walkable object while falling
+        if (collision_dir == Direction::DOWN && falling && obj->is_walkable()){
+            falling = false;
+            walkable_object = obj;
+        }
+        // case 2: touching an object while jumping
+        if (collision_dir == Direction::UP && jumping){
+            end_jumping();
+        }
+
+        revert = true; // if we got here we need to go back
+    }
+
+    if (revert){
+        setPos(previous_position);
+    }
 }
 
 void Player::die() {
@@ -89,14 +77,6 @@ void Player::die() {
     dying = true;
     death_counter = 0;
     moving = false;
-}
-
-bool Player::is_falling() {
-    return falling;
-}
-
-bool Player::is_dead() {
-    return dead;
 }
 
 

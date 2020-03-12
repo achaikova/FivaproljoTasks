@@ -8,7 +8,7 @@
 #include <string>
 
 enum class Direction{
-    RIGHT, LEFT, UP, DOWN
+    RIGHT, LEFT, UP, DOWN, UNKNOWN
 };
 
 static QPixmap loadTexture(const std::string &file){

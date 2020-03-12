@@ -10,8 +10,9 @@ class Model : public QObject {
 //    Q_OBJECT
 public:
     Model();
+    ~Model() override;
 private:
-    void advance_scene();
+//    void advance_scene();
 
     bool game_on;
     QVector<Entity *> players_v;

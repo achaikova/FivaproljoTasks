@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/demo.dir/src/Background.cpp.o"
   "CMakeFiles/demo.dir/src/Block.cpp.o"
+  "CMakeFiles/demo.dir/src/Controller.cpp.o"
   "CMakeFiles/demo.dir/src/DemoPlayer.cpp.o"
   "CMakeFiles/demo.dir/src/Entity.cpp.o"
   "CMakeFiles/demo.dir/src/Model.cpp.o"

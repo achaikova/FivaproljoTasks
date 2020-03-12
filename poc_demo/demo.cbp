@@ -37,7 +37,6 @@
 					<Add option="-DQT_WIDGETS_LIB"/>
 					<Add option="-DQT_GUI_LIB"/>
 					<Add option="-DQT_CORE_LIB"/>
-					<Add option="-DQT_NO_DEBUG"/>
 					<Add option="-DQT_MULTIMEDIA_LIB"/>
 					<Add option="-DQT_NETWORK_LIB"/>
 					<Add directory="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include"/>
@@ -74,7 +73,6 @@
 					<Add option="-DQT_WIDGETS_LIB"/>
 					<Add option="-DQT_GUI_LIB"/>
 					<Add option="-DQT_CORE_LIB"/>
-					<Add option="-DQT_NO_DEBUG"/>
 					<Add option="-DQT_MULTIMEDIA_LIB"/>
 					<Add option="-DQT_NETWORK_LIB"/>
 					<Add directory="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include"/>

@@ -8,14 +8,15 @@
 #include <QGraphicsItem>
 #include "Player.h"
 #include "Scene.h"
+#include "Model.h"
 
 class KeyPresser : public QWidget {
 public:
-    KeyPresser(Player *player, QWidget *parent = 0);
+    explicit KeyPresser(Player *player, QWidget *parent = nullptr);
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 private:
     Player *player_;
 };
@@ -25,7 +26,7 @@ public:
     Controller();
     void runGame();
 private:
-    vector<Player> players_;
+    std::vector<Player *> players_;
 	Scene *scene_;
 	Model *model_;
 	KeyPresser *key_presser_;

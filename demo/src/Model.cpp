@@ -1,7 +1,8 @@
 #include "Model.h"
+#include "Player.h"
 
-void Model::make_new_level() {
-    game_scene = new Scene();
+void Model::make_new_level(Scene *gs) {
+    game_scene = gs;
     QString default_block = "../images/1block.jpg";
     //1st platform
     game_scene->add_platform(400, 150, 9, default_block);
@@ -33,6 +34,6 @@ void Model::make_new_level() {
     game_scene->show();
 }
 
-Model::Model() {
-    make_new_level();
-}
+Model::Model(std::vector<Player *> &players)
+	: players_(players)
+{}

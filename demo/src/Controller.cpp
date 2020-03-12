@@ -14,7 +14,7 @@ Controller::Controller()
 
 void Controller::runGame() { // later - add loop
     model_ = new Model(vector<Player> &v);
-    scene_ = new Scene;
+    scene_ = new Scene();
     key_presser_ = new KeyPresser;
     scene_->addWidget(key_presser_);
     model_->makeNewLevel(Scene);

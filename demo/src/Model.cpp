@@ -31,9 +31,9 @@ void Model::make_new_level(Scene *gs) {
     for (int i = 0; i < 12; i++) {
         game_scene->add_platform(1200, 50 + i * 50, 1, default_block);
     }
+    game_scene->add_player(players_[0]);
     game_scene->show();
 }
 
 Model::Model(std::vector<Player *> &players)
-	: players_(players)
-{}
+        : players_(players) {}

@@ -9,6 +9,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "Block.h"
+#include "Player.h"
 
 class Scene : public QGraphicsView {
 public:
@@ -18,7 +19,7 @@ public:
 
     void add_platform(int x, int y, int amount, QString image);
 
-    void add_player(QGraphicsPixmapItem *player);
+    void add_player(Player *player);
 
     QGraphicsScene *game_scene;
 private:

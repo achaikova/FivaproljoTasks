@@ -23,7 +23,13 @@ void Scene::add_platform(int x, int y, int amount, QString image) {
     }
 }
 
-void Scene::add_player(QGraphicsPixmapItem *player) {
-    return;
+void Scene::add_player(Player *player) {
+    //considering we have only one player
+    player->setPos(0, 50);
+    // make the player focusable and set it to be the current focus
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
+    // add the player to the scene
+    game_scene->addItem(player);
 }
 

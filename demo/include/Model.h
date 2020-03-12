@@ -16,14 +16,11 @@ public:
 	void make_new_level(Scene *gs);
 
 private:
-//    void advance_scene();
-
-    //  bool game_on;
-    //QVector<Player *> players_v;
+    void advance_scene();
+    bool game_on;
     Scene *game_scene;
 	std::vector<Player *> &players_;
-//public slots:
-//    void advance_players();
+    void advance_players();
 };
 
 #endif //DEMO_MODEL_H

@@ -80,5 +80,33 @@ void Player::solve_collisions() {
     }
 }
 
+bool Player::is_moving() {
+    return moving;
+}
+
+bool Player::is_jumping() {
+    return jumping;
+}
+
+bool Player::is_falling() {
+    return falling;
+}
+
+double Player::get_hor_speed() {
+    return hor_speed;
+}
+
+double Player::get_vert_speed() {
+    return vert_speed;
+}
+
+double Player::set_vert_speed(double new_speed) {
+    vert_speed = new_speed;
+}
+
+double Player::get_gr_acceleration() {
+    return gr_acceleration;
+}
+
 
 

@@ -33,3 +33,7 @@ void Scene::add_player(Player *player) {
     game_scene->addItem(player);
 }
 
+void Scene::addWidget(KeyPresser *pPresser) {
+    game_scene->addWidget(pPresser);
+}
+

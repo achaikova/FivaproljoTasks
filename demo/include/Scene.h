@@ -10,6 +10,7 @@
 #include <QGraphicsScene>
 #include "Block.h"
 #include "Player.h"
+#include "Controller.h"
 
 class Scene : public QGraphicsView {
 public:
@@ -22,6 +23,9 @@ public:
     void add_player(Player *player);
 
     QGraphicsScene *game_scene;
+
+    void addWidget(KeyPresser *pPresser);
+
 private:
     QImage *background;
 

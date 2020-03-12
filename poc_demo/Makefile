@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.15.5/bin/cmake
+CMAKE_COMMAND = /snap/clion/103/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.15.5/bin/cmake -E remove -f
+RM = /snap/clion/103/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo
+CMAKE_SOURCE_DIR = /home/daniel/Desktop/FivaproljoTasks/poc_demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo
+CMAKE_BINARY_DIR = /home/daniel/Desktop/FivaproljoTasks/poc_demo
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.15.5/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/103/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/local/Cellar/cmake/3.15.5/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/103/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/CMakeFiles /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Desktop/FivaproljoTasks/poc_demo/CMakeFiles /home/daniel/Desktop/FivaproljoTasks/poc_demo/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/anastasiacajkova/Documents/FivaproljoTasks/poc_demo/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/Desktop/FivaproljoTasks/poc_demo/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -177,60 +177,6 @@ src/Block.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Block.cpp.s
 .PHONY : src/Block.cpp.s
 
-src/DemoPlayer.o: src/DemoPlayer.cpp.o
-
-.PHONY : src/DemoPlayer.o
-
-# target to build an object file
-src/DemoPlayer.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/DemoPlayer.cpp.o
-.PHONY : src/DemoPlayer.cpp.o
-
-src/DemoPlayer.i: src/DemoPlayer.cpp.i
-
-.PHONY : src/DemoPlayer.i
-
-# target to preprocess a source file
-src/DemoPlayer.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/DemoPlayer.cpp.i
-.PHONY : src/DemoPlayer.cpp.i
-
-src/DemoPlayer.s: src/DemoPlayer.cpp.s
-
-.PHONY : src/DemoPlayer.s
-
-# target to generate assembly for a file
-src/DemoPlayer.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/DemoPlayer.cpp.s
-.PHONY : src/DemoPlayer.cpp.s
-
-src/Entity.o: src/Entity.cpp.o
-
-.PHONY : src/Entity.o
-
-# target to build an object file
-src/Entity.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Entity.cpp.o
-.PHONY : src/Entity.cpp.o
-
-src/Entity.i: src/Entity.cpp.i
-
-.PHONY : src/Entity.i
-
-# target to preprocess a source file
-src/Entity.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Entity.cpp.i
-.PHONY : src/Entity.cpp.i
-
-src/Entity.s: src/Entity.cpp.s
-
-.PHONY : src/Entity.s
-
-# target to generate assembly for a file
-src/Entity.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Entity.cpp.s
-.PHONY : src/Entity.cpp.s
-
 src/Model.o: src/Model.cpp.o
 
 .PHONY : src/Model.o
@@ -284,6 +230,33 @@ src/Object.s: src/Object.cpp.s
 src/Object.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
+
+src/Player.o: src/Player.cpp.o
+
+.PHONY : src/Player.o
+
+# target to build an object file
+src/Player.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Player.cpp.o
+.PHONY : src/Player.cpp.o
+
+src/Player.i: src/Player.cpp.i
+
+.PHONY : src/Player.i
+
+# target to preprocess a source file
+src/Player.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Player.cpp.i
+.PHONY : src/Player.cpp.i
+
+src/Player.s: src/Player.cpp.s
+
+.PHONY : src/Player.s
+
+# target to generate assembly for a file
+src/Player.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/Player.cpp.s
+.PHONY : src/Player.cpp.s
 
 src/Scene.o: src/Scene.cpp.o
 
@@ -373,26 +346,23 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
 	@echo "... demo"
+	@echo "... edit_cache"
 	@echo "... src/Background.o"
 	@echo "... src/Background.i"
 	@echo "... src/Background.s"
 	@echo "... src/Block.o"
 	@echo "... src/Block.i"
 	@echo "... src/Block.s"
-	@echo "... src/DemoPlayer.o"
-	@echo "... src/DemoPlayer.i"
-	@echo "... src/DemoPlayer.s"
-	@echo "... src/Entity.o"
-	@echo "... src/Entity.i"
-	@echo "... src/Entity.s"
 	@echo "... src/Model.o"
 	@echo "... src/Model.i"
 	@echo "... src/Model.s"
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
+	@echo "... src/Player.o"
+	@echo "... src/Player.i"
+	@echo "... src/Player.s"
 	@echo "... src/Scene.o"
 	@echo "... src/Scene.i"
 	@echo "... src/Scene.s"

@@ -22,9 +22,9 @@ public:
 
     QPointF previous_position;
 
-    virtual void start_jumping();
+    virtual void start_jumping() final;
 
-    virtual void end_jumping();
+    virtual void end_jumping() final;
 
     int death_counter;
     int jump_counter;
@@ -37,7 +37,7 @@ public:
     //  virtual void set_direction(Direction) = 0; /// TO DO
     //  virtual void set_moving(bool) = 0; /// TO DO
 
-    void solve_collisions() override; /// TO DO
+    void solve_collisions() final; /// TO DO
 
     // std::string& name() override ;
 
@@ -45,7 +45,7 @@ public:
 
     //void hit(Object *, Direction) override ;
 
-      void die();
+    void die();
 
 };
 

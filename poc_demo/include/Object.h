@@ -16,6 +16,6 @@ public:
  //   virtual void animate() = 0;
     virtual void solve_collisions() = 0;
  //   virtual void hit(Object *from_who, Direction dir) = 0;
-    virtual Direction collision_direction (Object *item);
+    Direction collision_direction (Object *item);
  //   virtual Direction interaction_direction (Object *item) = 0;
 };

@@ -9,7 +9,7 @@ Object::Object()
     , collideable(true){
 
     scene()->addItem(this);
-    }
+}
 
 bool Object::is_collideable() {
     return collideable;

@@ -118,13 +118,16 @@
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Block.h">
 			<Option target="demo"/>
 		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/DemoPlayer.h">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Entity.h">
+			<Option target="demo"/>
+		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Model.h">
 			<Option target="demo"/>
 		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Object.h">
-			<Option target="demo"/>
-		</Unit>
-		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Player.h">
 			<Option target="demo"/>
 		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/include/Scene.h">
@@ -139,13 +142,19 @@
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Block.cpp">
 			<Option target="demo"/>
 		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Controller.cpp">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/DemoPlayer.cpp">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Entity.cpp">
+			<Option target="demo"/>
+		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Model.cpp">
 			<Option target="demo"/>
 		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Object.cpp">
-			<Option target="demo"/>
-		</Unit>
-		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Player.cpp">
 			<Option target="demo"/>
 		</Unit>
 		<Unit filename="/home/daniel/Desktop/FivaproljoTasks/poc_demo/src/Scene.cpp">

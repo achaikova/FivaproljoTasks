@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QApplication>
 #include <QKeyEvent>
 #include <QDebug>
@@ -25,15 +27,10 @@ void Controller::keyPressEvent(QKeyEvent *event) {
 }
 
 void Controller::keyReleaseEvent(QKeyEvent *event) {
-//	if (event->key() == Qt::Key_D) {
 	player->set_direction(UNKNOWN);
 	if (event->key() == Qt::Key_W) {
 		player->set_jumping(false);
 	} else if (event->key() == Qt::Key_A or event->key() == Qt::Key_D) {
 		player->set_moving(false);
 	}
-//		qDebug() << "D unpressed!";
-//	} else if (event->key() == Qt::Key_A) {
-//		qDebug() << "A uppressed!";
-//	}
 }

@@ -2,22 +2,19 @@
 #define DEMO_MODEL_H
 
 #include <QGraphicsPixmapItem>
-#include <QTimer>
 #include <QGraphicsView>
+#include <QWidget>
 #include "Scene.h"
 #include "Player.h"
 #include <vector>
 
 
-class Model : public QGraphicsView {
+class Model : public QObject {
 Q_OBJECT
-private:
-    static Model *uniqueInstance;
-
-    Model(QGraphicsView *parent = 0);
-
 public:
-    static Model *instance();
+    Model(QWidget *parent = 0);
+
+  //  ~Model();
 
     //explicit Model(std::vector<Player *> &players);
     void add_players(std::vector<Player *> &players);
@@ -26,7 +23,7 @@ public:
 
     void advance_players();
 
-protected slots:
+private slots:
 
     void advance_scene();
 
@@ -34,7 +31,7 @@ private:
     bool game_on;
     Scene *game_scene;
     std::vector<Player *> players_;
-    QTimer engine;
+    QTimer *engine;
 };
 
 #endif //DEMO_MODEL_H

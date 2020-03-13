@@ -27,11 +27,9 @@ KeyPresser::KeyPresser(Player *player, QWidget *parent)
 void KeyPresser::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_D and !event->isAutoRepeat()) {
         player_->set_hor_speed(1); // Right
-        player_->setPos(player_->x() + 10, player_->y());
         qDebug() << "D pressed!";
     } else if (event->key() == Qt::Key_A and !event->isAutoRepeat()) {
         player_->set_hor_speed(-1); // Left
-        player_->setPos(player_->x() - 10, player_->y());
         qDebug() << "A pressed!";
     } else if (event->key() == Qt::Key_W and !event->isAutoRepeat()) {
         player_->start_jumping();

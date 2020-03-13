@@ -2,8 +2,8 @@
 #include <QList>
 
 Player::Player()
-        : Object(), moving(false), jumping(false), falling(false), dead(false), gr_acceleration(10),
-          starting_jumping_speed(50), vert_speed(0), hor_speed(0), previous_position(), object_on_which_moving(nullptr),
+        : Object(), moving(false), jumping(false), falling(false), dead(false), gr_acceleration(2),
+          starting_jumping_speed(10), vert_speed(0), hor_speed(0), previous_position(), object_on_which_moving(nullptr),
           image("../images/demo_player.png") {
     setPixmap(QPixmap(image));
     setPos(50, 590);
@@ -15,8 +15,8 @@ bool Player::is_on_floor() {
 
 void Player::start_jumping() {
     if (falling) return;
-
-    hor_speed = starting_jumping_speed;
+    jumping = true;
+    vert_speed = starting_jumping_speed;
 }
 
 void Player::start_falling() {

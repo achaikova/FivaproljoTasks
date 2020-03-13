@@ -1,14 +1,7 @@
 #include "Model.h"
 #include "Player.h"
+#include <QTimer>
 
-Model* Model::uniqueInstance = 0;
-
-Model* Model::instance()
-{
-    if(uniqueInstance == 0)
-        uniqueInstance = new Model();
-    return uniqueInstance;
-}
 
 void Model::make_new_level(Scene *gs) {
     game_scene = gs;
@@ -75,11 +68,15 @@ void Model::advance_players() {
     }
 }
 
-Model::Model(QGraphicsView *parent) : QGraphicsView(parent) {
-    QObject::connect(&engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
-    engine.setInterval(10);
+Model::Model(QWidget *parent) {
+    engine = new QTimer(this);
+    QObject::connect(engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
+    engine->start(10);
+    engine->setInterval(10);
 }
 
 void Model::add_players(std::vector<Player *> &players) {
     players_ = players;
 }
+
+//Model::~Model() {}

@@ -12,7 +12,7 @@ Controller::Controller()
 
 void Controller::runGame() { // later - add loop
     players_.push_back(new Player());
-    Model::instance();
+    model_ = new Model();
     model_->add_players(players_);
     scene_ = new Scene();
     key_presser_ = new KeyPresser(players_[0]);

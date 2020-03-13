@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.15)
 project(demo)
 
 set(CMAKE_CXX_STANDARD 17)
-
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(include)
-file(GLOB sources include/*.h src/*.cpp)
-add_executable(demo ${sources})
+
+file(GLOB sources *.h src/*.cpp)
 # SET(CMAKE_CXX_FLAGS  "-Wall -Wextra -Werror")
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -32,6 +32,7 @@ endif()
 # set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
+add_executable(demo ${sources} include/Model.h)
 target_link_libraries(demo Qt5::Widgets Qt5::Multimedia)
 # qt block end
 

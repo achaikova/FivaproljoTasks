@@ -12,12 +12,13 @@ Controller::Controller()
 
 void Controller::runGame() { // later - add loop
     players_.push_back(new Player());
-    model_ = new Model(players_);
+    Model::instance();
+    model_->add_players(players_);
     scene_ = new Scene();
     key_presser_ = new KeyPresser(players_[0]);
     scene_->addWidget(key_presser_);
     model_->make_new_level(scene_);
-    model_->advance_scene();
+//    model_->advance_scene();
 }
 
 KeyPresser::KeyPresser(Player *player, QWidget *parent)
@@ -26,12 +27,11 @@ KeyPresser::KeyPresser(Player *player, QWidget *parent)
 void KeyPresser::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_D and !event->isAutoRepeat()) {
         player_->set_hor_speed(1); // Right
-        //  player_->setPos(player_->x() + 10, player_->y());
+        player_->setPos(player_->x() + 10, player_->y());
         qDebug() << "D pressed!";
-        return;
     } else if (event->key() == Qt::Key_A and !event->isAutoRepeat()) {
-        player_->set_hor_speed(-1); // Laeft
-        //  player_->setPos(player_->x() - 10, player_->y());
+        player_->set_hor_speed(-1); // Left
+        player_->setPos(player_->x() - 10, player_->y());
         qDebug() << "A pressed!";
     } else if (event->key() == Qt::Key_W and !event->isAutoRepeat()) {
         player_->start_jumping();

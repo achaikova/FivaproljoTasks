@@ -1,6 +1,15 @@
 #include "Model.h"
 #include "Player.h"
 
+Model* Model::uniqueInstance = 0;
+
+Model* Model::instance()
+{
+    if(uniqueInstance == 0)
+        uniqueInstance = new Model();
+    return uniqueInstance;
+}
+
 void Model::make_new_level(Scene *gs) {
     game_scene = gs;
     QString default_block = "../images/1block.jpg";
@@ -35,15 +44,14 @@ void Model::make_new_level(Scene *gs) {
     game_scene->show();
 }
 
-Model::Model(std::vector<Player *> &players)
-        : players_(players) {}
+/*Model::Model(std::vector<Player *> &players)
+        : players_(players) {
+}*/
 
 void Model::advance_scene() {
-    while (true) {
-        advance_players();
-        if (!game_on) {
-            return;
-        }
+    advance_players();
+    if (!game_on) {
+        return;
     }
 }
 
@@ -67,3 +75,11 @@ void Model::advance_players() {
     }
 }
 
+Model::Model(QGraphicsView *parent) : QGraphicsView(parent) {
+    QObject::connect(&engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
+    engine.setInterval(10);
+}
+
+void Model::add_players(std::vector<Player *> &players) {
+    players_ = players;
+}

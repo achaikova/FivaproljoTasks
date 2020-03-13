@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object.h"
+#include <QObject>
 
 class Player : public Object {
 private:
@@ -15,20 +16,34 @@ private:
     double hor_speed;
 
     QPointF previous_position;
-    Object* object_on_which_moving;
+    Object *object_on_which_moving;
+    QString image;
 public:
     Player();
+
     bool is_on_floor();
+
     bool is_moving();
+
     bool is_jumping();
+
     bool is_falling();
+
     void start_jumping();
+
     void start_falling();
+
     void end_jumping();
+
     void set_hor_speed(double new_speed);
+
     double get_gr_acceleration();
+
     double set_vert_speed(double new_speed);
+
     double get_hor_speed();
+
     double get_vert_speed();
+
     void virtual solve_collisions();
 };

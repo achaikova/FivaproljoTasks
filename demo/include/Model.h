@@ -21,7 +21,7 @@ public:
 private:
     bool game_on;
     Scene *game_scene;
-	std::vector<Player *> &players_;
+	std::vector<Player *> players_;
 };
 
 #endif //DEMO_MODEL_H

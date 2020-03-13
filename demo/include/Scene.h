@@ -10,7 +10,9 @@
 #include <QGraphicsScene>
 #include "Block.h"
 #include "Player.h"
-#include "Controller.h"
+//#include "Controller.h"
+
+class KeyPresser;
 
 class Scene : public QGraphicsView {
 public:

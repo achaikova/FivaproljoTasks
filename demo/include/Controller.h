@@ -43,7 +43,6 @@ private:
 
 class Controller {
 public:
-    Controller();
     void runGame();
 private:
     std::vector<Player *> players_;

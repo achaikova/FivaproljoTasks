@@ -57,8 +57,8 @@ void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
 KeyPresser::PlayerManipulator_::PlayerManipulator_(Player* player)
     : player_(player)
     , W(Qt::Key_W)
-    , D(Qt::Key_A)
-    , A(Qt::Key_D)
+    , D(Qt::Key_D)
+    , A(Qt::Key_A)
     , S(Qt::Key_S)
 {}
 

@@ -28,7 +28,8 @@ void Scene::add_platform(int x, int y, int amount, QString image) {
 void Scene::add_player(Player *player) {
     //considering we have only one player
     // add the player to the scene
-    player->setPos(50, 653 - player->boundingRect().height()); //very questionable kostyl
+    player->setPos(50, 650 - player->boundingRect().height());
+    player->previous_position = player->pos();
     game_scene->addItem(player);
 }
 

@@ -14,7 +14,7 @@ public:
     void add_color(int color);
     QRectF boundingRect() const;
    // void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-private:
+public:
     size_t block_width = 50;
     size_t block_height = 50;
 };

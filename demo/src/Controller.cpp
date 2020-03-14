@@ -26,10 +26,12 @@ KeyPresser::KeyPresser(Player *player, QWidget *parent)
 
 void KeyPresser::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_D and !event->isAutoRepeat()) {
-        player_->set_hor_speed(1); // Right
+        player_->moving = true;
+        player_->direction = Direction::RIGHT; // Right
         qDebug() << "D pressed!";
     } else if (event->key() == Qt::Key_A and !event->isAutoRepeat()) {
-        player_->set_hor_speed(-1); // Left
+        player_->moving = true;
+        player_->direction = Direction::LEFT; // Left
         qDebug() << "A pressed!";
     } else if (event->key() == Qt::Key_W and !event->isAutoRepeat()) {
         player_->start_jumping();
@@ -39,9 +41,15 @@ void KeyPresser::keyPressEvent(QKeyEvent *event) {
 
 void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_A) {
-        player_->set_hor_speed(1);
+        if (player_->direction == Direction::LEFT){
+            player_->moving = true;
+            player_->direction = Direction::UNKNOWN;
+        }
     } else if (event->key() == Qt::Key_D) {
-        player_->set_hor_speed(-1);
+        if (player_->direction == Direction::RIGHT){
+            player_->moving = false;
+            player_->direction = Direction::UNKNOWN;
+        }
     } else if (event->key() == Qt::Key_W) {
         return;
     }

@@ -4,92 +4,84 @@
 #include "Block.h"
 
 Player::Player()
-        : Object(), moving(false), jumping(false), falling(false), dead(false), gr_acceleration(2),
-          starting_jumping_speed(10), vert_speed(0), hor_speed(0), color(1), m_direction(0), previous_position(),
+        : Object(), moving(false), jumping(false), falling(true), dead(false), gr_acceleration(0.1),
+          starting_jumping_speed(5), starting_falling_speed(2), vert_speed(0), hor_speed(2),
+          direction(Direction::UNKNOWN), color(1), width(60), height(50),
+          m_direction(0), previous_position(),
           object_on_which_moving(nullptr),
           image("../images/demo_player.png") {
     setPixmap(QPixmap(image));
 }
 
-bool Player::is_on_floor() {
-    return (!(falling && jumping));
-}
-
 void Player::start_jumping() {
     if (falling) return;
+
     jumping = true;
     vert_speed = starting_jumping_speed;
 }
 
-void Player::start_falling() {
-    jumping = false;
-    falling = true;
-}
-
-void Player::end_jumping() {
-    jumping = false;
-    falling = true;
-    hor_speed = 0;
-}
-
-void Player::set_hor_speed(int new_speed) {
-    hor_speed += new_speed;
-    setDirection(qBound(-1, hor_speed, 1));
-    //  moving = true;
-}
-
 void Player::solve_collisions() {
     //  QList<QGraphicsItem*> items =  collidingItems();
+
+    bool revert = false;
+
     for (QGraphicsItem *item: collidingItems()) {
-        if (Block *platform = qgraphicsitem_cast<Block *>(item)) {
+
+        if (auto *platform = qgraphicsitem_cast<Block *>(item)) {
             platform->add_color(color);
+
+            Direction collision_dir = collision_direction(platform);
+            if (collision_dir == Direction::UNKNOWN) continue;
+            if (collision_dir == Direction::DOWN && falling){
+                object_on_which_moving = platform;
+                stop_falling();
+            }
+            // case 2: touching an object while jumping
+            if (collision_dir == Direction::UP && jumping){
+                stop_jumping();
+            }
+
+            revert = true; // if we got here we need to go back
+
         }
+    }
+
+    if (revert){
+        setPos(previous_position);
     }
 }
 
-bool Player::is_moving() {
-    return hor_speed != 0;
-}
-
-bool Player::is_jumping() {
-    return jumping;
-}
-
-bool Player::is_falling() {
-    return falling;
-}
-
-double Player::get_hor_speed() {
-    return hor_speed;
-}
-
-double Player::get_vert_speed() {
-    return vert_speed;
-}
-
-double Player::set_vert_speed(double new_speed) {
-    vert_speed = new_speed;
-}
-
-double Player::get_gr_acceleration() {
-    return gr_acceleration;
-}
-
-int Player::direction() const {
-    return m_direction;
-}
 
 QRectF Player::boundingRect() const {
     return QRectF(0, 0, 50, 60);
 }
 
-void Player::setDirection(int direction) {
-    m_direction = direction;
-    if (m_direction != 0) {
-        QTransform transform;
-        if (m_direction < 0) {
-            transform.translate(50, 0).scale(-1, Qt::YAxis);
-        }
-        setTransform(transform);
+void Player::stop_jumping() {
+    //assert(!falling); // potential bug
+    jumping = false;
+    vert_speed = 0;
+    start_falling();
+}
+
+void Player::start_falling() {
+    //assert(!jumping); // potential bug
+
+    falling = true;
+    vert_speed = starting_falling_speed;
+}
+
+void Player::stop_falling() {
+    falling = false;
+    vert_speed = 0;
+}
+
+void Player::check_floor() {
+    if (x() + width < object_on_which_moving->x()
+            || object_on_which_moving->x() + object_on_which_moving->block_width < x()){
+
+        start_falling();
     }
 }
+
+
+

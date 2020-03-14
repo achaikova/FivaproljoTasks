@@ -3,58 +3,41 @@
 #include "Object.h"
 #include <QObject>
 #include <QGraphicsItem>
+#include "Block.h"
 
 class Player : public Object {
-private:
+public:
     bool moving;
     bool jumping;
     bool falling;
     bool dead;
 
     const double gr_acceleration;
-    double starting_jumping_speed;
+    const double starting_jumping_speed;
+    const double starting_falling_speed;
     double vert_speed;
-    int hor_speed;
+    double hor_speed;
+    const double width;
+    const double height;
 
+    Direction direction;
+
+    void check_floor();
     int color;
     int m_direction;
     QPointF previous_position;
-    Object *object_on_which_moving;
+    Block *object_on_which_moving;
     QString image;
 public:
     Player();
 
-    bool is_on_floor();
-
-    bool is_moving();
-
-    bool is_jumping();
-
-    bool is_falling();
-
     void start_jumping();
-
+    void stop_jumping();
     void start_falling();
-
-    void end_jumping();
-
-    void set_hor_speed(int new_speed);
-
-    double get_gr_acceleration();
-
-    double set_vert_speed(double new_speed);
-
-    double get_hor_speed();
-
-    double get_vert_speed();
+    void stop_falling();
 
     void virtual solve_collisions();
 
-    int direction() const;
+    QRectF boundingRect() const override;
 
-    void setDirection(int direction);
-
-    QRectF boundingRect() const;
-
-    bool is_touching_foot(QGraphicsItem *item);
 };

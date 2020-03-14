@@ -2,6 +2,7 @@
 
 #include "Object.h"
 #include <QObject>
+#include <QGraphicsItem>
 
 class Player : public Object {
 private:
@@ -13,8 +14,10 @@ private:
     const double gr_acceleration;
     double starting_jumping_speed;
     double vert_speed;
-    double hor_speed;
+    int hor_speed;
 
+    int color;
+    int m_direction;
     QPointF previous_position;
     Object *object_on_which_moving;
     QString image;
@@ -35,7 +38,7 @@ public:
 
     void end_jumping();
 
-    void set_hor_speed(double new_speed);
+    void set_hor_speed(int new_speed);
 
     double get_gr_acceleration();
 
@@ -46,4 +49,12 @@ public:
     double get_vert_speed();
 
     void virtual solve_collisions();
+
+    int direction() const;
+
+    void setDirection(int direction);
+
+    QRectF boundingRect() const;
+
+    bool is_touching_foot(QGraphicsItem *item);
 };

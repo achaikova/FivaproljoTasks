@@ -3,7 +3,7 @@
 Scene::Scene(QWidget *parent) {
     game_scene = new QGraphicsScene();
     game_scene->setSceneRect(0, 0, 1250, 700);
-   // game_scene->setBackgroundBrush(QBrush(QImage("../images/background.jpg")));
+    // game_scene->setBackgroundBrush(QBrush(QImage("../images/background.jpg")));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(game_scene);
@@ -11,7 +11,8 @@ Scene::Scene(QWidget *parent) {
 }
 
 void Scene::add_background(QString image) {
-    setBackgroundBrush(QBrush(QImage(image)));
+    background = new Background(QPixmap("../images/background.jpg"));
+    game_scene->addItem(background);
 }
 
 void Scene::add_platform(int x, int y, int amount, QString image) {
@@ -26,10 +27,8 @@ void Scene::add_platform(int x, int y, int amount, QString image) {
 
 void Scene::add_player(Player *player) {
     //considering we have only one player
-    // make the player focusable and set it to be the current focus
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
     // add the player to the scene
+    player->setPos(50, 653 - player->boundingRect().height()); //very questionable kostyl
     game_scene->addItem(player);
 }
 

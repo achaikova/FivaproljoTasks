@@ -57,7 +57,7 @@ void Model::advance_players() {
 
         if (player->is_jumping()) {
             player->setY(player->y() - player->get_vert_speed());
-            player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
+           // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
             player->solve_collisions();
         }
 
@@ -72,7 +72,7 @@ Model::Model(QWidget *parent) {
     engine = new QTimer(this);
     QObject::connect(engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
     engine->start(10);
-    engine->setInterval(5);
+    engine->setInterval(10);
 }
 
 void Model::add_players(std::vector<Player *> &players) {

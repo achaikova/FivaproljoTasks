@@ -10,6 +10,7 @@
 #include <QGraphicsScene>
 #include "Block.h"
 #include "Player.h"
+#include "Background.h"
 //#include "Controller.h"
 
 class KeyPresser;
@@ -29,9 +30,7 @@ public:
     void addWidget(KeyPresser *pPresser);
 
 private:
-    QImage *background;
-
-
+    Background *background;
 };
 
 #endif //DEMO_SCENE_H

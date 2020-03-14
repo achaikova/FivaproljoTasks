@@ -38,7 +38,11 @@ void KeyPresser::keyPressEvent(QKeyEvent *event) {
 }
 
 void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_A or event->key() == Qt::Key_D) {
-        player_->set_hor_speed(0);
+    if (event->key() == Qt::Key_A) {
+        player_->set_hor_speed(1);
+    } else if (event->key() == Qt::Key_D) {
+        player_->set_hor_speed(-1);
+    } else if (event->key() == Qt::Key_W) {
+        return;
     }
 }

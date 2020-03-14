@@ -1,6 +1,7 @@
 #include "Model.h"
 #include "Player.h"
 #include <QTimer>
+#include <QDebug>
 
 
 void Model::make_new_level(Scene *gs) {
@@ -50,19 +51,27 @@ void Model::advance_scene() {
 
 void Model::advance_players() {
     for (auto player : players_) {
-        if (player->is_moving()) {
-            player->setX(player->x() + player->get_hor_speed());
+        player->previous_position = player->pos();
+        if (player->moving){
+            if (player->direction == Direction::LEFT){
+                player->setX(player->x() - player->hor_speed);
+                player->check_floor();
+            } else if (player->direction == Direction::RIGHT){
+                player->setX(player->x() + player->hor_speed);
+                player->check_floor();
+            }
             player->solve_collisions();
         }
 
-        if (player->is_jumping()) {
-            player->setY(player->y() + player->get_vert_speed());
-            player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
+        if (player->jumping) {
+            player->setY(player->y() - player->vert_speed);
+           // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
             player->solve_collisions();
+            qDebug() << "Here JUMP!";
         }
 
-        if (player->is_falling()) {
-            player->setY(player->y() + player->get_hor_speed());
+        if (player->falling) {
+            player->setY(player->y() + player->hor_speed);
             player->solve_collisions();
         }
     }

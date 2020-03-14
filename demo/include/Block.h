@@ -2,12 +2,19 @@
 #define DEMO_BLOCK_H
 
 #include <QGraphicsPixmapItem>
+#include "Object.h"
 
-class Block : public QGraphicsPixmapItem {
+class Block :  public Object {
+ //   Q_OBJECT
+  //  Q_PROPERTY(QRectF rect READ rect WRITE setRect)
 public:
     Block(QPoint position, const QString &name);
-
-private:
+    enum { Type = UserType + 1 };
+    int type() const;
+    void add_color(int color);
+    QRectF boundingRect() const;
+   // void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+public:
     size_t block_width = 50;
     size_t block_height = 50;
 };

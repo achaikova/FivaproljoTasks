@@ -7,8 +7,9 @@
 #include "Controller.h"
 
 Controller::Controller()
-        : scene_(nullptr), model_(nullptr) {
-}
+    : scene_(nullptr)
+    , model_(nullptr)
+{}
 
 void Controller::runGame() { // later - add loop
     players_.push_back(new Player());
@@ -16,31 +17,86 @@ void Controller::runGame() { // later - add loop
     model_->add_players(players_);
     scene_ = new Scene();
     key_presser_ = new KeyPresser(players_[0]);
+    key_presser_->setFixedSize(QSize(scene_->scene()->width(), scene_->scene()->height()));
     scene_->addWidget(key_presser_);
     model_->make_new_level(scene_);
-//    model_->advance_scene();
 }
 
 KeyPresser::KeyPresser(Player *player, QWidget *parent)
-        : player_(player) {}
+    : player_manipulator_(player) {
+    setWindowOpacity(0.0);
+    setFocus();
+}
 
 void KeyPresser::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_D and !event->isAutoRepeat()) {
-        player_->set_hor_speed(1); // Right
-        player_->setPos(player_->x() + 10, player_->y());
-        qDebug() << "D pressed!";
-    } else if (event->key() == Qt::Key_A and !event->isAutoRepeat()) {
-        player_->set_hor_speed(-1); // Left
-        player_->setPos(player_->x() - 10, player_->y());
-        qDebug() << "A pressed!";
-    } else if (event->key() == Qt::Key_W and !event->isAutoRepeat()) {
-        player_->start_jumping();
-        qDebug() << "W pressed!";
+    if (!event->isAutoRepeat()) {
+	player_manipulator_.press((Qt::Key)event->key()); //TODO cast
+        qDebug() << "Pressed!";
     }
 }
 
 void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_A or event->key() == Qt::Key_D) {
-        player_->set_hor_speed(0);
+    player_manipulator_.release((Qt::Key)event->key()); //TODO cast
+}
+
+KeyPresser::PlayerManipulator_::PlayerManipulator_(Player* player)
+    : player_(player)
+    , W(Qt::Key_W)
+    , D(Qt::Key_A)
+    , A(Qt::Key_D)
+    , S(Qt::Key_S)
+{}
+
+KeyPresser::PlayerManipulator_::Key_::Key_(Qt::Key qt_name)
+    : qt_name_(qt_name)
+    , is_pressed_(false)
+{}
+
+KeyPresser::PlayerManipulator_::Key_::operator Qt::Key() const {
+    return qt_name_;
+}
+
+bool KeyPresser::PlayerManipulator_::Key_::is_pressed() const {
+    return is_pressed_;
+}
+
+void KeyPresser::PlayerManipulator_::Key_::press() {
+    is_pressed_ = true;
+}
+
+void KeyPresser::PlayerManipulator_::Key_::release() {
+    is_pressed_ = false;
+}
+
+void KeyPresser::PlayerManipulator_::press(Qt::Key k) {
+    if (k == W) {
+	W.press();
+        player_->start_jumping();
+    } else if (k == A) {
+	A.press();
+        player_->set_hor_speed(3); // start_moving_left
+    } else if (k == D) {
+	D.press();
+	player_->set_hor_speed(-3); // start_moving_right
+    }
+}
+
+void KeyPresser::PlayerManipulator_::release(Qt::Key k) {
+    if (k == W) {
+	W.release();
+    } else if (k == A) {
+	A.release();
+	if (D.is_pressed()) {
+	    player_->set_hor_speed(-3); // start_moving_right
+	} else {
+	    player_->set_hor_speed(0); // stop_moving
+	}
+    } else if (k == D) {
+	D.release();
+	if (A.is_pressed()) {
+	    player_->set_hor_speed(3); // start_moving_left
+	} else {
+	    player_->set_hor_speed(0); // stop_moving
+	}
     }
 }

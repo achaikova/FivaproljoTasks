@@ -18,16 +18,35 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 private:
-    Player *player_;
+    class PlayerManipulator_ {
+    public:
+	PlayerManipulator_(Player* player);
+    	void press(Qt::Key k);
+    	void release(Qt::Key k);
+    private:
+    	class Key_ {
+    	public:
+	    Key_() = delete;
+	    explicit Key_(Qt::Key name);
+    	    operator Qt::Key() const;
+    	    bool is_pressed() const;
+    	    void press();
+    	    void release();
+	    
+    	private:
+    	    Qt::Key qt_name_;
+    	    bool is_pressed_;
+    	} W, A, S, D;
+        Player *player_;
+    } player_manipulator_;
 };
 
 class Controller {
 public:
-    Controller();
     void runGame();
 private:
     std::vector<Player *> players_;
-	Scene *scene_;
-	Model *model_;
-	KeyPresser *key_presser_;
+    Scene *scene_ = nullptr;
+    Model *model_ = nullptr;
+    KeyPresser *key_presser_ = nullptr;
 };

@@ -16,17 +16,17 @@ public:
     void add_color(int color);
     QRectF boundingRect() const;
     
-    void change_color(int color);
+    void change_color(BlockColor color);
     // void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     
     size_t block_width = 50;
     size_t block_height = 50;
 			    
 public slots:
-    void change_color_();
+    void change_color_helper_();
       
 private:
     QTimer *recolor_timer_ = nullptr;
     std::queue<std::string> next_texture_;
-    int color_ = 0; // TODO enum
+    BlockColor color_ = BlockColor::NONE;
 };

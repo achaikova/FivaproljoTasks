@@ -28,8 +28,7 @@ void Player::solve_collisions() {
     for (QGraphicsItem *item: collidingItems()) {
 
         if (auto *platform = qgraphicsitem_cast<Block *>(item)) {
-            platform->change_color(color); // чтобы цвет сменился color должен быть не 0, ибо 0 - дефолт
-	    // platform->add_color(color);
+            platform->add_color(color);
 
             Direction collision_dir = collision_direction(platform);
             if (collision_dir == Direction::UNKNOWN) continue;

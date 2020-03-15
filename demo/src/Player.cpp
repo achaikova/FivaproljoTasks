@@ -78,6 +78,3 @@ void Player::check_floor() {
         start_falling();
     }
 }
-
-
-

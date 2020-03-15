@@ -47,5 +47,3 @@ void Block::change_color_() {
 	next_texture_.pop();
     }
 }
-	
-    

@@ -6,7 +6,7 @@
 Player::Player()
         : Object(), moving(false), jumping(false), falling(true), dead(false), gr_acceleration(0.1),
           starting_jumping_speed(5), starting_falling_speed(2), vert_speed(0), hor_speed(2),
-          direction(Direction::UNKNOWN), color(1), width(50), height(60),
+          direction(Direction::UNKNOWN), color(BlockColor::GREEN), width(50), height(60),
           m_direction(0), previous_position(),
           object_on_which_moving(nullptr),
           image("../images/demo_player.png") {
@@ -28,8 +28,7 @@ void Player::solve_collisions() {
     for (QGraphicsItem *item: collidingItems()) {
 
         if (auto *platform = qgraphicsitem_cast<Block *>(item)) {
-            platform->change_color(color); // чтобы цвет сменился color должен быть не 0, ибо 0 - дефолт
-	    // platform->add_color(color);
+            platform->change_color(color);
 
             Direction collision_dir = collision_direction(platform);
             if (collision_dir == Direction::UNKNOWN) continue;

@@ -23,7 +23,7 @@ void Block::add_color(int color) {
     }
 }
 
-void Block::change_color(int color) {
+void Block::change_color(BlockColor color) {
     if (color_ == color) {
 	return;
     }
@@ -31,14 +31,20 @@ void Block::change_color(int color) {
     delete recolor_timer_;
     next_texture_ = std::queue<std::string>(); // clear queue, mb race
     recolor_timer_ = new QTimer(this);
-    QObject::connect(recolor_timer_, SIGNAL(timeout()), this, SLOT(change_color_()));
-    next_texture_.push("../images/orange_block.jpg");
-    next_texture_.push("../images/green_block.jpg");
+    QObject::connect(recolor_timer_, SIGNAL(timeout()), this, SLOT(change_color_helper_()));
+    switch (color) {
+	case BlockColor::GREEN:
+	    next_texture_.push("../images/orange_block.jpg");
+	    next_texture_.push("../images/green_block.jpg");
+	    break;
+	default:
+	    break;
+    }
     recolor_timer_->start();
-    recolor_timer_->setInterval(100);
+    recolor_timer_->setInterval(50);
 }
 
-void Block::change_color_() {
+void Block::change_color_helper_() {
     if (next_texture_.empty()) {
 	delete recolor_timer_;
 	recolor_timer_ = nullptr;
@@ -47,5 +53,3 @@ void Block::change_color_() {
 	next_texture_.pop();
     }
 }
-	
-    

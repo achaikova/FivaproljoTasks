@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Object.h"
 #include <QObject>
 #include <QGraphicsItem>
 #include "Block.h"
+#include "Object.h"
 
 class Player : public Object {
 public:
@@ -23,7 +23,7 @@ public:
     Direction direction;
 
     void check_floor();
-    int color;
+    BlockColor color;
     int m_direction;
     QPointF previous_position;
     Block *object_on_which_moving;

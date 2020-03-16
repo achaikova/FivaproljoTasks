@@ -6,7 +6,7 @@
 
 void Model::make_new_level(Scene *gs) {
     game_scene = gs;
-    QString default_block = "../images/1block.jpg";
+    QString default_block = "images/1block.jpg";
     //1st platform
     game_scene->add_platform(400, 150, 9, default_block);
     // 2nd platform

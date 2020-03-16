@@ -4,7 +4,7 @@
 #include "Block.h"
 
 Player::Player()
-        : color(BlockColor::GREEN), image("../images/demo_player.png") {
+        : color(BlockColor::GREEN), image("images/demo_player.png") {
     setPixmap(QPixmap(image));
 }
 

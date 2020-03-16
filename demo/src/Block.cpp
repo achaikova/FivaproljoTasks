@@ -16,7 +16,7 @@ QRectF Block::boundingRect() const {
 void Block::add_color(int color) {
     switch (color) {
         case 1:
-            setPixmap(QPixmap(QPixmap("../images/green_block.jpg")).scaled(block_width, block_height));
+            setPixmap(QPixmap(QPixmap("images/green_block.jpg")).scaled(block_width, block_height));
             break;
         default:
             break;
@@ -34,8 +34,8 @@ void Block::change_color(BlockColor color) {
     QObject::connect(recolor_timer_, SIGNAL(timeout()), this, SLOT(change_color_helper_()));
     switch (color) {
 	case BlockColor::GREEN:
-	    next_texture_.push("../images/orange_block.jpg");
-	    next_texture_.push("../images/green_block.jpg");
+	    next_texture_.push("images/orange_block.jpg");
+	    next_texture_.push("images/green_block.jpg");
 	    break;
 	default:
 	    break;

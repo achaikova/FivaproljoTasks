@@ -81,6 +81,7 @@ void KeyPresser::PlayerManipulator_::release(Qt::Key k) {
         if (D.is_pressed()) {
             player_->moving = true;
             player_->direction = Direction::RIGHT; // Right
+            player_->change_direction();
         } else {
             player_->moving = false;
             player_->direction = Direction::UNKNOWN;
@@ -90,6 +91,7 @@ void KeyPresser::PlayerManipulator_::release(Qt::Key k) {
         if (A.is_pressed()) {
             player_->moving = true;
             player_->direction = Direction::LEFT; // Left
+            player_->change_direction();
         } else {
             player_->moving = false;
             player_->direction = Direction::UNKNOWN;

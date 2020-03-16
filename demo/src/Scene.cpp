@@ -3,7 +3,8 @@
 Scene::Scene(QWidget *parent) {
     game_scene = new QGraphicsScene();
     game_scene->setSceneRect(0, 0, 1250, 700);
-    game_scene->setBackgroundBrush(QBrush(QImage("../images/background.jpg")));
+   // game_scene->setBackgroundBrush(QBrush(QImage("../images/background.jpg")));
+    add_background("../images/background.jpg");
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(game_scene);
@@ -11,7 +12,7 @@ Scene::Scene(QWidget *parent) {
 }
 
 void Scene::add_background(QString image) {
-    background = new Background(QPixmap("../images/background.jpg"));
+    background = new Background(QPixmap(image));
     game_scene->addItem(background);
 }
 

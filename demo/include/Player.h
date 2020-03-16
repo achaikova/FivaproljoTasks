@@ -21,8 +21,10 @@ public:
     const double height = 60;
 
     Direction direction = Direction::UNKNOWN;
+    Direction p_direction = Direction::RIGHT;
 
     void check_floor();
+
     BlockColor color;
     int m_direction = 0;
     QPointF previous_position;
@@ -32,11 +34,16 @@ public:
     Player();
 
     void start_jumping();
+
     void stop_jumping();
+
     void start_falling();
+
     void stop_falling();
 
     void virtual solve_collisions();
+
+    void change_direction();
 
     QRectF boundingRect() const override;
 

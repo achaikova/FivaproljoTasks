@@ -53,14 +53,14 @@ void Model::advance_players() {
     for (auto player : players_) {
         player->previous_position = player->pos();
         if (player->moving){
-            if (player->direction == Direction::LEFT){
+            if (player->direction == Direction::LEFT) {
                 player->setX(player->x() - player->hor_speed);
-                if (!player->jumping and !player->falling){
+                if (!player->jumping and !player->falling) {
                     player->check_floor();
                 }
-            } else if (player->direction == Direction::RIGHT){
+            } else if (player->direction == Direction::RIGHT) {
                 player->setX(player->x() + player->hor_speed);
-                if (!player->jumping and !player->falling){
+                if (!player->jumping and !player->falling) {
                     player->check_floor();
                 }
             }

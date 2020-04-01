@@ -38,10 +38,6 @@ void Model::make_new_level(Scene *gs) {
     game_scene->show();
 }
 
-/*Model::Model(std::vector<Player *> &players)
-        : players_(players) {
-}*/
-
 void Model::advance_scene() {
     advance_players();
     if (!game_on) {
@@ -69,9 +65,7 @@ void Model::advance_players() {
 
         if (player->jumping) {
             player->setY(player->y() - player->vert_speed);
-           // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
             player->solve_collisions();
-            qDebug() << "Here JUMP!";
         }
 
         if (player->falling) {
@@ -91,5 +85,3 @@ Model::Model(QWidget *parent) {
 void Model::add_players(std::vector<Player *> &players) {
     players_ = players;
 }
-
-//Model::~Model() {}

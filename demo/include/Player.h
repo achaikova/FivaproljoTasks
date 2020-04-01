@@ -25,11 +25,13 @@ public:
 
     void check_floor();
 
-    BlockColor color;
+    Color color;
     int m_direction = 0;
     QPointF previous_position;
     Block *object_on_which_moving = nullptr;
     QString image;
+
+
 public:
     Player();
 

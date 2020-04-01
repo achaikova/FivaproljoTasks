@@ -8,8 +8,9 @@ enum class Direction {
     UNKNOWN
 };
 
-enum class BlockColor {
+enum class Color {
     NONE,
     GREEN,
+    RED,
     // ...
 };

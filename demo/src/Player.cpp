@@ -4,7 +4,7 @@
 #include "Block.h"
 
 Player::Player()
-        : color(BlockColor::GREEN), image("images/demo_player.png") {
+        : color(Color::GREEN), image("images/demo_player.png") {
     setPixmap(QPixmap(image));
 }
 
@@ -72,7 +72,7 @@ void Player::stop_falling() {
 
 void Player::check_floor() {
     if (x() + width < object_on_which_moving->x()
-        || object_on_which_moving->x() + object_on_which_moving->block_width < x()) {
+        || object_on_which_moving->x() + object_on_which_moving->get_block_width() < x()) {
 
         start_falling();
     }

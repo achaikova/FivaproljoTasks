@@ -20,18 +20,24 @@ public:
     const double width = 50;
     const double height = 60;
 
-    Direction direction = Direction::UNKNOWN;
-    Direction p_direction = Direction::RIGHT;
+    Utilities::Direction direction = Utilities::Direction::UNKNOWN;
+    Utilities::Direction p_direction = Utilities::Direction::RIGHT;
 
     void check_floor();
 
-    BlockColor color;
+    Utilities::Color color;
     int m_direction = 0;
     QPointF previous_position;
     Block *object_on_which_moving = nullptr;
     QString image;
+
+
 public:
+    explicit Player(Utilities::Color color, QString skin);
+
     Player();
+
+    void cutomize_player(Utilities::Color color, QString skin); //players choose their skin?
 
     void start_jumping();
 
@@ -40,8 +46,6 @@ public:
     void start_falling();
 
     void stop_falling();
-
-    void virtual solve_collisions();
 
     void change_direction();
 

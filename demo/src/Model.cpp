@@ -34,13 +34,14 @@ void Model::make_new_level(Scene *gs) {
     for (int i = 0; i < 12; i++) {
         game_scene->add_platform(1200, 50 + i * 50, 1, default_block);
     }
+    // initialize statistic
+    lvl_statistic = new LevelStatistics(players_);
     game_scene->add_player(players_[0]);
+    //THE PROBLEM IS HERE
+   //a game_scene->add_player(players_[1]);
     game_scene->show();
-}
 
-/*Model::Model(std::vector<Player *> &players)
-        : players_(players) {
-}*/
+}
 
 void Model::advance_scene() {
     advance_players();
@@ -52,36 +53,36 @@ void Model::advance_scene() {
 void Model::advance_players() {
     for (auto player : players_) {
         player->previous_position = player->pos();
-        if (player->moving){
-            if (player->direction == Direction::LEFT){
+        if (player->moving) {
+            if (player->direction == Utilities::Direction::LEFT) {
                 player->setX(player->x() - player->hor_speed);
-                if (!player->jumping and !player->falling){
+                if (!player->jumping and !player->falling) {
                     player->check_floor();
                 }
-            } else if (player->direction == Direction::RIGHT){
+            } else if (player->direction == Utilities::Direction::RIGHT) {
                 player->setX(player->x() + player->hor_speed);
-                if (!player->jumping and !player->falling){
+                if (!player->jumping and !player->falling) {
                     player->check_floor();
                 }
             }
-            player->solve_collisions();
+            solve_collisions(lvl_statistic, player);
         }
 
         if (player->jumping) {
             player->setY(player->y() - player->vert_speed);
-           // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
-            player->solve_collisions();
-            qDebug() << "Here JUMP!";
+            solve_collisions(lvl_statistic, player);
         }
 
         if (player->falling) {
             player->setY(player->y() + player->hor_speed);
-            player->solve_collisions();
+            solve_collisions(lvl_statistic, player);
         }
     }
 }
 
-Model::Model(QWidget *parent) {
+Model::Model(QWidget *parent)
+        : game_on(false), game_scene(), players_(), lvl_statistic(), engine() {
+
     engine = new QTimer(this);
     QObject::connect(engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
     engine->start(10);
@@ -92,4 +93,39 @@ void Model::add_players(std::vector<Player *> &players) {
     players_ = players;
 }
 
-//Model::~Model() {}
+void Model::solve_collisions(LevelStatistics *lvl_statistics, Player *player) {
+    bool revert = false;
+
+    for (QGraphicsItem *item: player->collidingItems()) {
+
+        if (auto *platform = qgraphicsitem_cast<Block *>(item)) {
+
+            lvl_statistics->change_block_color(platform, player);
+            platform->change_color(player->color);
+
+            Utilities::Direction collision_dir = player->collision_direction(platform);
+            if (collision_dir == Utilities::Direction::UNKNOWN) continue;
+            if (collision_dir == Utilities::Direction::DOWN && player->falling) {
+                player->object_on_which_moving = platform;
+                player->stop_falling();
+            }
+            // case 2: touching an object while jumping
+            if (collision_dir == Utilities::Direction::UP && player->jumping) {
+                player->stop_jumping();
+            }
+
+            revert = true; // if we got here we need to go back
+
+        }
+    }
+
+    if (revert) {
+        player->setPos(player->previous_position);
+    }
+}
+
+void Model::print_statistics() {
+    for (Player *player : players_) {
+        qDebug() << lvl_statistic->get_player_statistic(player);
+    }
+}

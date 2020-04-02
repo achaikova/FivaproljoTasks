@@ -5,4 +5,3 @@ Background::Background(const QPixmap &pixmap, QGraphicsItem *parent) : QGraphics
 QPainterPath Background::shape() const {
     return QPainterPath();
 }
-

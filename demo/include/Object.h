@@ -8,6 +8,6 @@ private:
 public:
     Object();
     bool is_collidable();
-    Direction collision_direction(Object *item);
+    Utilities::Direction collision_direction(Object *item);
 };
 

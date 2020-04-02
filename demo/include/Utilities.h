@@ -1,5 +1,6 @@
 #pragma once
 
+namespace Utilities{
 enum class Direction {
     RIGHT,
     LEFT,
@@ -8,8 +9,10 @@ enum class Direction {
     UNKNOWN
 };
 
-enum class BlockColor {
+enum class Color {
     NONE,
     GREEN,
+    RED,
     // ...
 };
+} // Utilities namespace ENDS

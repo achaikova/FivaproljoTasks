@@ -1,39 +1,41 @@
 #include "Block.h"
 
-Block::Block(QPoint position, const QString &file_name) {
+
+
+Block::Block(QPoint position, const QString &file_name)
+    : next_texture_(){
+
     setPixmap(QPixmap(file_name).scaled(block_width, block_height));
     setPos(position);
 }
 
-int Block::type() const {
-    return Type;
-}
-
 QRectF Block::boundingRect() const {
-    return QRectF(0, 0, 50, 50);
+    return QRectF(0, 0, block_width, block_height);
 }
 
-void Block::add_color(int color) {
+void Block::add_color(Utilities::Color color) {
     switch (color) {
-        case 1:
+        case Utilities::Color::GREEN:
             setPixmap(QPixmap(QPixmap("images/green_block.jpg")).scaled(block_width, block_height));
             break;
+        // other colors are not yet implemented
         default:
             break;
     }
 }
 
-void Block::change_color(BlockColor color) {
+void Block::change_color(Utilities::Color color) {
     if (color_ == color) {
-	return;
+	    return;
     }
+
+    ///TODO Сделать нормальную анимацию вместо этого
     color_ = color;
     delete recolor_timer_;
-    next_texture_ = std::queue<std::string>(); // clear queue, mb race
     recolor_timer_ = new QTimer(this);
     QObject::connect(recolor_timer_, SIGNAL(timeout()), this, SLOT(change_color_helper_()));
     switch (color) {
-	case BlockColor::GREEN:
+	case Utilities::Color::GREEN:
 	    next_texture_.push("images/orange_block.jpg");
 	    next_texture_.push("images/green_block.jpg");
 	    break;

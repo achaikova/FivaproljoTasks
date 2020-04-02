@@ -6,7 +6,12 @@
 #include <QTimer>
 #include "Controller.h"
 
-void Controller::runGame() { // later - add loop
+Controller::Controller()
+    : QObject()
+    , players_(), scene_(), model_(), key_presser_()
+{}
+
+void Controller::run_game() { // later - add loop
     players_.push_back(new Player());
     model_ = new Model();
     model_->add_players(players_);
@@ -15,6 +20,17 @@ void Controller::runGame() { // later - add loop
     key_presser_->setFixedSize(QSize(scene_->scene()->width(), scene_->scene()->height()));
     scene_->addWidget(key_presser_);
     model_->make_new_level(scene_);
+
+    // Add timer. When he is out - game is over and collected statistics is printed.
+    // Игра длится 5 (!) секунд at this moment
+    auto game_duration_timer = new QTimer(this);
+    QObject::connect(game_duration_timer, SIGNAL(timeout()), this, SLOT(end_game()));
+    game_duration_timer->start(5000);
+}
+
+void Controller::end_game() {
+    model_->print_statistics();
+    assert(false);
 }
 
 KeyPresser::KeyPresser(Player *player, QWidget *parent)
@@ -63,12 +79,12 @@ void KeyPresser::PlayerManipulator_::press(Qt::Key k) {
     } else if (k == A) {
         A.press();
         player_->moving = true;
-        player_->direction = Direction::LEFT; // Left
+        player_->direction = Utilities::Direction::LEFT; // Left
         player_->change_direction();
     } else if (k == D) {
         D.press();
         player_->moving = true;
-        player_->direction = Direction::RIGHT; // Right
+        player_->direction = Utilities::Direction::RIGHT; // Right
         player_->change_direction();
     }
 }
@@ -80,21 +96,21 @@ void KeyPresser::PlayerManipulator_::release(Qt::Key k) {
         A.release();
         if (D.is_pressed()) {
             player_->moving = true;
-            player_->direction = Direction::RIGHT; // Right
+            player_->direction = Utilities::Direction::RIGHT; // Right
             player_->change_direction();
         } else {
             player_->moving = false;
-            player_->direction = Direction::UNKNOWN;
+            player_->direction = Utilities::Direction::UNKNOWN;
         }
     } else if (k == D) {
         D.release();
         if (A.is_pressed()) {
             player_->moving = true;
-            player_->direction = Direction::LEFT; // Left
+            player_->direction = Utilities::Direction::LEFT; // Left
             player_->change_direction();
         } else {
             player_->moving = false;
-            player_->direction = Direction::UNKNOWN;
+            player_->direction = Utilities::Direction::UNKNOWN;
         }
     }
 }

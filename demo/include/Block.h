@@ -10,10 +10,10 @@ class Block : public QObject, public Object {
     Q_OBJECT
 public:
     Block(QPoint position, const QString &name);
-    void add_color(Color color);
-    void change_color(Color color);
-    void change_color_for_test(Color color); // Меняет цвет без анимации. Упрощает тестирование.
-    Color get_color(){ return color_; };
+    void add_color(Utilities::Color color);
+    void change_color(Utilities::Color color);
+    void change_color_for_test(Utilities::Color color); // Меняет цвет без анимации. Упрощает тестирование.
+    Utilities::Color get_color(){ return color_; };
 
     size_t get_block_width(){ return block_width; };
     size_t get_block_height(){ return block_height; };
@@ -29,5 +29,5 @@ private:
 
     QTimer *recolor_timer_ = nullptr;
     std::queue<std::string> next_texture_;
-    Color color_ = Color::NONE;
+    Utilities::Color color_ = Utilities::Color::NONE;
 };

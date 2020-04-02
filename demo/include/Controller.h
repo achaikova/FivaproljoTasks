@@ -9,7 +9,6 @@
 #include "Player.h"
 #include "Scene.h"
 #include "Model.h"
-
 class KeyPresser : public QWidget {
 public:
     explicit KeyPresser(Player *player, QWidget *parent = nullptr);
@@ -41,12 +40,16 @@ private:
     } player_manipulator_;
 };
 
-class Controller {
+class Controller : public QObject {
+    Q_OBJECT
 public:
-    void runGame();
+    Controller();
+    void run_game();
+public slots:
+    void end_game(); // idk what name is needed. depends on further decisions
 private:
     std::vector<Player *> players_;
-    Scene *scene_ = nullptr;
-    Model *model_ = nullptr;
-    KeyPresser *key_presser_ = nullptr;
+    Scene *scene_;
+    Model *model_;
+    KeyPresser *key_presser_;
 };

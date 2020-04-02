@@ -8,8 +8,8 @@ void LevelStatisticsTest::test_basic_functionality() {
     // create players and give them colors
     Player *player_one  = new Player();
     Player *player_two  = new Player();
-    player_one->color = Color::RED;
-    player_two->color = Color::GREEN;
+    player_one->color = Utilities::Color::RED;
+    player_two->color = Utilities::Color::GREEN;
     std::vector<Player *> players{player_one, player_two};
     DO_CHECK(players.size() == 2);
     DO_CHECK(players[0] == player_one);
@@ -33,8 +33,8 @@ void LevelStatisticsTest::test_basic_functionality() {
     DO_CHECK(stat.get_player_statistic(player_one) == 1);
     DO_CHECK(stat.get_player_statistic(player_two) == 1);
 
-    block1->change_color_for_test(player_one->color);
-    block2->change_color_for_test(player_two->color);
+    block1->change_color(player_one->color);
+    block2->change_color(player_two->color);
 
     // case 2. Color is the same
 
@@ -48,12 +48,12 @@ void LevelStatisticsTest::test_basic_functionality() {
     stat.change_block_color(block1, player_two);
     DO_CHECK(stat.get_player_statistic(player_one) == 0);
     DO_CHECK(stat.get_player_statistic(player_two) == 2);
-    block1->change_color_for_test(player_two->color);
+    block1->change_color(player_two->color);
 
     stat.change_block_color(block2, player_one);
     DO_CHECK(stat.get_player_statistic(player_one) == 1);
     DO_CHECK(stat.get_player_statistic(player_two) == 1);
-    block2->change_color_for_test(player_one->color);
+    block2->change_color(player_one->color);
 
     // free data
     delete player_one;

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Player.h"
 #include "Block.h"
+#include "Player.h"
 const size_t DEMO_BLOCKS_AMOUNT = 108; // at this point we have only one map
 
 /* Класс для хранения всей необходимой статистики на игровом поле
@@ -17,7 +17,7 @@ public:
     size_t get_blocks_amount() const {return blocks_amount; };
 
     friend size_t get_player_index(Player *, LevelStatistics const&);
-    friend size_t get_player_index_by_color(Color, LevelStatistics const&);
+    friend size_t get_player_index_by_color(Utilities::Color, LevelStatistics const&);
 private:
     std::vector<Player *> players;
     std::vector<int> player_statistic;

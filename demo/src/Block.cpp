@@ -54,3 +54,7 @@ void Block::change_color_helper_() {
 	next_texture_.pop();
     }
 }
+
+void Block::change_color_for_test(Color color) {
+    color_ = color;
+}

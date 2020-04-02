@@ -23,8 +23,3 @@ private:
     std::vector<int> player_statistic;
     size_t blocks_amount;
 };
-
-// test class
-class LevelStatisticsTest{
-    void test();
-};

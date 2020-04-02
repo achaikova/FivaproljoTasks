@@ -12,6 +12,7 @@ public:
     Block(QPoint position, const QString &name);
     void add_color(Color color);
     void change_color(Color color);
+    void change_color_for_test(Color color); // Меняет цвет без анимации. Упрощает тестирование.
     Color get_color(){ return color_; };
 
     size_t get_block_width(){ return block_width; };

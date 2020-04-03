@@ -1,12 +1,12 @@
 #include "LevelStatistics.h"
 #include <cassert>
 
-                            //  LEVEL STATISTICS  //
+                      //  LEVEL STATISTICS  //
 
 LevelStatistics::LevelStatistics(std::vector<Player *> &players)
-    : players(players)
-    , player_statistic(std::vector<int>(players.size()))
-    , blocks_amount(DEMO_BLOCKS_AMOUNT)
+        : players(players)
+        , player_statistic(std::vector<int>(players.size()))
+        , blocks_amount(DEMO_BLOCKS_AMOUNT)
 {}
 
 // We dont have much players so it's fine not to optimize these two actions down here

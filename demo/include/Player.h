@@ -34,6 +34,8 @@ public:
 public:
     Player();
 
+    Player(Utilities::Color player_color, QString player_image);
+
     void start_jumping();
 
     void stop_jumping();

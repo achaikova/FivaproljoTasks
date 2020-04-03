@@ -4,10 +4,10 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
 #include <QWidget>
+#include <vector>
 #include "Scene.h"
 #include "Player.h"
-#include <vector>
-#include <LevelStatistics.h>
+#include "LevelStatistics.h"
 
 class Model : public QObject {
 Q_OBJECT
@@ -19,10 +19,10 @@ public:
     void make_new_level(Scene *gs);
 
     void advance_players();
+    
+    void set_statistics();
 
-    void solve_collisions(LevelStatistics *other, Player *);
-
-    void print_statistics();
+    void solve_collisions(Player *);
 
 private slots:
 
@@ -34,6 +34,7 @@ private:
     std::vector<Player *> players_;
     LevelStatistics *lvl_statistic;
     QTimer *engine;
+    LevelStatistics *lvl_statistic;
 };
 
 #endif //DEMO_MODEL_H

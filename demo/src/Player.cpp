@@ -4,6 +4,11 @@
 
 Player::Player()
         : color(Utilities::Color::GREEN), image("images/demo_player.png") {
+          
+    setPixmap(QPixmap(image));
+}
+
+Player::Player(Utilities::Color player_color, QString player_image) : color(player_color), image(player_image) {
     setPixmap(QPixmap(image));
 }
 

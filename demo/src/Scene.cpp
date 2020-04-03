@@ -26,12 +26,12 @@ void Scene::add_platform(int x, int y, int amount, QString image) {
     }
 }
 
-void Scene::add_player(Player *player) {
-    //considering we have only one player
-    // add the player to the scene
-    player->setPos(50, 650 - player->boundingRect().height());
-    player->previous_position = player->pos();
-    game_scene->addItem(player);
+void Scene::add_player(std::vector<Player *> players) {
+    for (auto player : players) {
+        player->setPos(50, 650 - player->boundingRect().height());
+        player->previous_position = player->pos();
+        game_scene->addItem(player);
+    }
 }
 
 void Scene::addWidget(KeyPresser *pPresser) {

@@ -11,6 +11,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Background.h"
+//#include "Controller.h"
 
 class KeyPresser;
 
@@ -22,7 +23,7 @@ public:
 
     void add_platform(int x, int y, int amount, QString image);
 
-    void add_player(Player *player);
+    void add_player(std::vector<Player*>players);
 
     QGraphicsScene *game_scene;
 

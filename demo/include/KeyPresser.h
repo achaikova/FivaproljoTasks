@@ -45,6 +45,8 @@ private:
         bool is_active_ = false;
     public:
         bool is_active() const;
+    private:
+        void set_direction(Utilities::Direction new_direction);
     };
     PlayerManipulator_  player_manipulator_, second_player_manipulator;
 };

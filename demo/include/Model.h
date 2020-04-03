@@ -7,7 +7,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include <vector>
-
+#include "LevelStatistics.h"
 
 class Model : public QObject {
 Q_OBJECT
@@ -23,6 +23,10 @@ public:
 
     void advance_players();
 
+    void set_statistics();
+
+    void solve_collisions(Player *);
+
 private slots:
 
     void advance_scene();
@@ -32,6 +36,7 @@ private:
     Scene *game_scene;
     std::vector<Player *> players_;
     QTimer *engine;
+    LevelStatistics *lvl_statistic;
 };
 
 #endif //DEMO_MODEL_H

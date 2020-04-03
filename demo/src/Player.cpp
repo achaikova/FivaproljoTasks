@@ -26,7 +26,7 @@ void Player::solve_collisions() {
 
     for (QGraphicsItem *item: collidingItems()) {
 
-        if (auto *platform = qgraphicsitem_cast<Block *>(item)) {
+        if (Block *platform = dynamic_cast<Block *>(item)) {
             platform->change_color(color);
 
             Utilities::Direction collision_dir = collision_direction(platform);

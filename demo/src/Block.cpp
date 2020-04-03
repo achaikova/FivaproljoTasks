@@ -5,9 +5,6 @@ Block::Block(QPoint position, const QString &file_name) {
     setPos(position);
 }
 
-int Block::type() const {
-    return Type;
-}
 
 QRectF Block::boundingRect() const {
     return QRectF(0, 0, 50, 50);

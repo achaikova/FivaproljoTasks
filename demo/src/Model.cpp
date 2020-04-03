@@ -52,7 +52,7 @@ void Model::advance_scene() {
 void Model::advance_players() {
     for (auto player : players_) {
         player->previous_position = player->pos();
-        if (player->moving){
+        if (player->moving) {
             if (player->direction == Utilities::Direction::LEFT) {
                 player->setX(player->x() - player->hor_speed);
                 if (!player->jumping and !player->falling) {
@@ -64,20 +64,54 @@ void Model::advance_players() {
                     player->check_floor();
                 }
             }
-            player->solve_collisions();
+            solve_collisions(player);
+            // player->solve_collisions();
         }
 
         if (player->jumping) {
             player->setY(player->y() - player->vert_speed);
-           // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
-            player->solve_collisions();
+            // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
+            solve_collisions(player);
+            // player->solve_collisions();
             qDebug() << "Here JUMP!";
         }
 
         if (player->falling) {
             player->setY(player->y() + player->hor_speed);
-            player->solve_collisions();
+            solve_collisions(player);
+            // player->solve_collisions();
         }
+    }
+}
+
+void Model::solve_collisions(Player *player) {
+    bool revert = false;
+
+    for (QGraphicsItem *item: player->collidingItems()) {
+
+        if (Block *platform = dynamic_cast<Block *>(item)) {
+
+            lvl_statistic->change_block_color(platform, player);
+            platform->change_color(player->color);
+
+            Utilities::Direction collision_dir = player->collision_direction(platform);
+            if (collision_dir == Utilities::Direction::UNKNOWN) continue;
+            if (collision_dir == Utilities::Direction::DOWN && player->falling) {
+                player->object_on_which_moving = platform;
+                player->stop_falling();
+            }
+            // case 2: touching an object while jumping
+            if (collision_dir == Utilities::Direction::UP && player->jumping) {
+                player->stop_jumping();
+            }
+
+            revert = true; // if we got here we need to go back
+
+        }
+    }
+
+    if (revert) {
+        player->setPos(player->previous_position);
     }
 }
 
@@ -90,6 +124,10 @@ Model::Model(QWidget *parent) {
 
 void Model::add_players(std::vector<Player *> &players) {
     players_ = players;
+}
+
+void Model::set_statistics() {
+    lvl_statistic = new LevelStatistics(players_);
 }
 
 //Model::~Model() {}

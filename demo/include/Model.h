@@ -4,25 +4,22 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
 #include <QWidget>
+#include <vector>
 #include "Scene.h"
 #include "Player.h"
-#include <vector>
 #include "LevelStatistics.h"
 
 class Model : public QObject {
 Q_OBJECT
 public:
-    Model(QWidget *parent = 0);
+    Model(QWidget *parent = nullptr);
 
-  //  ~Model();
-
-    //explicit Model(std::vector<Player *> &players);
     void add_players(std::vector<Player *> &players);
 
     void make_new_level(Scene *gs);
 
     void advance_players();
-
+    
     void set_statistics();
 
     void solve_collisions(Player *);
@@ -35,6 +32,7 @@ private:
     bool game_on;
     Scene *game_scene;
     std::vector<Player *> players_;
+    LevelStatistics *lvl_statistic;
     QTimer *engine;
     LevelStatistics *lvl_statistic;
 };

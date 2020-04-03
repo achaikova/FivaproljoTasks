@@ -7,6 +7,7 @@
 #include "Object.h"
 
 class Block : public QObject, public Object {
+  
 Q_OBJECT
     //  Q_PROPERTY(QRectF rect READ rect WRITE setRect)
 public:
@@ -16,9 +17,7 @@ public:
 
     QRectF boundingRect() const;
 
-    void change_color(Utilities::Color color);
-    // void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
+    void change_color(Utilities::Color color)
     size_t block_width = 50;
     size_t block_height = 50;
 
@@ -27,6 +26,9 @@ public slots:
     void change_color_helper_();
 
 private:
+    size_t block_width = 50;
+    size_t block_height = 50;
+
     QTimer *recolor_timer_ = nullptr;
     std::queue<std::string> next_texture_;
     Utilities::Color color_ = Utilities::Color::NONE;

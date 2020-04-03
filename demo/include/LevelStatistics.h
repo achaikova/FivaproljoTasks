@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <vector>
 #include "Block.h"
 #include "Player.h"

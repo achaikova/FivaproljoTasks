@@ -4,7 +4,6 @@
 #include <QGraphicsItem>
 #include "Block.h"
 #include "Object.h"
-
 class Player : public Object {
 public:
     bool moving = false;
@@ -30,6 +29,8 @@ public:
     QPointF previous_position;
     Block *object_on_which_moving = nullptr;
     QString image;
+
+
 public:
     Player();
 
@@ -42,8 +43,6 @@ public:
     void start_falling();
 
     void stop_falling();
-
-    void virtual solve_collisions();
 
     void change_direction();
 

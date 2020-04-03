@@ -7,11 +7,11 @@ namespace Utilities {
         DOWN,
         UNKNOWN
     };
-
+  
     enum class Color {
         NONE,
         GREEN,
         YELLOW
         // ...
     };
-}
+} // Utilities namespace ENDS

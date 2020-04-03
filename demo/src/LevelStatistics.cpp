@@ -1,8 +1,7 @@
-
 #include "LevelStatistics.h"
 #include <cassert>
 
-//  LEVEL STATISTICS  //
+                      //  LEVEL STATISTICS  //
 
 LevelStatistics::LevelStatistics(std::vector<Player *> &players)
         : players(players)

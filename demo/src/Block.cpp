@@ -1,24 +1,19 @@
 #include "Block.h"
 
-
-
-Block::Block(QPoint position, const QString &file_name)
-    : next_texture_(){
-
+Block::Block(QPoint position, const QString &file_name) {
     setPixmap(QPixmap(file_name).scaled(block_width, block_height));
     setPos(position);
 }
 
+
 QRectF Block::boundingRect() const {
-    return QRectF(0, 0, block_width, block_height);
+    return QRectF(0, 0, 50, 50);
 }
 
 void Block::change_color(Utilities::Color color) {
     if (color_ == color) {
         return;
     }
-
-    ///TODO Сделать нормальную анимацию вместо этого
     color_ = color;
     if (recolor_timer_) {
         delete recolor_timer_;

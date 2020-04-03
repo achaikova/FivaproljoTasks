@@ -34,11 +34,13 @@ void Model::make_new_level(Scene *gs) {
     for (int i = 0; i < 12; i++) {
         game_scene->add_platform(1200, 50 + i * 50, 1, default_block);
     }
-    
-  game_scene->add_player(players_);
-  game_scene->show();
-
+    game_scene->add_player(players_);
+    game_scene->show();
 }
+
+/*Model::Model(std::vector<Player *> &players)
+        : players_(players) {
+}*/
 
 void Model::advance_scene() {
     advance_players();
@@ -50,7 +52,6 @@ void Model::advance_scene() {
 void Model::advance_players() {
     for (auto player : players_) {
         player->previous_position = player->pos();
-      
         if (player->moving) {
             if (player->direction == Utilities::Direction::LEFT) {
                 player->setX(player->x() - player->hor_speed);
@@ -64,17 +65,21 @@ void Model::advance_players() {
                 }
             }
             solve_collisions(player);
+            // player->solve_collisions();
         }
 
         if (player->jumping) {
             player->setY(player->y() - player->vert_speed);
+            // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
             solve_collisions(player);
+            // player->solve_collisions();
             qDebug() << "Here JUMP!";
         }
 
         if (player->falling) {
             player->setY(player->y() + player->hor_speed);
             solve_collisions(player);
+            // player->solve_collisions();
         }
     }
 }
@@ -124,3 +129,5 @@ void Model::add_players(std::vector<Player *> &players) {
 void Model::set_statistics() {
     lvl_statistic = new LevelStatistics(players_);
 }
+
+//Model::~Model() {}

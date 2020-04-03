@@ -12,16 +12,13 @@
 #include "KeyPresser.h"
 
 
-class Controller : public QObject {
-    Q_OBJECT
+
+class Controller {
 public:
-    Controller();
-    void run_game();
-public slots:
-    void end_game(); // idk what name is needed. depends on further decisions
+    void runGame();
 private:
     std::vector<Player *> players_;
-    Scene *scene_;
-    Model *model_;
-    KeyPresser *key_presser_;
+    Scene *scene_ = nullptr;
+    Model *model_ = nullptr;
+    KeyPresser *key_presser_ = nullptr;
 };

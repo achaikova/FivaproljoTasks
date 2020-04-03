@@ -4,6 +4,17 @@
 #include <QDebug>
 
 
+
+Model::Model(QWidget *parent) {
+    game_just_ended = false;
+    game_on = false;
+    engine = new QTimer(this);
+    QObject::connect(engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
+    engine->start(10);
+    engine->setInterval(10);
+}
+
+
 void Model::make_new_level(Scene *gs) {
     game_scene = gs;
     QString default_block = "images/1block.jpg";
@@ -38,10 +49,6 @@ void Model::make_new_level(Scene *gs) {
     game_scene->show();
 }
 
-/*Model::Model(std::vector<Player *> &players)
-        : players_(players) {
-}*/
-
 void Model::advance_scene() {
     advance_players();
     if (!game_on) {
@@ -65,21 +72,17 @@ void Model::advance_players() {
                 }
             }
             solve_collisions(player);
-            // player->solve_collisions();
         }
 
         if (player->jumping) {
             player->setY(player->y() - player->vert_speed);
-            // player->set_vert_speed(player->get_vert_speed() - player->get_gr_acceleration());
             solve_collisions(player);
-            // player->solve_collisions();
             qDebug() << "Here JUMP!";
         }
 
         if (player->falling) {
             player->setY(player->y() + player->hor_speed);
             solve_collisions(player);
-            // player->solve_collisions();
         }
     }
 }
@@ -115,13 +118,6 @@ void Model::solve_collisions(Player *player) {
     }
 }
 
-Model::Model(QWidget *parent) {
-    engine = new QTimer(this);
-    QObject::connect(engine, SIGNAL(timeout()), this, SLOT(advance_scene()));
-    engine->start(10);
-    engine->setInterval(10);
-}
-
 void Model::add_players(std::vector<Player *> &players) {
     players_ = players;
 }
@@ -129,5 +125,3 @@ void Model::add_players(std::vector<Player *> &players) {
 void Model::set_statistics() {
     lvl_statistic = new LevelStatistics(players_);
 }
-
-//Model::~Model() {}

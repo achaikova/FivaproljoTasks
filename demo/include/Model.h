@@ -14,9 +14,6 @@ Q_OBJECT
 public:
     Model(QWidget *parent = 0);
 
-  //  ~Model();
-
-    //explicit Model(std::vector<Player *> &players);
     void add_players(std::vector<Player *> &players);
 
     void make_new_level(Scene *gs);
@@ -27,12 +24,15 @@ public:
 
     void solve_collisions(Player *);
 
+    bool get_game_just_ended() {return game_just_ended;};
+
 private slots:
 
     void advance_scene();
 
 private:
     bool game_on;
+    bool game_just_ended;
     Scene *game_scene;
     std::vector<Player *> players_;
     QTimer *engine;

@@ -104,5 +104,5 @@ bool KeyPresser::PlayerManipulator_::is_active() const {
 void KeyPresser::PlayerManipulator_::set_direction(Utilities::Direction new_direction) {
     player_->moving = true;
     player_->direction = new_direction;
-    player_->change_direction();
+    player_->change_skin_direction();
 }

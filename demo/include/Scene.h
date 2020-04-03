@@ -23,7 +23,7 @@ public:
 
     void add_platform(int x, int y, int amount, QString image);
 
-    void add_player(std::vector<Player*>players);
+    void add_players(std::vector<Player*>players);
 
     QGraphicsScene *game_scene;
 

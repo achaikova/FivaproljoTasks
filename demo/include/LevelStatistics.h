@@ -17,8 +17,9 @@ public:
     size_t get_player_statistic(Player *) const;
     size_t get_blocks_amount() const {return blocks_amount; };
 
-    friend size_t get_player_index(Player *, LevelStatistics const&);
-    friend size_t get_player_index_by_color(Utilities::Color, LevelStatistics const&);
+private:
+    size_t get_player_index(Player *) const;
+    size_t get_player_index_by_color(Utilities::Color) const;
 private:
     std::vector<Player *> players;
     std::vector<int> player_statistic;

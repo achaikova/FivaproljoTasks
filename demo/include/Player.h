@@ -45,7 +45,7 @@ public:
 
     void virtual solve_collisions();
 
-    void change_direction();
+    void change_skin_direction();
 
     QRectF boundingRect() const override;
 

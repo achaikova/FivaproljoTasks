@@ -82,7 +82,7 @@ void Player::check_floor() {
     }
 }
 
-void Player::change_direction() {
+void Player::change_skin_direction() {
     if (direction != Utilities::Direction::UNKNOWN) {
         QTransform transform;
         if (p_direction != direction) {

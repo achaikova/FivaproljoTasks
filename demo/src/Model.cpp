@@ -34,7 +34,7 @@ void Model::make_new_level(Scene *gs) {
     for (int i = 0; i < 12; i++) {
         game_scene->add_platform(1200, 50 + i * 50, 1, default_block);
     }
-    game_scene->add_player(players_);
+    game_scene->add_players(players_);
     game_scene->show();
 }
 

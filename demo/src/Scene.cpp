@@ -26,7 +26,7 @@ void Scene::add_platform(int x, int y, int amount, QString image) {
     }
 }
 
-void Scene::add_player(std::vector<Player *> players) {
+void Scene::add_players(std::vector<Player *> players) {
     for (auto player : players) {
         player->setPos(50, 650 - player->boundingRect().height());
         player->previous_position = player->pos();

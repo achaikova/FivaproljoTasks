@@ -12,7 +12,7 @@ LevelStatistics::LevelStatistics(std::vector<Player *> &players)
 
 // We dont have much players so it's fine not to optimize these two actions down here
 
-size_t LevelStatistics::get_player_index(Player * player) const {
+size_t LevelStatistics::get_player_index(Player *player) const {
     for (int i = 0; i < players.size(); i++){
         if (player == players[i]){
             return i;
@@ -30,7 +30,7 @@ size_t LevelStatistics::get_player_index_by_color(Utilities::Color color) const 
     assert(false); // there shouldn't be a case in which we haven't found one
 }
 
-void LevelStatistics::change_block_color(Block * block, Player * player) {
+void LevelStatistics::change_block_color(Block *block, Player *player) {
     if (block->get_color() == player->color){
         return;
     }

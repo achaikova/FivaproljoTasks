@@ -3,7 +3,6 @@
 Scene::Scene(QWidget *parent) {
     game_scene = new QGraphicsScene();
     game_scene->setSceneRect(0, 0, 1250, 700);
-    // game_scene->setBackgroundBrush(QBrush(QImage("../images/background.jpg")));
     add_background("images/background.jpg");
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -26,15 +25,27 @@ void Scene::add_platform(int x, int y, int amount, QString image) {
     }
 }
 
-void Scene::add_player(Player *player) {
-    //considering we have only one player
-    // add the player to the scene
-    player->setPos(50, 650 - player->boundingRect().height());
-    player->previous_position = player->pos();
-    game_scene->addItem(player);
+void Scene::add_players(std::vector<Player *> players) {
+    for (auto player : players) {
+        player->setPos(50, 650 - player->boundingRect().height());
+        player->previous_position = player->pos();
+        game_scene->addItem(player);
+    }
 }
 
 void Scene::addWidget(KeyPresser *pPresser) {
     game_scene->addWidget((QWidget *) pPresser);
 }
 
+/*void Scene::add_button(Button *button) {
+    game_scene->addItem(button);
+}
+
+
+void Scene::add_item(QGraphicsItem *item) {
+    game_scene->addItem(item);
+}
+*/
+void Scene::add_button(QPushButton *button) {
+    QGraphicsProxyWidget *widgetItem = game_scene->addWidget(button);
+}

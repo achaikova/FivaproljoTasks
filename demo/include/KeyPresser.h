@@ -10,41 +10,90 @@
 #include "Player.h"
 #include "Scene.h"
 #include "Model.h"
+#include "Menu.h"
 
 class KeyPresser : public QWidget {
 public:
-    explicit KeyPresser(Player *player, QWidget *parent = nullptr);
-    KeyPresser(Player *player1, Player *player2, QWidget *parent = nullptr);
+    explicit KeyPresser(QWidget *parent = nullptr);
+    void add_players(Player *player1, Player *player2 = nullptr);
+    void remove_players();
+    void add_menu(Menu *menu);
+    void activate(KeyPresserUtility::ManipulatorType type);
+    void deactivate(KeyPresserUtility::ManipulatorType type);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 private:
-    class PlayerManipulator_ {
+    class Key {
     public:
-        PlayerManipulator_();// = delete // TODO пофиксить вместе с наследованием и закидыванием всех манипуляторов в вектор
-        PlayerManipulator_(Player *player, Qt::Key up_key = Qt::Key_W, Qt::Key left_key = Qt::Key_A,
-                           Qt::Key down_key = Qt::Key_S, Qt::Key right_key = Qt::Key_D);
-        void press(Qt::Key k);
-        void release(Qt::Key k);
+        Key() = delete;
+        explicit Key(Qt::Key name);
+        operator Qt::Key() const;
+        bool is_pressed() const;
+        void press();
+        void release();
+	    
     private:
-        class Key_ {
-        public:
-//	    Key_() = delete; TODO смотри строку 24
-            explicit Key_(Qt::Key name);
-            operator Qt::Key() const;
-            bool is_pressed() const;
-            void press();
-            void release();
-
-        private:
-            Qt::Key qt_name_;
-            bool is_pressed_;
-        } UP, LEFT, DOWN, RIGHT;
-        Player *player_;
-        bool is_active_ = false;
-    public:
-        bool is_active() const;
+        Qt::Key qt_name_;
+        bool is_pressed_;
     };
-    PlayerManipulator_  player_manipulator_, second_player_manipulator;
+    
+    class Manipulator {
+    public:
+	Manipulator(Manipulator&) = delete;
+	Manipulator &operator=(Manipulator&) = delete;
+	virtual ~Manipulator();
+	bool active() const;
+	void activate();
+	void deactivate();
+	virtual void press(Qt::Key) = 0;
+	virtual void release(Qt::Key) = 0;
+	KeyPresserUtility::ManipulatorType type() const;
+	
+    protected:
+	Manipulator(bool is_active, KeyPresserUtility::ManipulatorType manip_type);
+	bool is_active_;
+	KeyPresserUtility::ManipulatorType manip_type_;
+    };
+
+   /* class MenuManipulator : public Manipulator {
+    public:
+	MenuManipulator(Menu *menu);
+	~MenuManipulator() override;
+	void press(Qt::Key k) override;
+	void release(Qt::Key k) override;
+	
+    private:
+	Key UP, DOWN, RETURN;
+	Menu *menu_;
+    };*/
+   
+    class PlayerManipulator : public Manipulator {
+    public:
+	PlayerManipulator() = delete;
+	PlayerManipulator(Player *player, Qt::Key up_key = Qt::Key_W, Qt::Key left_key = Qt::Key_A,
+			  Qt::Key down_key = Qt::Key_S, Qt::Key right_key = Qt::Key_D); // порядок - W A S D.
+	~PlayerManipulator() override;
+        void press(Qt::Key k) override;
+        void release(Qt::Key k) override;
+	
+    private:
+	Key UP, LEFT, DOWN, RIGHT;
+        Player *player_;
+    };
+    
+    std::vector<Manipulator *> manipulators_;
+};
+
+class KeyPresserHelper {
+public:
+    KeyPresserHelper(KeyPresser *key_presser);
+    void call_activate(KeyPresserUtility::ManipulatorType type);
+    void call_deactivate(KeyPresserUtility::ManipulatorType type);
+    std::function<void(KeyPresserUtility::ManipulatorType)> get_activate();
+    std::function<void(KeyPresserUtility::ManipulatorType)> get_deactivate();
+
+private:
+    KeyPresser *key_presser_;
 };

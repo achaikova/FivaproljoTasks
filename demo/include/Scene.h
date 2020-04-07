@@ -1,8 +1,8 @@
-#ifndef DEMO_SCENE_H
-#define DEMO_SCENE_H
+#pragma once
 
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QPushButton>
 #include <QAbstractAnimation>
 #include <QDebug>
 #include <QGraphicsView>
@@ -11,6 +11,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Background.h"
+#include "MenuButton.h"
 
 class KeyPresser;
 
@@ -22,14 +23,19 @@ public:
 
     void add_platform(int x, int y, int amount, QString image);
 
-    void add_player(Player *player);
+    void add_players(std::vector<Player *> players);
 
-    QGraphicsScene *game_scene;
+    // void add_button(Button *button);
+
+    void add_button(QPushButton *button);
 
     void addWidget(KeyPresser *pPresser);
+
+    //void add_item(QGraphicsItem *item);
+
+
+    QGraphicsScene *game_scene;
 
 private:
     Background *background;
 };
-
-#endif //DEMO_SCENE_H

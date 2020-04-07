@@ -30,14 +30,10 @@ public:
     QPointF previous_position;
     Block *object_on_which_moving = nullptr;
     QString image;
-
-
 public:
-    explicit Player(Utilities::Color color, QString skin);
-
     Player();
 
-    void cutomize_player(Utilities::Color color, QString skin); //players choose their skin?
+    Player(Utilities::Color player_color, QString player_image);
 
     void start_jumping();
 
@@ -47,8 +43,12 @@ public:
 
     void stop_falling();
 
-    void change_direction();
+    void virtual solve_collisions();
+
+    void change_skin_direction();
 
     QRectF boundingRect() const override;
+
+    QString get_skin_name();
 
 };

@@ -2,6 +2,10 @@
 
 PlayerSelection::PlayerSelection() : scene(new Scene) {}
 
+PlayerSelection::~PlayerSelection() {
+    scene->~Scene();
+}
+
 void PlayerSelection::add_players(const std::vector<Player *> &new_players) {
     num_of_players = new_players.size();
     players = new_players;
@@ -71,7 +75,17 @@ void PlayerSelection::set_images() {
     }
 }
 
+// clear everything in case number of players will change
 void PlayerSelection::clear_player_selection() {
+    player_textures.clear();
+    players.clear();
+    player_textures_index.clear();
+    buttons_player1.clear();
+    buttons_player2.clear();
+    buttons_player3.clear();
+    buttons_player4.clear();
+    num_of_players = 0;
+    num_of_ready = 0;
     scene->hide();
 }
 
@@ -107,6 +121,7 @@ void PlayerSelection::increase_ready_num(int player_number) {
         for (int i = 0; i < num_of_players; i++) {
             players[i]->set_player_skin(available_skins[player_textures_index[i]]);
         }
+        clear_player_selection();
         emit start_level();
     } else {
         switch (player_number) {
@@ -182,6 +197,10 @@ void PlayerSelection::set_buttons_player1() {
     connect(back_player1, &QPushButton::clicked, this, [=] { decrease_ready_num(1); });
     back_player1->hide();
 
+    buttons_player1.push_back(customize_player1);
+    buttons_player1.push_back(ready_player1);
+    buttons_player1.push_back(back_player1);
+
     scene->add_button(customize_player1);
     scene->add_button(ready_player1);
     scene->add_button(back_player1);
@@ -203,6 +222,11 @@ void PlayerSelection::set_buttons_player2() {
                                     QSize(200, 50)));
     connect(back_player2, &QPushButton::clicked, [=] { decrease_ready_num(2); });
     back_player2->hide();
+
+    buttons_player2.push_back(customize_player2);
+    buttons_player2.push_back(ready_player2);
+    buttons_player2.push_back(back_player2);
+
     scene->add_button(customize_player2);
     scene->add_button(ready_player2);
     scene->add_button(back_player2);
@@ -225,6 +249,11 @@ void PlayerSelection::set_buttons_player3() {
                                     QSize(200, 50)));
     connect(back_player3, &QPushButton::clicked, [=] { decrease_ready_num(3); });
     back_player3->hide();
+
+    buttons_player3.push_back(customize_player3);
+    buttons_player3.push_back(ready_player3);
+    buttons_player3.push_back(back_player3);
+
     scene->add_button(customize_player3);
     scene->add_button(ready_player3);
     scene->add_button(back_player3);
@@ -247,6 +276,11 @@ void PlayerSelection::set_buttons_player4() {
                                     QSize(200, 50)));
     connect(back_player4, &QPushButton::clicked, [=] { decrease_ready_num(4); });
     back_player4->hide();
+
+    buttons_player4.push_back(customize_player4);
+    buttons_player4.push_back(ready_player4);
+    buttons_player4.push_back(back_player4);
+
     scene->add_button(customize_player4);
     scene->add_button(ready_player4);
     scene->add_button(back_player4);

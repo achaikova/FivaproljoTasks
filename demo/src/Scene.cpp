@@ -9,6 +9,13 @@ Scene::Scene(QWidget *parent) { //TODO - proper coordinates
     setFixedSize(1250, 700);
 }
 
+Scene::~Scene() {
+    setScene(nullptr); //for a faster removal
+    game_scene->clear();
+    delete (game_scene);
+}
+
+
 void Scene::add_background(const QString &image) {
     game_scene->setBackgroundBrush(QBrush(QImage(image)));
 }

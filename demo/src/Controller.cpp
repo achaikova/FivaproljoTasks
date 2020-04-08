@@ -26,6 +26,13 @@ Controller::Controller(int argc, char *argv[])
     connect(state_machine_, &StateMachine::set_level, this, &Controller::run_level);
 }
 
+Controller::~Controller() {
+    player_selection->~PlayerSelection();
+    //TODO KeyPresser dstrctor
+    menu_->~Menu();
+    //TODO continue dtors
+}
+
 //different menus depending on state - right now only one
 int Controller::runGame() {
     menu_->run_menu(state_machine_->get_cur_state());

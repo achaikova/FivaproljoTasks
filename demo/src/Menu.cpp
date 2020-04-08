@@ -6,6 +6,12 @@ Menu::Menu(Scene *scene, StateMachine *state_machine)
     init_buttons();
 }
 
+Menu::~Menu() { //TODO
+    scene_ = nullptr;
+    state_machine_ = nullptr;
+}
+
+
 void Menu::add_name_of_game() {
     name_of_game = new QLabel;
     name_of_game->setText("Fivaproljo");

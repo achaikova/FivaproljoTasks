@@ -18,6 +18,8 @@ public:
 
     PlayerSelection();
 
+    ~PlayerSelection() override;
+
     void add_players(const std::vector<Player *> &players);
 
     void run_player_selection();
@@ -63,7 +65,10 @@ private:
     std::vector<QLabel *> player_num;
 
     //not sure this is the best way to do it
-    std::vector<QPushButton *> buttons;
+    std::vector<QPushButton *> buttons_player1;
+    std::vector<QPushButton *> buttons_player2;
+    std::vector<QPushButton *> buttons_player3;
+    std::vector<QPushButton *> buttons_player4;
     QPushButton *customize_player1;
     QPushButton *customize_player2;
     QPushButton *customize_player3;

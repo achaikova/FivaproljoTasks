@@ -20,6 +20,8 @@ class Scene : public QGraphicsView {
 public:
     Scene(QWidget *parent = 0);
 
+    ~Scene() override;
+
     void add_background(const QString& image);
 
     void add_platform(int x, int y, int amount, const QString& image);

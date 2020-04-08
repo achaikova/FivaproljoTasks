@@ -17,6 +17,8 @@ Q_OBJECT;
 public:
     Menu(Scene *scene, StateMachine *state_machine);
 
+    ~Menu() override;
+
     void run_menu(Utilities::GameState state);
 
     void init_buttons();

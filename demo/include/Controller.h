@@ -16,6 +16,7 @@
 #include "Menu.h"
 #include "StateMachine.h"
 #include "Application.h"
+#include "PlayerSelection.h"
 
 class Controller : public QObject {
 Q_OBJECT
@@ -26,21 +27,23 @@ public:
 
     int runGame(); // later - change name to start/begin
 
+    void run_player_selection();
+
 private slots:
-
-    void one_player_level();
-
-    void two_player_level();
+//the name suggests that amount of players can be changed - for now this feature is not supported
+    void set_num_of_players_for_lvl(Utilities::GameMode mode);
 
     void exit_game();
 
-    //void end_level();
+    void end_level();
 
     void run_level();
 
 signals:
 
     void set_run_level();
+
+    //void set_player_selection();
 
 private:
     Application app;
@@ -52,4 +55,5 @@ private:
     Menu *menu_ = nullptr;
     KeyPresserHelper *key_presser_helper_ = nullptr;
     std::vector<Player *> players_;
+    PlayerSelection *player_selection = nullptr;
 };

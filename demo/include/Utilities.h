@@ -20,6 +20,7 @@ namespace Utilities {
         INITIALIZING,
         MENU_NUM_OF_PLAYERS,
         MENU_MODE,
+        PLAYER_SELECTION,
         LEVEL_ON,
         EXIT
     };

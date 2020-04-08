@@ -1,16 +1,17 @@
 #include "Player.h"
 #include <QList>
 #include <cmath>
+#include <utility>
 #include "Block.h"
 
-Player::Player()
-        : color(Utilities::Color::GREEN), image("images/demo_player.png") {
-    setPixmap(QPixmap(image));
-}
+/*
+ * for now player color is given, while skin can be chosen
+ */
 
-Player::Player(Utilities::Color player_color, QString player_image) : color(player_color), image(player_image) {
-    setPixmap(QPixmap(image));
-}
+Player::Player()
+        : color(Utilities::Color::GREEN), image() {}
+
+Player::Player(Utilities::Color player_color) : color(player_color), image() {}
 
 void Player::start_jumping() {
     if (falling) return;
@@ -20,8 +21,6 @@ void Player::start_jumping() {
 }
 
 void Player::solve_collisions() {
-    //  QList<QGraphicsItem*> items =  collidingItems();
-
     bool revert = false;
 
     for (QGraphicsItem *item: collidingItems()) {
@@ -41,7 +40,6 @@ void Player::solve_collisions() {
             }
 
             revert = true; // if we got here we need to go back
-
         }
     }
 
@@ -56,15 +54,12 @@ QRectF Player::boundingRect() const {
 }
 
 void Player::stop_jumping() {
-    //assert(!falling); // potential bug
     jumping = false;
     vert_speed = 0;
     start_falling();
 }
 
 void Player::start_falling() {
-    //assert(!jumping); // potential bug
-
     falling = true;
     vert_speed = starting_falling_speed;
 }
@@ -94,4 +89,9 @@ void Player::change_skin_direction() {
 
 QString Player::get_skin_name() {
     return image;
+}
+
+void Player::set_player_skin(const QString &name_of_image) {
+    image = name_of_image;
+    setPixmap(QPixmap(image).scaled(50, 50));
 }

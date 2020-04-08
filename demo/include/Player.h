@@ -33,9 +33,11 @@ public:
 public:
     Player();
 
-    Player(Utilities::Color player_color, QString player_image);
+    Player(Utilities::Color player_color);
 
     void start_jumping();
+
+    void set_player_skin(const QString &name_of_image);
 
     void stop_jumping();
 

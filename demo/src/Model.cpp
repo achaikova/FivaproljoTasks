@@ -14,8 +14,9 @@ Model::Model(QWidget *parent) {
 }
 
 
-void Model::make_new_level(Scene *gs) {
+void Model::make_new_level(Scene *gs) { //TODO - find other way to load game
     game_scene = gs;
+    game_scene->add_background("images/background.jpg");
     QString default_block = "images/1block.jpg";
     //1st platform
     game_scene->add_platform(400, 150, 9, default_block);
@@ -124,6 +125,10 @@ void Model::add_players(std::vector<Player *> &players) {
 void Model::set_statistics() {
     lvl_statistic = new LevelStatistics(players_);
     //lvl_statistic_window = new LevelStatisticsWindow(game_scene); //should statistic window be in model or in controller(?)
+}
+
+void Model::hide_game_scene() {
+    game_scene->hide();
 }
 
 /*void Model::show_statistics() {

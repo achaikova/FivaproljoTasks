@@ -5,9 +5,11 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QPushButton>
+#include <QLabel>
 #include "Scene.h"
 #include "StateMachine.h"
 #include "MenuButton.h"
+#include "Utilities.h"
 
 class Menu : public QObject {
 Q_OBJECT;
@@ -15,9 +17,13 @@ Q_OBJECT;
 public:
     Menu(Scene *scene, StateMachine *state_machine);
 
-    void run_menu();
+    void run_menu(Utilities::GameState state);
+
+    void init_buttons();
 
     void clear_menu();
+
+    void add_name_of_game();
 
     //  void go_down();
 //
@@ -39,11 +45,13 @@ private:
     StateMachine *state_machine_;
     // size_t selected_index_ = 0;
     // std::vector<Button *> buttons_;
-
+    QLabel *name_of_game;
     QPushButton *two_players;
     QPushButton *one_player;
     QPushButton *exit;
-    std::vector<QPushButton *> buttons;
+    QPushButton *paint_floor_mode;
+    std::vector<QPushButton *> buttons_players;
+    std::vector<QPushButton *> buttons_mode;
 };
 
 /*class MenuHelper { // Костыль, чтобы брать у него std::function, ибо без него не работает (Спасибо Qt!).

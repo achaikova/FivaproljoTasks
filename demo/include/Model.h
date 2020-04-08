@@ -28,6 +28,8 @@ public:
 
     int get_player_statistic(Player *);
 
+    void hide_game_scene();
+
     bool get_game_just_ended() { return game_just_ended; };
 
     void show_statistics();

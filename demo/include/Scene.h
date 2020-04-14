@@ -22,11 +22,16 @@ public:
 
     ~Scene() override;
 
-    void add_background(const QString& image);
+    void add_background(const QString &image);
 
-    void add_platform(int x, int y, int amount, const QString& image);
+    /* void View::resizeEvent(QResizeEvent *event) {
+         QGraphicsView::resizeEvent(event);
+         fitInView(this->sceneRect());
+     }*/
 
-    void add_players(const std::vector<Player *>& players);
+    void add_platform(int x, int y, int amount, const QString &image, int block_width);
+
+    void add_players(const std::vector<Player *> &players);
 
     // void add_button(Button *button);
 
@@ -38,10 +43,20 @@ public:
 
     void add_text(QLabel *text);
 
+    void add_qgrectitem(QGraphicsRectItem *item);
+
+    void remove_item(QGraphicsItem *item);
+
+    int get_width() { return scene->width(); }
+
+    int get_height() { return scene->height(); }
+
     //void add_item(QGraphicsItem *item);
 
+    void resizeEvent(QResizeEvent *event) override;
 
-    QGraphicsScene *game_scene;
+
+    QGraphicsScene *scene;
 
 private:
     Background *background = nullptr;

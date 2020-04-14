@@ -8,10 +8,8 @@
  * for now player color is given, while skin can be chosen
  */
 
-Player::Player()
-        : color(Utilities::Color::GREEN), image() {}
-
-Player::Player(Utilities::Color player_color) : color(player_color), image() {}
+Player::Player(Utilities::Color player_color)
+        : color(player_color) {}
 
 void Player::start_jumping() {
     if (falling) return;
@@ -20,37 +18,8 @@ void Player::start_jumping() {
     vert_speed = starting_jumping_speed;
 }
 
-void Player::solve_collisions() {
-    bool revert = false;
-
-    for (QGraphicsItem *item: collidingItems()) {
-
-        if (Block *platform = dynamic_cast<Block *>(item)) {
-            platform->change_color(color);
-
-            Utilities::Direction collision_dir = collision_direction(platform);
-            if (collision_dir == Utilities::Direction::UNKNOWN) continue;
-            if (collision_dir == Utilities::Direction::DOWN && falling) {
-                object_on_which_moving = platform;
-                stop_falling();
-            }
-            // case 2: touching an object while jumping
-            if (collision_dir == Utilities::Direction::UP && jumping) {
-                stop_jumping();
-            }
-
-            revert = true; // if we got here we need to go back
-        }
-    }
-
-    if (revert) {
-        setPos(previous_position);
-    }
-}
-
-
 QRectF Player::boundingRect() const {
-    return QRectF(0, 0, 50, 60);
+    return QRectF(0, 0, width, height);
 }
 
 void Player::stop_jumping() {
@@ -71,7 +40,7 @@ void Player::stop_falling() {
 
 void Player::check_floor() {
     if (x() + width < object_on_which_moving->x()
-        || object_on_which_moving->x() + object_on_which_moving->block_width < x()) {
+        || object_on_which_moving->x() + object_on_which_moving->get_block_size() < x()) {
 
         start_falling();
     }
@@ -87,11 +56,12 @@ void Player::change_skin_direction() {
     }
 }
 
-QString Player::get_skin_name() {
-    return image;
-}
-
 void Player::set_player_skin(const QString &name_of_image) {
     image = name_of_image;
     setPixmap(QPixmap(image).scaled(50, 50));
 }
+
+void Player::set_size(int p_height, int p_width) {
+    height = p_height;
+    width = p_width;
+};

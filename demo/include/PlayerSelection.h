@@ -16,7 +16,7 @@ class PlayerSelection : public QObject {
 Q_OBJECT
 public:
 
-    PlayerSelection();
+    PlayerSelection(Scene *scene);
 
     ~PlayerSelection() override;
 
@@ -34,7 +34,6 @@ public:
 
     void set_images();
 
-    //if there is a better way to do it - please do
     void set_buttons_player1();
 
     void set_buttons_player2();
@@ -48,23 +47,21 @@ public slots:
 
     void change_image(int player_number);
 
-    void increase_ready_num(int player_number); //when all players ready - start level
+    void increase_ready_num(int player_number);
 
-    void decrease_ready_num(int player_number); //is someone changes mind (about skin, for ex)
+    void decrease_ready_num(int player_number);
 
 signals:
 
     void start_level();
 
 private:
-    //im so so sorry about how it looks
     Scene *scene;
     bool initialized = false;
 
     QLabel *character_selection;
     std::vector<QLabel *> player_num;
 
-    //not sure this is the best way to do it
     std::vector<QPushButton *> buttons_player1;
     std::vector<QPushButton *> buttons_player2;
     std::vector<QPushButton *> buttons_player3;
@@ -81,15 +78,12 @@ private:
     QPushButton *back_player2;
     QPushButton *back_player3;
     QPushButton *back_player4;
-    // yeah so maybe change it in the future
-    std::vector<QLabel *> ready_text;
 
     std::vector<QString> available_skins{"images/demo_player.png", "images/demo_player_2.png"};
     std::vector<QGraphicsPixmapItem *> player_textures;
-    std::vector<int> player_textures_index;//костыль
+    std::vector<int> player_textures_index;
     int num_of_players = 0;
     int num_of_ready = 0;
     std::vector<Player *> players;
-//i dont remember where constants should be/please correct if you do
     const int MAX_NUM_OF_PLAYERS = 4;
 };

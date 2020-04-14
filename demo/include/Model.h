@@ -1,34 +1,29 @@
-#ifndef DEMO_MODEL_H
-#define DEMO_MODEL_H
+#pragma  once
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
 #include <QWidget>
 #include <QVBoxLayout>
+#include <cmath>
 #include "Scene.h"
 #include "Player.h"
 #include <vector>
 #include "LevelStatistics.h"
-//#include "LevelStatisticsWindow.h"
 
 class Model : public QObject {
 Q_OBJECT
 public:
-    Model(QWidget *parent = 0);
+    Model(Scene *scene);
 
     void add_players(std::vector<Player *> &players);
 
-    void make_new_level(Scene *gs);
+    void make_new_level();
 
     void advance_players();
 
     void set_statistics();
 
     void solve_collisions(Player *);
-
-    int get_player_statistic(Player *);
-
-    void hide_game_scene();
 
     bool get_game_just_ended() { return game_just_ended; };
 
@@ -38,6 +33,8 @@ private slots:
 
     void advance_scene();
 
+    void stop_advance_scene();
+
 private:
     bool game_on;
     bool game_just_ended;
@@ -45,7 +42,4 @@ private:
     std::vector<Player *> players_;
     QTimer *engine;
     LevelStatistics *lvl_statistic;
-    //LevelStatisticsWindow *lvl_statistic_window;
 };
-
-#endif //DEMO_MODEL_H

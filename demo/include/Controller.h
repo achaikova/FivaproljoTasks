@@ -23,7 +23,7 @@ Q_OBJECT
 public:
     Controller(int argc, char *argv[]);
 
-    //~Controller() override; TODO - clean mess
+    ~Controller() override; //TODO - clean mess
 
     int runGame(); // later - change name to start/begin
 
@@ -48,8 +48,8 @@ signals:
 private:
     Application app;
     QTimer *level_durance = nullptr;
-    Model *model_ = nullptr;
     Scene *scene_ = nullptr;
+    Model *model_ = nullptr;
     KeyPresser *key_presser_ = nullptr;
     StateMachine *state_machine_ = nullptr;
     Menu *menu_ = nullptr;

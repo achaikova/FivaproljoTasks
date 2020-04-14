@@ -40,6 +40,7 @@ add_executable(demo ${sources}
         include/Block.h
         include/Menu.h
         include/PlayerSelection.h
+        include/LevelStatistics.h
         include/MenuButton.h
         )
 target_link_libraries(demo Qt5::Widgets Qt5::Multimedia)

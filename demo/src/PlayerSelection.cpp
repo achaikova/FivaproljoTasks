@@ -1,6 +1,6 @@
 #include "PlayerSelection.h"
 
-PlayerSelection::PlayerSelection() : scene(new Scene) {}
+PlayerSelection::PlayerSelection(Scene *scene) : scene(scene) {}
 
 PlayerSelection::~PlayerSelection() {
     scene->~Scene();
@@ -18,7 +18,7 @@ void PlayerSelection::add_players(const std::vector<Player *> &new_players) {
 
 void PlayerSelection::run_player_selection() {
     init_window();
-    scene->show();
+    //scene->show();
 }
 
 void PlayerSelection::init_window() {
@@ -77,16 +77,28 @@ void PlayerSelection::set_images() {
 
 // clear everything in case number of players will change
 void PlayerSelection::clear_player_selection() {
-    player_textures.clear();
-    players.clear();
+    for (auto i: player_textures) {
+        i->hide();
+    }
+    character_selection->hide();
+    for (auto i: player_num) {
+        i->hide();
+    }
+    //players.clear();
     player_textures_index.clear();
-    buttons_player1.clear();
-    buttons_player2.clear();
-    buttons_player3.clear();
-    buttons_player4.clear();
-    num_of_players = 0;
-    num_of_ready = 0;
-    scene->hide();
+    for (auto i : buttons_player1) {
+        i->hide();
+    }
+    for (auto i : buttons_player2) {
+        i->hide();
+    }
+    for (auto i : buttons_player3) {
+        i->hide();
+    }
+    for (auto i : buttons_player4) {
+        i->hide();
+    }
+    //scene->hide();
 }
 
 void PlayerSelection::set_buttons() {

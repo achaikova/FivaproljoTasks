@@ -1,24 +1,24 @@
 #include <vector>
 #include <QApplication>
-#include <QKeyEvent>
-#include <QDebug>
-#include <QGraphicsScene>
 #include <QTimer>
 #include "Controller.h"
 
+/*
+ * Из контроллера осуществляется управление игровым процессом.
+ * Изначально запускается окно с выбором количества игроков (runGame). При выборе посылается сигнал StateMachine::set_num_of_players,
+ * после чего запускается окно с выбором скинов игроков Controller::set_num_of_players_for_lvl.
+ * Когда все игроки готовы, (PlayerSelection::start_level -> StateMachine::start_level ->
+ * StateMachine::set_level -> Controller::run_level) начинается уровень, который пока длится 10 секунд.
+ * По окончании level_durance выводится статистика по уровню : Controller::end_level.
+ * В появившемся окне статистики можно выбрать следующий режим игры.
+ */
+
 Controller::Controller(int argc, char *argv[])
-        : app(argc, argv), model_(new Model()), scene_(new Scene()), key_presser_(new KeyPresser()),
+        : app(argc, argv), scene_(new Scene()), model_(new Model(scene_)), key_presser_(new KeyPresser()),
           state_machine_(new StateMachine()),
           menu_(new Menu(scene_, state_machine_)),
-          key_presser_helper_(new KeyPresserHelper(key_presser_)), player_selection(new PlayerSelection()) {
-
-    /* key_presser_->add_menu(menu_);
-    state_machine_->set_function(this->get_run_level());
-    state_machine_->set_function(menu_helper_->get_run_menu());
-    state_machine_->set_activate(key_presser_helper_->get_activate());
-    state_machine_->set_deactivate(key_presser_helper_->get_deactivate());*/
-
-    key_presser_->setFixedSize(QSize(scene_->scene()->width(), scene_->scene()->height()));
+          key_presser_helper_(new KeyPresserHelper(key_presser_)), player_selection(new PlayerSelection(scene_)) {
+    key_presser_->setFixedSize(QSize(scene_->get_width(), scene_->get_height()));
     scene_->addWidget(key_presser_);
     connect(state_machine_, &StateMachine::set_num_of_players, this, &Controller::set_num_of_players_for_lvl);
     connect(state_machine_, &StateMachine::set_exit_game, this, &Controller::exit_game);
@@ -28,17 +28,29 @@ Controller::Controller(int argc, char *argv[])
 
 Controller::~Controller() {
     player_selection->~PlayerSelection();
-    //TODO KeyPresser dstrctor
     menu_->~Menu();
-    //TODO continue dtors
 }
 
-//different menus depending on state - right now only one
+/*
+ * Запускает стартововый экран с выбором количества персонажей; get_cur_state = MENU_NUM_OF_PLAYERS
+ */
 int Controller::runGame() {
     menu_->run_menu(state_machine_->get_cur_state());
     return app.exec();
 }
 
+/*
+ * Прячет предыдущее окно меню. Открывается новое окно с выбором текстур.
+ */
+void Controller::run_player_selection() {
+    menu_->clear_menu();
+    player_selection->add_players(players_);
+    player_selection->run_player_selection();
+}
+
+/*
+ * После кастомизации персонажей в модель уровня добавляются нужные текстуры и количество.
+ */
 void Controller::set_num_of_players_for_lvl(Utilities::GameMode mode) {
     switch (mode) {
         case Utilities::GameMode::SINGLE_PLAYER:
@@ -54,28 +66,33 @@ void Controller::set_num_of_players_for_lvl(Utilities::GameMode mode) {
     run_player_selection();
 }
 
-void Controller::run_player_selection() {
-    scene_->hide();
-
-    player_selection->add_players(players_);
-    player_selection->run_player_selection();
-}
-
-void Controller::end_level() { //TODO - show window without crashing
-    //level_durance->stop();
-    //model_->show_statistics();
-}
+/*
+ * Когда все игроки готовы, начинает уровень.
+ */
 
 void Controller::run_level() {
+    player_selection->clear_player_selection();
     menu_->clear_menu();
     model_->add_players(players_);
     model_->set_statistics();
-    model_->make_new_level(scene_);
+    model_->make_new_level();
     level_durance = new QTimer(this);
     connect(level_durance, SIGNAL(timeout()), this, SLOT(end_level()));
-    level_durance->start(1000);
+    connect(level_durance, SIGNAL(timeout()), model_, SLOT(stop_advance_scene()));
+    level_durance->start(7000);
 }
 
+/*
+ * По истечении времени останавливает таймер, останавливает игроков, выводит статистику.
+ */
+void Controller::end_level() {
+    level_durance->stop();
+    model_->show_statistics();
+}
+
+/*
+ * При выборе выхода из игры заканчивает процессы, выходит из приложения.
+ */
 void Controller::exit_game() {
     app.quit();
 }

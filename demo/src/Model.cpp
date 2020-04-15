@@ -3,7 +3,7 @@
 #include <QTimer>
 
 
-Model::Model(Scene *scene) : game_scene(scene) {
+Model::Model(Scene *scene, StateMachine *state_machine) : game_scene(scene), state_machine(state_machine) {
     game_just_ended = false;
     game_on = true;
     engine = new QTimer(this);
@@ -131,7 +131,7 @@ void Model::add_players(std::vector<Player *> &players) {
 }
 
 void Model::set_statistics() {
-    lvl_statistic = new LevelStatistics(players_, game_scene);
+    lvl_statistic = new LevelStatistics(players_, game_scene, state_machine);
 }
 
 void Model::show_statistics() {

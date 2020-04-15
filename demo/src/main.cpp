@@ -6,5 +6,5 @@
 
 int main(int argc, char *argv[]) {
     auto *ctrl = new Controller(argc, argv);
-    ctrl->runGame();
+    ctrl->run_game();
 }

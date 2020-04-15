@@ -1,24 +1,23 @@
 #include "PlayerSelection.h"
 
+/*
+ * Окно в котором можно выбрать текстуры для персонажа. Когда все игроки готовы, запускает уровень.
+ */
+
 PlayerSelection::PlayerSelection(Scene *scene) : scene(scene) {}
 
-PlayerSelection::~PlayerSelection() {
-    scene->~Scene();
-}
+PlayerSelection::~PlayerSelection() {}
 
+/*
+ * Receives amount of players from starting menu (Controller::runGame).
+ */
 void PlayerSelection::add_players(const std::vector<Player *> &new_players) {
     num_of_players = new_players.size();
     players = new_players;
 }
 
-/*
- * there will be slots for 4 players, if there are less actual players - other slots are empty
- * also TODO key press buttons (left,right) to choose skin
- */
-
 void PlayerSelection::run_player_selection() {
     init_window();
-    //scene->show();
 }
 
 void PlayerSelection::init_window() {
@@ -28,6 +27,10 @@ void PlayerSelection::init_window() {
     set_buttons();
 }
 
+/*
+ * Sets text in the window: for each present player -  "Player @num_of_player".
+ * Sets "EMPTY SLOT" for remaining players.
+ */
 void PlayerSelection::set_text() {
     character_selection = new QLabel();
     character_selection->setText("Character Selection");
@@ -65,6 +68,9 @@ void PlayerSelection::set_text() {
     }
 }
 
+/*
+ * Sets textures for players to choose their skin from.
+ */
 void PlayerSelection::set_images() {
     for (int i = 0; i < num_of_players; i++) {
         player_textures.push_back(new QGraphicsPixmapItem());
@@ -75,7 +81,9 @@ void PlayerSelection::set_images() {
     }
 }
 
-// clear everything in case number of players will change
+/*
+ * After all players are ready, hides the player selection window.
+ */
 void PlayerSelection::clear_player_selection() {
     for (auto i: player_textures) {
         i->hide();
@@ -98,9 +106,11 @@ void PlayerSelection::clear_player_selection() {
     for (auto i : buttons_player4) {
         i->hide();
     }
-    //scene->hide();
 }
 
+/*
+ * Sets buttons according to the amount of players.
+ */
 void PlayerSelection::set_buttons() {
     for (int i = 0; i < num_of_players; i++) {
         switch (i) {
@@ -120,6 +130,9 @@ void PlayerSelection::set_buttons() {
     }
 }
 
+/*
+ * Changes texture of selected player when button @Customize is clicked.
+ */
 void PlayerSelection::change_image(int player_number) {
     player_textures_index[player_number - 1] = (player_textures_index[player_number - 1] + 1) % available_skins.size();
     player_textures[player_number - 1]->setPixmap(
@@ -128,6 +141,10 @@ void PlayerSelection::change_image(int player_number) {
                     scaled(200, 200));
 }
 
+/*
+ * Increases the number of players that are ready, when one clicks @Ready button.
+ * When all players are ready, starts level.
+ */
 void PlayerSelection::increase_ready_num(int player_number) {
     if (++num_of_ready == num_of_players) {
         for (int i = 0; i < num_of_players; i++) {
@@ -162,7 +179,9 @@ void PlayerSelection::increase_ready_num(int player_number) {
         }
     }
 }
-
+/*
+ * Decreases the number of players that are ready, when @Back is clicked.
+ */
 void PlayerSelection::decrease_ready_num(int player_number) {
     --num_of_ready;
     switch (player_number) {
@@ -191,7 +210,12 @@ void PlayerSelection::decrease_ready_num(int player_number) {
     }
 }
 
-
+/*
+ * Sets buttons for one player:
+ * @Customize - change the current chosen texture of player
+ * @Ready - shows that player is ready to start the level
+ * @Back - after @Ready is clicked, if player changes mind, they can go back
+ */
 void PlayerSelection::set_buttons_player1() {
     customize_player1 = new QPushButton("Customize");
     customize_player1->setGeometry(QRect(QPoint(75, 460),

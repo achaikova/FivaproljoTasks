@@ -3,8 +3,10 @@
 
 //  LEVEL STATISTICS  //
 
-LevelStatistics::LevelStatistics(std::vector<Player *> &players, Scene *scene)
-        : players(players), player_statistic(std::vector<int>(players.size())), scene(scene),
+LevelStatistics::LevelStatistics(std::vector<Player *> &players, Scene *scene, StateMachine *state_machine)
+        : state_machine(state_machine), players(players),
+          player_statistic(std::vector<int>(players.size())),
+          scene(scene),
           blocks_amount(DEMO_BLOCKS_AMOUNT) {}
 
 // We dont have much players so it's fine not to optimize these two actions down here
@@ -65,9 +67,6 @@ void LevelStatistics::set_images() {
     for (int i = 0; i < player_statistic.size(); i++) {
         int height = 130.0 * ((double) player_statistic[i] / (double) total_amount);
         QGraphicsRectItem *item = new QGraphicsRectItem(80 + i * 200, 580 - height, 150, height);
-        qDebug() << player_statistic[i];
-        qDebug() << total_amount;
-        qDebug() << height;
         item->setBrush(QBrush(block_colors[players[i]->color]));
         item->setPen(QPen(pen_colors[players[i]->color], 3));
         winning_pos.push_back(item);
@@ -97,6 +96,7 @@ void LevelStatistics::set_buttons() {
     color_craze->setGeometry(QRect(QPoint(1000, 200),
                                    QSize(200, 50)));
     scene->add_button(color_craze);
+    connect(color_craze, &QPushButton::clicked, state_machine, &StateMachine::start_level);
 }
 
 void LevelStatistics::clear_statistics() {

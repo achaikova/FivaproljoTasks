@@ -14,15 +14,15 @@ Utilities::GameState StateMachine::get_prev_state() {
 void StateMachine::one_player_mode() {
     prev_state = current_state;
     current_state = Utilities::GameState::PLAYER_SELECTION;
-    current_mode = Utilities::GameMode::SINGLE_PLAYER;
-    emit set_num_of_players(Utilities::GameMode::SINGLE_PLAYER);
+    current_num = Utilities::GameNumOfPlayers::SINGLE_PLAYER;
+    emit set_num_of_players(Utilities::GameNumOfPlayers::SINGLE_PLAYER);
 }
 
 void StateMachine::two_players_mode() {
     prev_state = current_state;
     current_state = Utilities::GameState::PLAYER_SELECTION;
-    current_mode = Utilities::GameMode::TWO_PLAYERS;
-    emit set_num_of_players(Utilities::GameMode::TWO_PLAYERS);
+    current_num = Utilities::GameNumOfPlayers::TWO_PLAYERS;
+    emit set_num_of_players(Utilities::GameNumOfPlayers::TWO_PLAYERS);
 }
 
 void StateMachine::exit_game() {
@@ -33,9 +33,20 @@ void StateMachine::exit_game() {
 void StateMachine::start_level() {
     prev_state = current_state;
     current_state = Utilities::GameState::LEVEL_ON;
-    emit set_level();
+    mode = Utilities::GameMode::COLOR_CRAZE;
+    emit set_level(mode);
 }
 
+void StateMachine::end_level() {
+    prev_state = current_state;
+    current_state = Utilities::GameState::LEVEL_STATISTICS;
+    emit set_end_level();
+}
+
+
+void StateMachine::close_window() {
+    emit set_close_window(prev_state);
+}
 
 void StateMachine::menu_mode() {
     prev_state = current_state;

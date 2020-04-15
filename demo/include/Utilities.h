@@ -22,12 +22,17 @@ namespace Utilities {
         MENU_MODE,
         PLAYER_SELECTION,
         LEVEL_ON,
+        LEVEL_STATISTICS,
         EXIT
     };
 
-    enum class GameMode {
+    enum class GameNumOfPlayers {
         SINGLE_PLAYER,
         TWO_PLAYERS,
+    };
+
+    enum class GameMode{
+        COLOR_CRAZE // that's how this mode is originally called in move or die
     };
 
 } // end namespace Utilities

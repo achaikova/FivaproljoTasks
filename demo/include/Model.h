@@ -9,11 +9,12 @@
 #include "Player.h"
 #include <vector>
 #include "LevelStatistics.h"
+#include "StateMachine.h"
 
 class Model : public QObject {
 Q_OBJECT
 public:
-    Model(Scene *scene);
+    Model(Scene *scene, StateMachine *state_machine);
 
     void add_players(std::vector<Player *> &players);
 
@@ -39,6 +40,7 @@ private:
     bool game_on;
     bool game_just_ended;
     Scene *game_scene;
+    StateMachine *state_machine;
     std::vector<Player *> players_;
     QTimer *engine;
     LevelStatistics *lvl_statistic;

@@ -26,20 +26,29 @@ public slots:
 // will be called after choosing mode (choosing mode after player selection (perhaps(???) can be changed))
     void start_level();
 
+    void end_level();
+
+    void close_window();
+
     void exit_game();
 
 signals:
 
-    void set_num_of_players(Utilities::GameMode mode);
+    void set_num_of_players(Utilities::GameNumOfPlayers num);
 
-    void set_level();
+    void set_level(Utilities::GameMode mode);
 
     void set_menu_mode();
 
     void set_exit_game();
 
+    void set_end_level();
+
+    void set_close_window(Utilities::GameState state);
+
 private:
     Utilities::GameState current_state;
     Utilities::GameState prev_state;
-    Utilities::GameMode current_mode;
+    Utilities::GameNumOfPlayers current_num;
+    Utilities::GameMode mode;
 };

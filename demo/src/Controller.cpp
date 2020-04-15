@@ -14,8 +14,8 @@
  */
 
 Controller::Controller(int argc, char *argv[])
-        : app(argc, argv), scene_(new Scene()), model_(new Model(scene_)), key_presser_(new KeyPresser()),
-          state_machine_(new StateMachine()),
+        : app(argc, argv), scene_(new Scene()), key_presser_(new KeyPresser()),
+          state_machine_(new StateMachine()), model_(new Model(scene_, state_machine_)),
           menu_(new Menu(scene_, state_machine_)),
           key_presser_helper_(new KeyPresserHelper(key_presser_)), player_selection(new PlayerSelection(scene_)) {
     key_presser_->setFixedSize(QSize(scene_->get_width(), scene_->get_height()));
@@ -24,6 +24,7 @@ Controller::Controller(int argc, char *argv[])
     connect(state_machine_, &StateMachine::set_exit_game, this, &Controller::exit_game);
     connect(player_selection, &PlayerSelection::start_level, state_machine_, &StateMachine::start_level);
     connect(state_machine_, &StateMachine::set_level, this, &Controller::run_level);
+    connect(state_machine_, &StateMachine::set_end_level, this, &Controller::end_level);
 }
 
 Controller::~Controller() {
@@ -34,9 +35,27 @@ Controller::~Controller() {
 /*
  * Запускает стартововый экран с выбором количества персонажей; get_cur_state = MENU_NUM_OF_PLAYERS
  */
-int Controller::runGame() {
+int Controller::run_game() {
     menu_->run_menu(state_machine_->get_cur_state());
     return app.exec();
+}
+
+/*
+ * Добавляет нужное количество персонажей и запускает окно с выбором текстур для персонажей
+ */
+void Controller::set_num_of_players_for_lvl(Utilities::GameNumOfPlayers num) {
+    switch (num) {
+        case Utilities::GameNumOfPlayers::SINGLE_PLAYER:
+            players_.push_back(new Player(Utilities::Color::GREEN));
+            key_presser_->add_players(players_[0]);
+            break;
+        case Utilities::GameNumOfPlayers::TWO_PLAYERS:
+            players_.push_back(new Player(Utilities::Color::GREEN));
+            players_.push_back(new Player(Utilities::Color::YELLOW));
+            key_presser_->add_players(players_[0], players_[1]);
+            break;
+    }
+    run_player_selection();
 }
 
 /*
@@ -49,35 +68,16 @@ void Controller::run_player_selection() {
 }
 
 /*
- * После кастомизации персонажей в модель уровня добавляются нужные текстуры и количество.
- */
-void Controller::set_num_of_players_for_lvl(Utilities::GameMode mode) {
-    switch (mode) {
-        case Utilities::GameMode::SINGLE_PLAYER:
-            players_.push_back(new Player(Utilities::Color::GREEN));
-            key_presser_->add_players(players_[0]);
-            break;
-        case Utilities::GameMode::TWO_PLAYERS:
-            players_.push_back(new Player(Utilities::Color::GREEN));
-            players_.push_back(new Player(Utilities::Color::YELLOW));
-            key_presser_->add_players(players_[0], players_[1]);
-            break;
-    }
-    run_player_selection();
-}
-
-/*
  * Когда все игроки готовы, начинает уровень.
  */
-
-void Controller::run_level() {
+void Controller::run_level(Utilities::GameMode mode) {
     player_selection->clear_player_selection();
     menu_->clear_menu();
     model_->add_players(players_);
     model_->set_statistics();
     model_->make_new_level();
     level_durance = new QTimer(this);
-    connect(level_durance, SIGNAL(timeout()), this, SLOT(end_level()));
+    connect(level_durance, SIGNAL(timeout()), state_machine_, SLOT(end_level()));
     connect(level_durance, SIGNAL(timeout()), model_, SLOT(stop_advance_scene()));
     level_durance->start(7000);
 }

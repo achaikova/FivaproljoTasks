@@ -8,6 +8,7 @@
 #include <cmath>
 #include <unordered_map>
 #include "Block.h"
+#include "StateMachine.h"
 #include "Player.h"
 #include "Scene.h"
 
@@ -20,7 +21,7 @@ const size_t DEMO_BLOCKS_AMOUNT = 108; // at this point we have only one map
 class LevelStatistics : public QObject {
 Q_OBJECT
 public:
-    LevelStatistics(std::vector<Player *> &players, Scene *scene);
+    LevelStatistics(std::vector<Player *> &players, Scene *scene, StateMachine *state_machine);
 
     void change_block_color(Block *, Player *);
 
@@ -54,6 +55,7 @@ signals:
 
 private:
     Scene *scene;
+    StateMachine *state_machine;
     QLabel *next_game_text;
     QGraphicsRectItem *statistic_window;
     std::vector<QPushButton *> next_game_buttons;

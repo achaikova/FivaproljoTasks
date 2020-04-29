@@ -126,6 +126,7 @@ void Model::solve_collisions(Player *player) {
 void Model::add_players(std::vector<Player *> &players) {
     players_ = players;
     for (auto player : players_) {
+        qDebug() << game_scene->get_width() << game_scene->get_width() / 25;
         player->set_size(game_scene->get_width() / 25, game_scene->get_width() / 25 + 10);
     }
 }

@@ -30,7 +30,7 @@ void Scene::add_platform(int x, int y, int amount, const QString &image, int blo
 
 void Scene::add_players(const std::vector<Player *> &players) {
     for (auto player : players) {
-        player->setPos(50, height() - 50 - player->boundingRect().height());
+        player->setPos(50, scene->height() - 50 - player->boundingRect().height());
         player->previous_position = player->pos();
         scene->addItem(player);
     }
@@ -56,9 +56,10 @@ void Scene::remove_item(QGraphicsItem *item) {
     scene->removeItem(item);
 }
 
+//changes size of window
 void Scene::resizeEvent(QResizeEvent *event) {
     QGraphicsView::resizeEvent(event);
-    fitInView(this->sceneRect());
+    fitInView(this->sceneRect(), Qt::KeepAspectRatio);
 }
 
 void Scene::add_qgrectitem(QGraphicsRectItem *item) {

@@ -1,8 +1,9 @@
-#ifndef DEMO_SCENE_H
-#define DEMO_SCENE_H
+#pragma once
 
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QLabel>
+#include <QPushButton>
 #include <QAbstractAnimation>
 #include <QDebug>
 #include <QGraphicsView>
@@ -11,7 +12,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Background.h"
-//#include "Controller.h"
+#include "MenuButton.h"
 
 class KeyPresser;
 
@@ -19,18 +20,44 @@ class Scene : public QGraphicsView {
 public:
     Scene(QWidget *parent = 0);
 
-    void add_background(QString image);
+    ~Scene() override;
 
-    void add_platform(int x, int y, int amount, QString image);
+    void add_background(const QString &image);
 
-    void add_players(std::vector<Player*>players);
+    /* void View::resizeEvent(QResizeEvent *event) {
+         QGraphicsView::resizeEvent(event);
+         fitInView(this->sceneRect());
+     }*/
 
-    QGraphicsScene *game_scene;
+    void add_platform(int x, int y, int amount, const QString &image, int block_width);
+
+    void add_players(const std::vector<Player *> &players);
+
+    // void add_button(Button *button);
+
+    void add_pixmap(QGraphicsPixmapItem *item);
+
+    void add_button(QPushButton *button);
 
     void addWidget(KeyPresser *pPresser);
 
-private:
-    Background *background;
-};
+    void add_text(QLabel *text);
 
-#endif //DEMO_SCENE_H
+    void add_qgrectitem(QGraphicsRectItem *item);
+
+    void remove_item(QGraphicsItem *item);
+
+    int get_width() { return scene->width(); }
+
+    int get_height() { return scene->height(); }
+
+    //void add_item(QGraphicsItem *item);
+
+    void resizeEvent(QResizeEvent *event) override;
+
+
+    QGraphicsScene *scene;
+
+private:
+    Background *background = nullptr;
+};

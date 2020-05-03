@@ -17,13 +17,9 @@ public:
     const double starting_falling_speed = 2;
     double vert_speed = 0;
     double hor_speed = 2;
-    const double width = 50;
-    const double height = 60;
 
     Utilities::Direction direction = Utilities::Direction::UNKNOWN;
     Utilities::Direction p_direction = Utilities::Direction::RIGHT;
-
-    void check_floor();
 
     Utilities::Color color;
     int m_direction = 0;
@@ -31,11 +27,12 @@ public:
     Block *object_on_which_moving = nullptr;
     QString image;
 public:
-    Player();
 
-    Player(Utilities::Color player_color, QString player_image);
+    Player(Utilities::Color player_color);
 
     void start_jumping();
+
+    void set_player_skin(const QString &name_of_image);
 
     void stop_jumping();
 
@@ -43,10 +40,14 @@ public:
 
     void stop_falling();
 
-    void virtual solve_collisions();
+    void check_floor();
 
     void change_skin_direction();
 
     QRectF boundingRect() const override;
 
+    void set_size(int height, int width);
+
+private:
+    int height, width;
 };

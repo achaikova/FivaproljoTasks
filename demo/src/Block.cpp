@@ -1,13 +1,13 @@
 #include "Block.h"
 
-Block::Block(QPoint position, const QString &file_name) {
-    setPixmap(QPixmap(file_name).scaled(block_width, block_height));
+Block::Block(QPoint position, const QString &file_name, int block_size) : block_size(block_size) {
+    setPixmap(QPixmap(file_name).scaled(block_size, block_size));
     setPos(position);
 }
 
 
 QRectF Block::boundingRect() const {
-    return QRectF(0, 0, 50, 50);
+    return QRectF(0, 0, block_size, block_size);
 }
 
 void Block::change_color(Utilities::Color color) {
@@ -41,10 +41,10 @@ void Block::change_color(Utilities::Color color) {
 
 void Block::change_color_helper_() {
     if (next_texture_.empty()) {
-	delete recolor_timer_;
-	recolor_timer_ = nullptr;
+        delete recolor_timer_;
+        recolor_timer_ = nullptr;
     } else {
-	setPixmap(QPixmap(QPixmap(next_texture_.front().c_str())).scaled(block_width, block_height));
-	next_texture_.pop();
+        setPixmap(QPixmap(QPixmap(next_texture_.front().c_str())).scaled(block_size, block_size));
+        next_texture_.pop();
     }
 }

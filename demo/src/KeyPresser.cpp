@@ -54,7 +54,7 @@ void KeyPresser::add_players(Player *player1, Player *player2) {
     manipulators_.push_back(new PlayerManipulator(player1));
     if (player2) {
 	if (inetConnection_) {
-	    new InetPlayerManipulator(player2, inetConnection_);
+	    inetManipulators_.push_back(new InetPlayerManipulator(player2, inetConnection_));
 	} else {
 	    manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
 	}

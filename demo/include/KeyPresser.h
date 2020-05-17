@@ -104,6 +104,7 @@ private:
     };
     
     std::vector<Manipulator *> manipulators_;
+    std::vector<InetPlayerManipulator *> inetManipulators_;
     InternetConnection *&inetConnection_;
 };
 

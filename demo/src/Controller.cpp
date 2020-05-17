@@ -69,7 +69,7 @@ static int connect(Client *client) { // ждет ответного пакета
 	    return 0;
 	}
 	client->receive();
-        usleep(16);
+        usleep(160);
     }
     return client->id();
 }

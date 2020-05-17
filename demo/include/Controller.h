@@ -8,6 +8,8 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include <QGraphicsItem>
+#include <iostream>
+#include <unistd.h>
 #include "Utilities.h"
 #include "Player.h"
 #include "Scene.h"
@@ -17,6 +19,23 @@
 #include "StateMachine.h"
 #include "Application.h"
 #include "PlayerSelection.h"
+#include "Server.h"
+
+
+class ConnectionUpdater : public QObject {
+    Q_OBJECT;
+public:
+    ConnectionUpdater(Inet::InternetConnection *&ic);
+
+public slots:
+    void commit();
+    void advance();
+    
+private:
+    QTimer *timer = new QTimer(this);
+    Inet::InternetConnection *&inetConnection_;
+};
+
 
 class Controller : public QObject {
 Q_OBJECT
@@ -39,6 +58,8 @@ private slots:
 
     void run_level(Utilities::GameMode mode);
 
+    void set_inet_type();
+
 signals:
 
     void set_run_level();
@@ -51,9 +72,12 @@ private:
     StateMachine *state_machine_ = nullptr;
     Scene *scene_ = nullptr;
     Model *model_ = nullptr;
+    Inet::InternetConnection *internetConnection = nullptr;
     KeyPresser *key_presser_ = nullptr;
     Menu *menu_ = nullptr;
-    KeyPresserHelper *key_presser_helper_ = nullptr;
+    // KeyPresserHelper *key_presser_helper_ = nullptr;
     std::vector<Player *> players_;
     PlayerSelection *player_selection = nullptr;
+    ConnectionUpdater *connUpd_ = nullptr;
+    int localId = 0;
 };

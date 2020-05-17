@@ -31,8 +31,12 @@ namespace Utilities {
         TWO_PLAYERS,
     };
 
-    enum class GameMode{
+    enum class GameMode {
         COLOR_CRAZE // that's how this mode is originally called in move or die
+    };
+
+    enum class PacketType {
+        INIT
     };
 
 } // end namespace Utilities

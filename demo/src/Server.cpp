@@ -180,25 +180,28 @@ void Client::receive(int dataMaxSize) {
         if (packet[0] == 0) { // init
 	    // :(
         } else if (packet[0] == 1) { // pressed
-	    // TODO if (функция вообще есть)
-            if (packet[1] == 1) { // UP
-                InternetConnection::press(Utilities::Direction::UP);
-            } else if (packet[1] == 2) { // LEFT 
-                InternetConnection::press(Utilities::Direction::LEFT);
-            } else if (packet[1] == 3) { // DOWN 
-                InternetConnection::press(Utilities::Direction::DOWN);
-            } else if (packet[1] == 4) { // RIGHT 
-                InternetConnection::press(Utilities::Direction::RIGHT);
+	    if (InternetConnection::press) {
+                if (packet[1] == 1) { // UP
+                    InternetConnection::press(Utilities::Direction::UP);
+                } else if (packet[1] == 2) { // LEFT 
+                    InternetConnection::press(Utilities::Direction::LEFT);
+                } else if (packet[1] == 3) { // DOWN 
+                    InternetConnection::press(Utilities::Direction::DOWN);
+                } else if (packet[1] == 4) { // RIGHT 
+                    InternetConnection::press(Utilities::Direction::RIGHT);
+                }
 	    }
-	} else if (packet[0] == 2) { // released	    
-            if (packet[1] == 1) { // UP
-                InternetConnection::release(Utilities::Direction::UP);
-            } else if (packet[1] == 2) { // LEFT 
-                InternetConnection::release(Utilities::Direction::LEFT);
-            } else if (packet[1] == 3) { // DOWN 
-                InternetConnection::release(Utilities::Direction::DOWN);
-            } else if (packet[1] == 4) { // RIGHT 
-                InternetConnection::release(Utilities::Direction::RIGHT);
+	} else if (packet[0] == 2) { // released
+	    if (InternetConnection::release) {
+                if (packet[1] == 1) { // UP
+                    InternetConnection::release(Utilities::Direction::UP);
+                } else if (packet[1] == 2) { // LEFT 
+                    InternetConnection::release(Utilities::Direction::LEFT);
+                } else if (packet[1] == 3) { // DOWN 
+                    InternetConnection::release(Utilities::Direction::DOWN);
+                } else if (packet[1] == 4) { // RIGHT 
+                    InternetConnection::release(Utilities::Direction::RIGHT);
+	        }
 	    }
 	}
     } else {

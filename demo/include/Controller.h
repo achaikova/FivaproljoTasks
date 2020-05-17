@@ -25,7 +25,7 @@
 class ConnectionUpdater : public QObject {
     Q_OBJECT;
 public:
-    ConnectionUpdater(InternetConnection *&ic);
+    ConnectionUpdater(Inet::InternetConnection *&ic);
 
 public slots:
     void commit();
@@ -33,7 +33,7 @@ public slots:
     
 private:
     QTimer *timer = new QTimer(this);
-    InternetConnection *&inetConnection_;
+    Inet::InternetConnection *&inetConnection_;
 };
 
 
@@ -72,7 +72,7 @@ private:
     StateMachine *state_machine_ = nullptr;
     Scene *scene_ = nullptr;
     Model *model_ = nullptr;
-    InternetConnection *internetConnection = nullptr;
+    Inet::InternetConnection *internetConnection = nullptr;
     KeyPresser *key_presser_ = nullptr;
     Menu *menu_ = nullptr;
     // KeyPresserHelper *key_presser_helper_ = nullptr;

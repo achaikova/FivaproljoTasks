@@ -6,6 +6,8 @@
 #include <QTimer>
 #include "Controller.h"
 
+using namespace Inet;
+
 KeyPresser::KeyPresser(InternetConnection *& inetConnection)
     : inetConnection_(inetConnection) {
     setWindowOpacity(0.0);

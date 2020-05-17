@@ -1,6 +1,8 @@
 #include <cassert>
 #include "Server.h"
 
+namespace Inet {
+
 Address::Address(u8 a, u8 b, u8 c, u8 d, u16 port)
     : a(a)
     , b(b)
@@ -254,3 +256,5 @@ std::vector<char> Client::buildPacket(PacketType type) {
     }
     return packet;
 }
+
+} // end of namespace Inet

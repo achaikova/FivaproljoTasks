@@ -15,7 +15,7 @@
  * В появившемся окне статистики можно выбрать следующий режим игры.
  */
 
-ConnectionUpdater::ConnectionUpdater(InternetConnection *&ic) : inetConnection_(ic) {
+ConnectionUpdater::ConnectionUpdater(Inet::InternetConnection *&ic) : inetConnection_(ic) {
     std::cout << ic << std::endl;;
 }
 
@@ -62,7 +62,7 @@ Controller::~Controller() {
     menu_->~Menu();
 }
 
-static int connect(Client *client) { // ждет ответного пакета
+static int connect(Inet::Client *client) { // ждет ответного пакета
     int attempts = 100;
     while (!client->id()) {
         if (attempts-- == 0) {
@@ -79,15 +79,15 @@ void Controller::set_inet_type() {
     std::cout << "Enter \'server\' or \'client\' or \'offline\'" << std::endl;
     std::cin >> inetType;
     if (inetType == "server") {
-        internetConnection = new Server();
+        internetConnection = new Inet::Server();
     } else if (inetType == "client") {
-        internetConnection = new Client();
+        internetConnection = new Inet::Client();
         while (!localId) {
             std::cout << "Enter server port: ";
             unsigned short serverPort;
             std::cin >> serverPort;
             internetConnection->connect({127, 0, 0, 1, serverPort});
-            localId = ::connect(static_cast<Client *>(internetConnection));
+            localId = ::connect(static_cast<Inet::Client *>(internetConnection));
             if (!localId) {
                 std::cout << "Could not connect. ";
             }

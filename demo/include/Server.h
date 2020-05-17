@@ -15,9 +15,9 @@
 
 #include "Utilities.h"
 
+namespace Inet {
 
-#define PACKET_SIZE 256
-// TODO consexpr
+constexpr int PACKET_SIZE = 256;
 
 using namespace Utilities;
 
@@ -92,3 +92,5 @@ private:
     Socket socket_;
     Address server_;
 };
+
+} // end of namespace Inet

@@ -15,7 +15,7 @@
 
 class KeyPresser : public QWidget {
 public:
-    explicit KeyPresser(InternetConnection *&inetConnection);
+    explicit KeyPresser(Inet::InternetConnection *&inetConnection);
     void add_players(Player *player1, Player *player2 = nullptr);
     void remove_players();
     void add_menu(Menu *menu);
@@ -90,7 +90,7 @@ private:
     class InetPlayerManipulator {
     public:
         InetPlayerManipulator() = delete;
-        InetPlayerManipulator(Player *player, InternetConnection *inetConnection);
+        InetPlayerManipulator(Player *player, Inet::InternetConnection *inetConnection);
         void press(Utilities::Direction dir);
         void release(Utilities::Direction dir);
         
@@ -100,12 +100,12 @@ private:
         Key DOWN{Utilities::Direction::DOWN};
         Key RIGHT{Utilities::Direction::RIGHT};
         Player *player_;
-        InternetConnection *inetConnection_;
+        Inet::InternetConnection *inetConnection_;
     };
     
     std::vector<Manipulator *> manipulators_;
     std::vector<InetPlayerManipulator *> inetManipulators_;
-    InternetConnection *&inetConnection_;
+    Inet::InternetConnection *&inetConnection_;
 };
 
 class KeyPresserHelper {

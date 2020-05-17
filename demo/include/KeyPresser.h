@@ -38,27 +38,27 @@ private:
         void release();
         
     private:
-	Utilities::Direction dir_{};
+        Utilities::Direction dir_{};
         Qt::Key qt_name_{};
         bool is_pressed_ = false;
     };
     
     class Manipulator {
     public:
-	Manipulator(Manipulator&) = delete;
-	Manipulator &operator=(Manipulator&) = delete;
-	virtual ~Manipulator();
-	bool active() const;
-	void activate();
-	void deactivate();
-	virtual void press(Qt::Key) = 0;
-	virtual void release(Qt::Key) = 0;
-	KeyPresserUtility::ManipulatorType type() const;
-	
+        Manipulator(Manipulator&) = delete;
+        Manipulator &operator=(Manipulator&) = delete;
+        virtual ~Manipulator();
+        bool active() const;
+        void activate();
+        void deactivate();
+        virtual void press(Qt::Key) = 0;
+        virtual void release(Qt::Key) = 0;
+        KeyPresserUtility::ManipulatorType type() const;
+        
     protected:
-	Manipulator(bool is_active, KeyPresserUtility::ManipulatorType manip_type);
-	bool is_active_;
-	KeyPresserUtility::ManipulatorType manip_type_;
+        Manipulator(bool is_active, KeyPresserUtility::ManipulatorType manip_type);
+        bool is_active_;
+        KeyPresserUtility::ManipulatorType manip_type_;
     };
 
     /* class MenuManipulator : public Manipulator {
@@ -75,32 +75,32 @@ private:
     
     class PlayerManipulator : public Manipulator {
     public:
-	PlayerManipulator() = delete;
-	PlayerManipulator(Player *player, Qt::Key up_key = Qt::Key_W, Qt::Key left_key = Qt::Key_A,
-			  Qt::Key down_key = Qt::Key_S, Qt::Key right_key = Qt::Key_D); // порядок - W A S D.
-	~PlayerManipulator() override;
-	void press(Qt::Key k) override;
-	void release(Qt::Key k) override;
-	
+        PlayerManipulator() = delete;
+        PlayerManipulator(Player *player, Qt::Key up_key = Qt::Key_W, Qt::Key left_key = Qt::Key_A,
+                          Qt::Key down_key = Qt::Key_S, Qt::Key right_key = Qt::Key_D); // порядок - W A S D.
+        ~PlayerManipulator() override;
+        void press(Qt::Key k) override;
+        void release(Qt::Key k) override;
+        
     protected:
-	Key UP, LEFT, DOWN, RIGHT;
-	Player *player_;
+        Key UP, LEFT, DOWN, RIGHT;
+        Player *player_;
     };
 
     class InetPlayerManipulator {
     public:
-	InetPlayerManipulator() = delete;
-	InetPlayerManipulator(Player *player, InternetConnection *inetConnection);
-	void press(Utilities::Direction dir);
-	void release(Utilities::Direction dir);
-	
+        InetPlayerManipulator() = delete;
+        InetPlayerManipulator(Player *player, InternetConnection *inetConnection);
+        void press(Utilities::Direction dir);
+        void release(Utilities::Direction dir);
+        
     private:
-	Key UP{Utilities::Direction::UP};
-	Key LEFT{Utilities::Direction::LEFT};
-	Key DOWN{Utilities::Direction::DOWN};
-	Key RIGHT{Utilities::Direction::RIGHT};
-	Player *player_;
-	InternetConnection *inetConnection_;
+        Key UP{Utilities::Direction::UP};
+        Key LEFT{Utilities::Direction::LEFT};
+        Key DOWN{Utilities::Direction::DOWN};
+        Key RIGHT{Utilities::Direction::RIGHT};
+        Player *player_;
+        InternetConnection *inetConnection_;
     };
     
     std::vector<Manipulator *> manipulators_;

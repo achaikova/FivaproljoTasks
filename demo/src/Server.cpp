@@ -39,7 +39,7 @@ Socket::Socket(u16 port)
     sockAddress.sin_addr.s_addr = INADDR_ANY;
     sockAddress.sin_port = htons(static_cast<u16>(port_));
 
-    int res = bind(sock_, reinterpret_cast<sockaddr *>(&sockAddress), sizeof(sockAddress)); // TODO reinterpret
+    int res = bind(sock_, reinterpret_cast<sockaddr *>(&sockAddress), sizeof(sockAddress));
     assert(res >= 0);
     
     res = fcntl(sock_, F_SETFL, O_NONBLOCK, 1);
@@ -125,7 +125,7 @@ void Server::connect(const Address& addr) {
  * * * | 2 | - отпущена кнопка "Влево"
  * * * | 3 | - отпущена кнопка "Вниз"
  * * * | 4 | - отпущена кнопка "Вправо
- * | 3 | - id игрока, пока все id считаются равными 1, ибо пока пилю под 2 игрока // TODO сдвинуть все, чтобы это было 1
+ * | 3 | - id игрока, пока все id считаются равными 1, ибо пока пилю под 2 игрока // хотя лучше определять это у себя по порту
  * Впилить сюда меню
  */
 
@@ -134,12 +134,12 @@ bool Server::receive(int dataMaxSize) { // TODO получив, разослат
     Address sender;
     if (socket_.receive(sender, packet)) {
         if (packet[0] == 0) { // init
-	    u16 port{};
-	    port += static_cast<u8>(packet[1]);
-	    port += static_cast<u16>(packet[2]) << 8;
-	    connect({ 127, 0, 0, 1, port });
+            u16 port{};
+            port += static_cast<u8>(packet[1]);
+            port += static_cast<u16>(packet[2]) << 8;
+            connect({ 127, 0, 0, 1, port });
         } else if (packet[0] == 1) { // pressed
-	    if (InternetConnection::press) {
+            if (InternetConnection::press) {
                 if (packet[1] == 1) { // UP
                     InternetConnection::press(Utilities::Direction::UP);
                 } else if (packet[1] == 2) { // LEFT 
@@ -149,9 +149,9 @@ bool Server::receive(int dataMaxSize) { // TODO получив, разослат
                 } else if (packet[1] == 4) { // RIGHT 
                     InternetConnection::press(Utilities::Direction::RIGHT);
                 }
-	    }
-        } else if (packet[0] == 2) { // released	    
-	    if (InternetConnection::release) {
+            }
+        } else if (packet[0] == 2) { // released            
+            if (InternetConnection::release) {
                 if (packet[1] == 1) { // UP
                     InternetConnection::release(Utilities::Direction::UP);
                 } else if (packet[1] == 2) { // LEFT 
@@ -161,29 +161,29 @@ bool Server::receive(int dataMaxSize) { // TODO получив, разослат
                 } else if (packet[1] == 4) { // RIGHT 
                     InternetConnection::release(Utilities::Direction::RIGHT);
                 }
-	    }
-	}
-	return true;
+            }
+        }
+        return true;
     } else {
-	return false;
+        return false;
     }
 }
 
 std::vector<char> Server::buildPacket(PacketType type, int id) {
     std::vector<char> packet(PACKET_SIZE, 0);
     if (type == PacketType::INIT) {
-	packet[0] = 0;
-	packet[1] = id;
+        packet[0] = 0;
+        packet[1] = id;
     } else {
-	assert(false);
+        assert(false);
     }
     return packet;
 }
 
 void Server::send(const char *data, int dataSize) {
     for (auto& addr : connections_) {
-	socket_.send(addr, data, dataSize);
-	// войти в стиль соколова и поставить тонну ассертов
+        socket_.send(addr, data, dataSize);
+        // войти в стиль соколова и поставить тонну ассертов
     }
 }
 
@@ -209,9 +209,9 @@ bool Client::receive(int dataMaxSize) {
     Address sender;
     if (socket_.receive(sender, packet)) {
         if (packet[0] == 0) { // init
-	    id_ = packet[1];
+            id_ = packet[1];
         } else if (packet[0] == 1) { // pressed
-	    if (InternetConnection::press) {
+            if (InternetConnection::press) {
                 if (packet[1] == 1) { // UP
                     InternetConnection::press(Utilities::Direction::UP);
                 } else if (packet[1] == 2) { // LEFT 
@@ -221,9 +221,9 @@ bool Client::receive(int dataMaxSize) {
                 } else if (packet[1] == 4) { // RIGHT 
                     InternetConnection::press(Utilities::Direction::RIGHT);
                 }
-	    }
-	} else if (packet[0] == 2) { // released
-	    if (InternetConnection::release) {
+            }
+        } else if (packet[0] == 2) { // released
+            if (InternetConnection::release) {
                 if (packet[1] == 1) { // UP
                     InternetConnection::release(Utilities::Direction::UP);
                 } else if (packet[1] == 2) { // LEFT 
@@ -232,10 +232,10 @@ bool Client::receive(int dataMaxSize) {
                     InternetConnection::release(Utilities::Direction::DOWN);
                 } else if (packet[1] == 4) { // RIGHT 
                     InternetConnection::release(Utilities::Direction::RIGHT);
-	        }
-	    }
-	}
-	return true;
+                }
+            }
+        }
+        return true;
     } else {
         return false;
     }
@@ -248,9 +248,9 @@ void Client::send(const char *data, int dataSize) {
 std::vector<char> Client::buildPacket(PacketType type) {
     std::vector<char> packet(PACKET_SIZE, 0);
     if (type == PacketType::INIT) {
-	packet[0] = 0;
-	packet[1] = socket_.port() % 256;
-	packet[2] = (socket_.port() >> 8);
+        packet[0] = 0;
+        packet[1] = socket_.port() % 256;
+        packet[2] = (socket_.port() >> 8);
     }
     return packet;
 }

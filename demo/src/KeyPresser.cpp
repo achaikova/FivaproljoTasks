@@ -53,37 +53,37 @@ void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
 void KeyPresser::add_players(Player *player1, Player *player2) {
     manipulators_.push_back(new PlayerManipulator(player1));
     if (player2) {
-	if (inetConnection_) {
-	    inetManipulators_.push_back(new InetPlayerManipulator(player2, inetConnection_));
-	} else {
-	    manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
-	}
+        if (inetConnection_) {
+            inetManipulators_.push_back(new InetPlayerManipulator(player2, inetConnection_));
+        } else {
+            manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
+        }
     }
 }
 
 void KeyPresser::remove_players() {
     for (size_t i = 0; i < manipulators_.size(); i++) {
-	if (manipulators_[i]->type() == KeyPresserUtility::ManipulatorType::PLAYER) {
-	    delete manipulators_[i];
-	    std::swap(manipulators_[i], manipulators_[manipulators_.size() - 1]);
-	    manipulators_.pop_back();
-	}
+        if (manipulators_[i]->type() == KeyPresserUtility::ManipulatorType::PLAYER) {
+            delete manipulators_[i];
+            std::swap(manipulators_[i], manipulators_[manipulators_.size() - 1]);
+            manipulators_.pop_back();
+        }
     }
 }
 
 void KeyPresser::activate(KeyPresserUtility::ManipulatorType type) {
     for (auto manip : manipulators_) {
-	if (manip->type() == type) {
-	    manip->activate();
-	}
+        if (manip->type() == type) {
+            manip->activate();
+        }
     }
 }
 
 void KeyPresser::deactivate(KeyPresserUtility::ManipulatorType type) {
     for (auto manip : manipulators_) {
-	if (manip->type() == type) {
-	    manip->deactivate();
-	}
+        if (manip->type() == type) {
+            manip->deactivate();
+        }
     }
 }
 

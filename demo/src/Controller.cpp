@@ -65,10 +65,10 @@ Controller::~Controller() {
 static int connect(Client *client) { // ждет ответного пакета
     int attempts = 100;
     while (!client->id()) {
-	if (attempts-- == 0) {
-	    return 0;
-	}
-	client->receive();
+        if (attempts-- == 0) {
+            return 0;
+        }
+        client->receive();
         usleep(160);
     }
     return client->id();
@@ -79,24 +79,24 @@ void Controller::set_inet_type() {
     std::cout << "Enter \'server\' or \'client\' or \'offline\'" << std::endl;
     std::cin >> inetType;
     if (inetType == "server") {
-	internetConnection = new Server();
+        internetConnection = new Server();
     } else if (inetType == "client") {
-	internetConnection = new Client();
-	while (!localId) {
-	    std::cout << "Enter server port: ";
-	    unsigned short serverPort;
-	    std::cin >> serverPort;
-	    internetConnection->connect({127, 0, 0, 1, serverPort});
-	    localId = ::connect(static_cast<Client *>(internetConnection));
-	    if (!localId) {
-		std::cout << "Could not connect. ";
-	    }
-	}
+        internetConnection = new Client();
+        while (!localId) {
+            std::cout << "Enter server port: ";
+            unsigned short serverPort;
+            std::cin >> serverPort;
+            internetConnection->connect({127, 0, 0, 1, serverPort});
+            localId = ::connect(static_cast<Client *>(internetConnection));
+            if (!localId) {
+                std::cout << "Could not connect. ";
+            }
+        }
     } else if (inetType == "offline") {
-	// nu, bivaet, delat' niche ne nado
+        // nu, bivaet, delat' niche ne nado
     } else {
-	std::cout << "Are you stupid? it's not server or client or offline, asshole" << std::endl;
-	assert(false);
+        std::cout << "Are you stupid? it's not server or client or offline, asshole" << std::endl;
+        assert(false);
     }
 }
 
@@ -120,7 +120,7 @@ void Controller::set_num_of_players_for_lvl(Utilities::GameNumOfPlayers num) {
         case Utilities::GameNumOfPlayers::TWO_PLAYERS:
             players_.push_back(new Player(Utilities::Color::GREEN));
             players_.push_back(new Player(Utilities::Color::YELLOW));
-	    key_presser_->add_players(players_[localId], players_[1 - localId]); // потом тупо случаи как-то разбирать
+            key_presser_->add_players(players_[localId], players_[1 - localId]); // потом тупо случаи как-то разбирать
             break;
     }
     run_player_selection();

@@ -26,7 +26,7 @@ class ConnectionUpdater : public QObject {
     Q_OBJECT;
 public:
     ConnectionUpdater(InternetConnection *&ic);
-					     
+
 public slots:
     void commit();
     void advance();

@@ -36,7 +36,7 @@ namespace Utilities {
     };
 
     enum class PacketType {
-	INIT
+        INIT
     };
 
 } // end namespace Utilities

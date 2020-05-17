@@ -94,7 +94,7 @@ void PlayerSelection::clear_player_selection() {
     }
     //players.clear();
     player_textures_index.clear();
-    for (int i = 0; i < 4; i++) { 
+    for (int i = 0; i < MAX_NUM_OF_PLAYERS; i++) { 
 	for (auto button : buttons_player[i]) {
 	    button->hide();
 	}

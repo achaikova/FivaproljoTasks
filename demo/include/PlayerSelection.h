@@ -40,14 +40,15 @@ signals:
 private:
     Scene *scene;
     bool initialized = false;
+    static constexpr int MAX_NUM_OF_PLAYERS = 4;
 
     QLabel *character_selection;
     std::vector<QLabel *> player_num;
 
-    std::vector<QPushButton *> buttons_player[4];
-    QPushButton *customize_player[4];
-    QPushButton *ready_player[4];
-    QPushButton *back_player[4];
+    std::vector<QPushButton *> buttons_player[MAX_NUM_OF_PLAYERS];
+    QPushButton *customize_player[MAX_NUM_OF_PLAYERS];
+    QPushButton *ready_player[MAX_NUM_OF_PLAYERS];
+    QPushButton *back_player[MAX_NUM_OF_PLAYERS];
 
     std::vector<QString> available_skins{"images/demo_player.png", "images/demo_player_2.png"};
     std::vector<QGraphicsPixmapItem *> player_textures;
@@ -55,5 +56,4 @@ private:
     int num_of_players = 0;
     int num_of_ready = 0;
     std::vector<Player *> players;
-    const int MAX_NUM_OF_PLAYERS = 4;
 };

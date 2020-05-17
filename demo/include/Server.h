@@ -19,13 +19,16 @@
 #define PACKET_SIZE 256
 // TODO consexpr
 
+using namespace Utilities;
+
 using u32 = unsigned int;
 using u16 = unsigned short;
 using u8 = unsigned char;
 
 struct Address {
     Address() = default;
-    Address(u32 a, u32 b, u32 c, u32 d, u16 port);
+    Address& operator=(const Address &) = default;
+    Address(u8 a, u8 b, u8 c, u8 d, u16 port);
     Address(u32 ip, u16 port);
     u32 a, b, c, d;
     u16 port_;
@@ -36,6 +39,7 @@ struct Address {
 class Socket {
 public:
     Socket(u16 port);
+    u16 port() const;
     // ~Socket(); // TODO
     bool send(const Address &dest, const char *data, int dataSize = PACKET_SIZE);
     bool receive(Address &sender, char *data, int maxDataSize = PACKET_SIZE);
@@ -45,14 +49,15 @@ private:
     u16 port_;
 };
 
-class InternetConnection { // TODO move socket here and functions
+class InternetConnection {
 public:
-    virtual int connect(const Address &) = 0;
-    virtual void receive(int dataMaxSize = PACKET_SIZE) = 0;
+    virtual void connect(const Address &) = 0;
+    virtual bool receive(int dataMaxSize = PACKET_SIZE) = 0;
     virtual void send(const char *data, int dataSize = PACKET_SIZE) = 0;
     void setPress(const std::function<void(Utilities::Direction)>& f);
     void setRelease(const std::function<void(Utilities::Direction)>& f);
     static std::vector<char> buildPacket(bool isPressed, Utilities::Direction dir);
+    virtual std::vector<char> buildPacket(PacketType type) = 0;
 
 protected:
     std::function<void(Utilities::Direction)> press;
@@ -62,9 +67,11 @@ protected:
 class Server : public InternetConnection {
 public:
     explicit Server(u16 port = 5051); // 5051 - порт сервера
-    int connect(const Address &addr) override; // returns id
-    void receive(int dataMaxSize = PACKET_SIZE) override; // хэндлим прям там
+    void connect(const Address &addr) override;
+    bool receive(int dataMaxSize = PACKET_SIZE) override; // хэндлим прям там
     void send(const char *data, int dataSize = PACKET_SIZE) override;
+    std::vector<char> buildPacket(PacketType type) override;
+    std::vector<char> buildPacket(PacketType type, int id);
 
 private:
     Socket socket_;
@@ -73,12 +80,15 @@ private:
 
 class Client : public InternetConnection {
 public:
-    Client(u16 serverPort = 5051, u16 myPort = 5052);
-    int connect(const Address &addr) override;
-    void receive(int dataMaxSize = PACKET_SIZE) override;
+    Client(u16 myPort = 5052);
+    int id() const;
+    void connect(const Address &addr) override;
+    bool receive(int dataMaxSize = PACKET_SIZE) override;
     void send(const char *data, int dataSize = PACKET_SIZE) override;
+    std::vector<char> buildPacket(PacketType type) override;
 
 private:
+    int id_ = 0; // zero means not connected
     Socket socket_;
     Address server_;
 };

@@ -1,7 +1,7 @@
 #include <cassert>
 #include "Server.h"
 
-Address::Address(u32 a, u32 b, u32 c, u32 d, u16 port)
+Address::Address(u8 a, u8 b, u8 c, u8 d, u16 port)
     : a(a)
     , b(b)
     , c(c)
@@ -39,11 +39,15 @@ Socket::Socket(u16 port)
     sockAddress.sin_addr.s_addr = INADDR_ANY;
     sockAddress.sin_port = htons(static_cast<u16>(port_));
 
-    int res = bind(sock_, (sockaddr *)&sockAddress, sizeof(sockAddress)); // TODO reinterpret
+    int res = bind(sock_, reinterpret_cast<sockaddr *>(&sockAddress), sizeof(sockAddress)); // TODO reinterpret
     assert(res >= 0);
     
     res = fcntl(sock_, F_SETFL, O_NONBLOCK, 1);
     assert(res != -1);
+}
+
+u16 Socket::port() const {
+    return port_;
 }
 
 bool Socket::send(const Address &dest, const char *data, int dataSize) {
@@ -64,19 +68,40 @@ bool Socket::receive(Address& sender, char *data, int maxDataSize) {
 }
 
 void InternetConnection::setPress(const std::function<void(Utilities::Direction)>& f) {
-    press = f;
+    press = f; // to pay respect
 }
 
 void InternetConnection::setRelease(const std::function<void(Utilities::Direction)>& f) {
     release = f;
 }
 
+std::vector<char> InternetConnection::buildPacket(bool isPressed, Utilities::Direction dir) { //!pressed=rlsed TODO enum
+    std::vector<char> packet(PACKET_SIZE, 0);
+    if (isPressed) {
+        packet[0] = 1;
+    } else {
+        packet[0] = 2;
+    }
+    if (dir == Utilities::Direction::UP) {
+        packet[1] = 1;
+    } else 
+    if (dir == Utilities::Direction::LEFT) {
+        packet[1] = 2;
+    } else 
+    if (dir == Utilities::Direction::DOWN) {
+        packet[1] = 3;
+    } else 
+    if (dir == Utilities::Direction::RIGHT) {
+        packet[1] = 4;
+    }
+    return packet;
+}
+
 Server::Server(u16 port) : socket_(port) {}
 
-int Server::connect(const Address& addr) {
+void Server::connect(const Address& addr) {
     connections_.push_back(addr);
-    // видимо какую-то начальную посылку
-    return connections_.size() - 1;
+    socket_.send(addr, buildPacket(PacketType::INIT, connections_.size()).data());
 }
 
 /*
@@ -84,7 +109,8 @@ int Server::connect(const Address& addr) {
  * В будущем планируется, что тут будет проверка того, что все пакеты дошли, но это потом
  * По глубинам байт:
  *   0 | 1 | 2...
- * | 0 | - начальный коммит, его пока нет
+ * | 0 | - начальный коммит
+ * * * | 1 + 2 | - порт, little endian беззнаковое 16-битное число
  * | 1 | - кнопка нажата
  * * * | 1 | - нажата кнопка "Вверх"
  * * * | 2 | - нажата кнопка "Влево"
@@ -99,12 +125,15 @@ int Server::connect(const Address& addr) {
  * Впилить сюда меню
  */
 
-void Server::receive(int dataMaxSize) { // TODO получив, разослать всем, но пока 2 игрока - не нужно
+bool Server::receive(int dataMaxSize) { // TODO получив, разослать всем, но пока 2 игрока - не нужно
     char packet[dataMaxSize];
     Address sender;
     if (socket_.receive(sender, packet)) {
         if (packet[0] == 0) { // init
-	    // :(
+	    u16 port{};
+	    port += static_cast<u8>(packet[1]);
+	    port += static_cast<u16>(packet[2]) << 8;
+	    connect({ 127, 0, 0, 1, port });
         } else if (packet[0] == 1) { // pressed
 	    if (InternetConnection::press) {
                 if (packet[1] == 1) { // UP
@@ -130,29 +159,19 @@ void Server::receive(int dataMaxSize) { // TODO получив, разослат
                 }
 	    }
 	}
+	return true;
     } else {
-        // ну, по факту тут ниче делать не надо будет
+	return false;
     }
 }
 
-std::vector<char> InternetConnection::buildPacket(bool isPressed, Utilities::Direction dir) { //!pressed=rlsed TODO enum
-    std::vector<char> packet(256, 0);
-    if (isPressed) {
-        packet[0] = 1;
+std::vector<char> Server::buildPacket(PacketType type, int id) {
+    std::vector<char> packet(PACKET_SIZE, 0);
+    if (type == PacketType::INIT) {
+	packet[0] = 0;
+	packet[1] = id;
     } else {
-        packet[0] = 2;
-    }
-    if (dir == Utilities::Direction::UP) {
-        packet[1] = 1;
-    } else 
-    if (dir == Utilities::Direction::LEFT) {
-        packet[1] = 2;
-    } else 
-    if (dir == Utilities::Direction::DOWN) {
-        packet[1] = 3;
-    } else 
-    if (dir == Utilities::Direction::RIGHT) {
-        packet[1] = 4;
+	assert(false);
     }
     return packet;
 }
@@ -164,21 +183,29 @@ void Server::send(const char *data, int dataSize) {
     }
 }
 
-Client::Client(u16 serverPort, u16 myPort)
-    : socket_(myPort)
-    , server_(127, 0, 0, 1, serverPort)
-{}
-
-int Client::connect(const Address &addr) {
-    assert(false);
+std::vector<char> Server::buildPacket(PacketType type) {
+    return {};
 }
 
-void Client::receive(int dataMaxSize) {
+Client::Client(u16 myPort)
+    : socket_(myPort)
+{}
+
+int Client::id() const {
+    return id_;
+}
+
+void Client::connect(const Address &addr) {
+    server_ = addr;
+    send(buildPacket(PacketType::INIT).data());    
+}
+
+bool Client::receive(int dataMaxSize) {
     char packet[dataMaxSize];
     Address sender;
     if (socket_.receive(sender, packet)) {
         if (packet[0] == 0) { // init
-	    // :(
+	    id_ = packet[1];
         } else if (packet[0] == 1) { // pressed
 	    if (InternetConnection::press) {
                 if (packet[1] == 1) { // UP
@@ -204,11 +231,22 @@ void Client::receive(int dataMaxSize) {
 	        }
 	    }
 	}
+	return true;
     } else {
-        // ну, по факту тут ниче делать не надо будет
+        return false;
     }
 }
 
 void Client::send(const char *data, int dataSize) {
     socket_.send(server_, data, dataSize);
+}
+
+std::vector<char> Client::buildPacket(PacketType type) {
+    std::vector<char> packet(PACKET_SIZE, 0);
+    if (type == PacketType::INIT) {
+	packet[0] = 0;
+	packet[1] = socket_.port() % 256;
+	packet[2] = (socket_.port() >> 8);
+    }
+    return packet;
 }

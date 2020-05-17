@@ -62,22 +62,41 @@ Controller::~Controller() {
     menu_->~Menu();
 }
 
+static int connect(Client *client) { // ждет ответного пакета
+    int attempts = 100;
+    while (!client->id()) {
+	if (attempts-- == 0) {
+	    return 0;
+	}
+	client->receive();
+        usleep(16);
+    }
+    return client->id();
+}
+
 void Controller::set_inet_type() {
     std::string inetType;
-    std::cout << "server or client" << std::endl;
+    std::cout << "Enter \'server\' or \'client\' or \'offline\'" << std::endl;
     std::cin >> inetType;
     if (inetType == "server") {
 	internetConnection = new Server();
-	std::cout << "user port:\n";
-        unsigned short userPort;
-	std::cin >> userPort;
-	internetConnection->connect({127, 0, 0, 1, userPort});
     } else if (inetType == "client") {
 	internetConnection = new Client();
-	localId = 1;
-	// потом сервер определяет наш номер начальной посылкой, пока сервер 0, клиент 1.
+	while (!localId) {
+	    std::cout << "Enter server port: ";
+	    unsigned short serverPort;
+	    std::cin >> serverPort;
+	    internetConnection->connect({127, 0, 0, 1, serverPort});
+	    localId = ::connect(static_cast<Client *>(internetConnection));
+	    if (!localId) {
+		std::cout << "Could not connect. ";
+	    }
+	}
+    } else if (inetType == "offline") {
+	// nu, bivaet, delat' niche ne nado
     } else {
-	std::cout << "Are you stupid? it's not server or client, asshole" << std::endl;
+	std::cout << "Are you stupid? it's not server or client or offline, asshole" << std::endl;
+	assert(false);
     }
 }
 

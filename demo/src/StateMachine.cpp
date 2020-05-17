@@ -22,6 +22,8 @@ void StateMachine::two_players_mode() {
     prev_state = current_state;
     current_state = Utilities::GameState::PLAYER_SELECTION;
     current_num = Utilities::GameNumOfPlayers::TWO_PLAYERS;
+    emit set_inet_type();
+    emit begin_connection_upd();
     emit set_num_of_players(Utilities::GameNumOfPlayers::TWO_PLAYERS);
 }
 

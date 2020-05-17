@@ -6,67 +6,101 @@
 #include <QTimer>
 #include "Controller.h"
 
-KeyPresser::KeyPresser(QWidget *parent) {
+KeyPresser::KeyPresser(InternetConnection *& inetConnection)
+    : inetConnection_(inetConnection) {
     setWindowOpacity(0.0);
     setFocus();
 }
 
 void KeyPresser::keyPressEvent(QKeyEvent *event) {
     for (auto manip : manipulators_) {
-    if (manip->active()) {
+        if (manip->active()) {
             manip->press(static_cast<Qt::Key>(event->key()));
+        }
     }
+    if (inetConnection_) {
+        if (static_cast<Qt::Key>(event->key()) == Qt::Key_W) {
+            inetConnection_->send(InternetConnection::buildPacket(true, Utilities::Direction::UP).data());
+        } else if (static_cast<Qt::Key>(event->key()) == Qt::Key_A) {
+            inetConnection_->send(InternetConnection::buildPacket(true, Utilities::Direction::LEFT).data());
+        } else if (static_cast<Qt::Key>(event->key()) == Qt::Key_S) {
+            inetConnection_->send(InternetConnection::buildPacket(true, Utilities::Direction::DOWN).data());
+        } else if (static_cast<Qt::Key>(event->key()) == Qt::Key_D) {
+            inetConnection_->send(InternetConnection::buildPacket(true, Utilities::Direction::RIGHT).data());
+        }
     }
 }
 
 void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
     for (auto manip : manipulators_) {
-    if (manip->active()) {
+        if (manip->active()) {
             manip->release(static_cast<Qt::Key>(event->key()));
+        }
     }
+    if (inetConnection_) {
+        if (static_cast<Qt::Key>(event->key()) == Qt::Key_W) {
+            inetConnection_->send(InternetConnection::buildPacket(false, Utilities::Direction::UP).data());
+        } else if (static_cast<Qt::Key>(event->key()) == Qt::Key_A) {
+            inetConnection_->send(InternetConnection::buildPacket(false, Utilities::Direction::LEFT).data());
+        } else if (static_cast<Qt::Key>(event->key()) == Qt::Key_S) {
+            inetConnection_->send(InternetConnection::buildPacket(false, Utilities::Direction::DOWN).data());
+        } else if (static_cast<Qt::Key>(event->key()) == Qt::Key_D) {
+            inetConnection_->send(InternetConnection::buildPacket(false, Utilities::Direction::RIGHT).data());
+        }
     }
 }
 
 void KeyPresser::add_players(Player *player1, Player *player2) {
     manipulators_.push_back(new PlayerManipulator(player1));
     if (player2) {
-    manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
+	if (inetConnection_) {
+	    new InetPlayerManipulator(player2, inetConnection_);
+	} else {
+	    manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
+	}
     }
 }
 
 void KeyPresser::remove_players() {
     for (size_t i = 0; i < manipulators_.size(); i++) {
-    if (manipulators_[i]->type() == KeyPresserUtility::ManipulatorType::PLAYER) {
-        delete manipulators_[i];
-        std::swap(manipulators_[i], manipulators_[manipulators_.size() - 1]);
-        manipulators_.pop_back();
-    }
+	if (manipulators_[i]->type() == KeyPresserUtility::ManipulatorType::PLAYER) {
+	    delete manipulators_[i];
+	    std::swap(manipulators_[i], manipulators_[manipulators_.size() - 1]);
+	    manipulators_.pop_back();
+	}
     }
 }
 
 void KeyPresser::activate(KeyPresserUtility::ManipulatorType type) {
     for (auto manip : manipulators_) {
-    if (manip->type() == type) {
-        manip->activate();
-    }
+	if (manip->type() == type) {
+	    manip->activate();
+	}
     }
 }
 
 void KeyPresser::deactivate(KeyPresserUtility::ManipulatorType type) {
     for (auto manip : manipulators_) {
-    if (manip->type() == type) {
-        manip->deactivate();
-    }
+	if (manip->type() == type) {
+	    manip->deactivate();
+	}
     }
 }
 
 KeyPresser::Key::Key(Qt::Key qt_name)
     : qt_name_(qt_name)
-    , is_pressed_(false)
+{}
+
+KeyPresser::Key::Key(Utilities::Direction dir)
+    : dir_(dir)
 {}
 
 KeyPresser::Key::operator Qt::Key() const {
     return qt_name_;
+}
+
+KeyPresser::Key::operator Utilities::Direction() const {
+    return dir_;
 }
 
 bool KeyPresser::Key::is_pressed() const {
@@ -156,7 +190,7 @@ void KeyPresser::PlayerManipulator::press(Qt::Key k) {
 }
 
 void KeyPresser::PlayerManipulator::release(Qt::Key k) {
-        if (k == UP) {
+    if (k == UP) {
         UP.release();
     } else if (k == LEFT) {
         LEFT.release();
@@ -181,22 +215,78 @@ void KeyPresser::PlayerManipulator::release(Qt::Key k) {
     }
 }
 
-KeyPresserHelper::KeyPresserHelper(KeyPresser *key_presser)
-    : key_presser_(key_presser)
-{}
-
-void KeyPresserHelper::call_activate(KeyPresserUtility::ManipulatorType type) {
-    key_presser_->activate(type);
+KeyPresser::InetPlayerManipulator::InetPlayerManipulator(Player *player, InternetConnection *inetConnection)
+    : player_(player)
+    , inetConnection_(inetConnection) {
+    std::cout << "MMMM" << std::endl;
+    inetConnection_->setPress(std::bind(&KeyPresser::InetPlayerManipulator::press,
+                                        this, std::placeholders::_1));
+    inetConnection_->setRelease(std::bind(&KeyPresser::InetPlayerManipulator::release,
+                                        this, std::placeholders::_1));
+    // Какую-нибудь дичь с таймером....
 }
 
-void KeyPresserHelper::call_deactivate(KeyPresserUtility::ManipulatorType type) {
-    key_presser_->deactivate(type);
+void KeyPresser::InetPlayerManipulator::press(Utilities::Direction dir) {
+    if (dir == UP) {
+        UP.press();
+        player_->start_jumping();
+    } else if (dir == LEFT) {
+        LEFT.press();
+        player_->moving = true;
+        player_->direction = Utilities::Direction::LEFT;
+        player_->change_skin_direction();
+    } else if (dir == RIGHT) {
+        RIGHT.press();
+        player_->moving = true;
+        player_->direction = Utilities::Direction::RIGHT;
+        player_->change_skin_direction();
+    }    
 }
 
-std::function<void(KeyPresserUtility::ManipulatorType)> KeyPresserHelper::get_activate() {
-    return std::bind(&KeyPresserHelper::call_activate, *this, std::placeholders::_1);
+void KeyPresser::InetPlayerManipulator::release(Utilities::Direction dir) {
+    if (dir == UP) {
+        UP.release();
+    } else if (dir == LEFT) {
+        LEFT.release();
+        if (RIGHT.is_pressed()) {
+            player_->moving = true;
+            player_->direction = Utilities::Direction::RIGHT;
+            player_->change_skin_direction();
+        } else {
+            player_->moving = false;
+            player_->direction = Utilities::Direction::UNKNOWN;
+        }
+    } else if (dir == RIGHT) {
+        RIGHT.release();
+        if (LEFT.is_pressed()) {
+            player_->moving = true;
+            player_->direction = Utilities::Direction::LEFT;
+            player_->change_skin_direction();
+        } else {
+            player_->moving = false;
+            player_->direction = Utilities::Direction::UNKNOWN;
+        }
+    }    
 }
 
-std::function<void(KeyPresserUtility::ManipulatorType)> KeyPresserHelper::get_deactivate() {
-    return std::bind(&KeyPresserHelper::call_deactivate, *this, std::placeholders::_1);
-}
+//========
+
+// KeyPresserHelper::KeyPresserHelper(KeyPresser *key_presser)
+//     : key_presser_(key_presser)
+// {}
+
+// void KeyPresserHelper::call_activate(KeyPresserUtility::ManipulatorType type) {
+//     key_presser_->activate(type);
+// }
+
+// void KeyPresserHelper::call_deactivate(KeyPresserUtility::ManipulatorType type) {
+//     key_presser_->deactivate(type);
+// }
+
+// std::function<void(KeyPresserUtility::ManipulatorType)> KeyPresserHelper::get_activate() {
+//     return std::bind(&KeyPresserHelper::call_activate, *this, std::placeholders::_1);
+// }
+
+// std::function<void(KeyPresserUtility::ManipulatorType)> KeyPresserHelper::get_deactivate() {
+//     return std::bind(&KeyPresserHelper::call_deactivate, *this, std::placeholders::_1);
+// }

@@ -44,6 +44,10 @@ signals:
 
     void set_end_level();
 
+    void begin_connection_upd();
+
+    void set_inet_type();
+
     void set_close_window(Utilities::GameState state);
 
 private:

@@ -13,7 +13,7 @@
  */
 
 class PlayerSelection : public QObject {
-Q_OBJECT
+    Q_OBJECT;
 public:
     PlayerSelection(Scene *scene);
     ~PlayerSelection() override;

@@ -39,8 +39,8 @@ struct Address {
 class Socket {
 public:
     Socket(u16 port);
+    ~Socket();
     u16 port() const;
-    // ~Socket(); // TODO
     bool send(const Address &dest, const char *data, int dataSize = PACKET_SIZE);
     bool receive(Address &sender, char *data, int maxDataSize = PACKET_SIZE);
 

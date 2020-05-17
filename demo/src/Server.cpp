@@ -46,6 +46,10 @@ Socket::Socket(u16 port)
     assert(res != -1);
 }
 
+Socket::~Socket() {
+    close(sock_);
+}
+
 u16 Socket::port() const {
     return port_;
 }

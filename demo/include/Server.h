@@ -10,6 +10,7 @@
 #include <vector>
 #include <optional>
 #include <iostream>
+#include <functional>
 
 #include <unistd.h>
 

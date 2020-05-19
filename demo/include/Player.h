@@ -12,11 +12,14 @@ public:
     bool falling = true;
     bool dead = false;
 
+    int current_timer = 0;
+    int timer_to_start = 45;
+
     const double gr_acceleration = 0.1;
     const double starting_jumping_speed = 5;
-    const double starting_falling_speed = 2;
+    const double starting_falling_speed = 3;
     double vert_speed = 0;
-    double hor_speed = 2;
+    double hor_speed = 2.5;
 
     Utilities::Direction direction = Utilities::Direction::UNKNOWN;
     Utilities::Direction p_direction = Utilities::Direction::RIGHT;

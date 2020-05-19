@@ -81,6 +81,10 @@ void Model::advance_players() {
         }
 
         if (player->jumping) {
+            player->current_timer--;
+            if (player->current_timer == 0){
+                player->start_falling();
+            }
             player->setY(player->y() - player->vert_speed);
             solve_collisions(player);
         }

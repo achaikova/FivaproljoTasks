@@ -12,7 +12,7 @@ Player::Player(Utilities::Color player_color)
         : color(player_color) {}
 
 void Player::start_jumping() {
-    if (falling or jumping) return;
+    if (falling || jumping) return;
 
     current_timer = timer_to_start;
     jumping = true;

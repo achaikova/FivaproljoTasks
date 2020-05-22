@@ -20,11 +20,11 @@ void Scene::add_background(const QString &image) {
     scene->setBackgroundBrush(QBrush(QImage(image)));
 }
 
-void Scene::add_platform(int x, int y, int amount, const QString &image, int block_width) {
-    std::vector<Block *> platform;
+void
+Scene::add_platform(int x, int y, int amount, const QString &image, int block_width, std::vector<Block *> &platform) {
     for (int i = 0; i < amount; i++) {
         platform.push_back(new Block(QPoint(x + block_width * i, y), image, block_width));
-        scene->addItem(platform[i]);
+        scene->addItem(platform.back());
     }
 }
 

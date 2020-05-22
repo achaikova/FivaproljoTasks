@@ -71,8 +71,12 @@ void Controller::run_player_selection() {
  * Когда все игроки готовы, начинает уровень.
  */
 void Controller::run_level(Utilities::GameMode mode) {
-    player_selection->clear_player_selection();
-    menu_->clear_menu();
+    if (state_machine_->get_prev_state() == Utilities::GameState::PLAYER_SELECTION) {
+        player_selection->clear_player_selection();
+        menu_->clear_menu();
+    } else if (state_machine_->get_prev_state() == Utilities::GameState::LEVEL_STATISTICS) {
+        model_->clear_level();
+    }
     model_->add_players(players_);
     model_->set_statistics();
     model_->make_new_level();

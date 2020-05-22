@@ -13,57 +13,55 @@ KeyPresser::KeyPresser(QWidget *parent) {
 
 void KeyPresser::keyPressEvent(QKeyEvent *event) {
     for (auto manip : manipulators_) {
-	if (manip->active()) {
+        if (manip->active()) {
             manip->press(static_cast<Qt::Key>(event->key()));
-	}
+        }
     }
 }
 
 void KeyPresser::keyReleaseEvent(QKeyEvent *event) {
     for (auto manip : manipulators_) {
-	if (manip->active()) {
+        if (manip->active()) {
             manip->release(static_cast<Qt::Key>(event->key()));
-	}
+        }
     }
 }
 
 void KeyPresser::add_players(Player *player1, Player *player2) {
     manipulators_.push_back(new PlayerManipulator(player1));
     if (player2) {
-	manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
+        manipulators_.push_back(new PlayerManipulator(player2, Qt::Key_T, Qt::Key_F, Qt::Key_G, Qt::Key_H));
     }
 }
 
 void KeyPresser::remove_players() {
     for (size_t i = 0; i < manipulators_.size(); i++) {
-	if (manipulators_[i]->type() == KeyPresserUtility::ManipulatorType::PLAYER) {
-	    delete manipulators_[i];
-	    std::swap(manipulators_[i], manipulators_[manipulators_.size() - 1]);
-	    manipulators_.pop_back();
-	}
+        if (manipulators_[i]->type() == KeyPresserUtility::ManipulatorType::PLAYER) {
+            delete manipulators_[i];
+            std::swap(manipulators_[i], manipulators_[manipulators_.size() - 1]);
+            manipulators_.pop_back();
+        }
     }
 }
 
 void KeyPresser::activate(KeyPresserUtility::ManipulatorType type) {
     for (auto manip : manipulators_) {
-	if (manip->type() == type) {
-	    manip->activate();
-	}
+        if (manip->type() == type) {
+            manip->activate();
+        }
     }
 }
 
 void KeyPresser::deactivate(KeyPresserUtility::ManipulatorType type) {
     for (auto manip : manipulators_) {
-	if (manip->type() == type) {
-	    manip->deactivate();
-	}
+        if (manip->type() == type) {
+            manip->deactivate();
+        }
     }
 }
 
 KeyPresser::Key::Key(Qt::Key qt_name)
-    : qt_name_(qt_name)
-    , is_pressed_(false)
-{}
+        : qt_name_(qt_name), is_pressed_(false) {}
 
 KeyPresser::Key::operator Qt::Key() const {
     return qt_name_;
@@ -84,9 +82,7 @@ void KeyPresser::Key::release() {
 KeyPresser::Manipulator::~Manipulator() {}
 
 KeyPresser::Manipulator::Manipulator(bool is_active, KeyPresserUtility::ManipulatorType manip_type)
-    : is_active_(is_active)
-    , manip_type_(manip_type)
-{}
+        : is_active_(is_active), manip_type_(manip_type) {}
 
 bool KeyPresser::Manipulator::active() const {
     return is_active_;
@@ -128,13 +124,8 @@ void KeyPresser::MenuManipulator::release(Qt::Key k) {}
 */
 KeyPresser::PlayerManipulator::PlayerManipulator(Player *player, Qt::Key up_key, Qt::Key left_key,
                                                  Qt::Key down_key, Qt::Key right_key)
-    : Manipulator(true, KeyPresserUtility::ManipulatorType::PLAYER)
-    , player_(player)
-    , UP(up_key)
-    , LEFT(left_key)
-    , DOWN(down_key)
-    , RIGHT(right_key)
-{}
+        : Manipulator(true, KeyPresserUtility::ManipulatorType::PLAYER), player_(player), UP(up_key), LEFT(left_key),
+          DOWN(down_key), RIGHT(right_key) {}
 
 KeyPresser::PlayerManipulator::~PlayerManipulator() {}
 
@@ -156,7 +147,7 @@ void KeyPresser::PlayerManipulator::press(Qt::Key k) {
 }
 
 void KeyPresser::PlayerManipulator::release(Qt::Key k) {
-        if (k == UP) {
+    if (k == UP) {
         UP.release();
     } else if (k == LEFT) {
         LEFT.release();
@@ -182,8 +173,7 @@ void KeyPresser::PlayerManipulator::release(Qt::Key k) {
 }
 
 KeyPresserHelper::KeyPresserHelper(KeyPresser *key_presser)
-    : key_presser_(key_presser)
-{}
+        : key_presser_(key_presser) {}
 
 void KeyPresserHelper::call_activate(KeyPresserUtility::ManipulatorType type) {
     key_presser_->activate(type);

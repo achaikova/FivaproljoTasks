@@ -179,6 +179,7 @@ void PlayerSelection::increase_ready_num(int player_number) {
         }
     }
 }
+
 /*
  * Decreases the number of players that are ready, when @Back is clicked.
  */

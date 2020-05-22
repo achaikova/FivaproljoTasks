@@ -29,7 +29,7 @@ public:
          fitInView(this->sceneRect());
      }*/
 
-    void add_platform(int x, int y, int amount, const QString &image, int block_width);
+    void add_platform(int x, int y, int amount, const QString &image, int block_width,    std::vector<Block *> &platform);
 
     void add_players(const std::vector<Player *> &players);
 

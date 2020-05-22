@@ -9,6 +9,12 @@ LevelStatistics::LevelStatistics(std::vector<Player *> &players, Scene *scene, S
           scene(scene),
           blocks_amount(DEMO_BLOCKS_AMOUNT) {}
 
+void LevelStatistics::set_players(std::vector<Player *> &new_players) {
+    players = new_players;
+    player_statistic.resize(players.size());
+}
+
+
 // We dont have much players so it's fine not to optimize these two actions down here
 
 size_t get_player_index(Player *player, LevelStatistics const &statistics) {
@@ -58,6 +64,10 @@ void LevelStatistics::run_level_statistic() {
 }
 
 void LevelStatistics::set_background() {
+//    if (statistic_window) {
+//        statistic_window->show();
+//        return;
+//    }
     statistic_window = new QGraphicsRectItem(0, 100, 1250, 500);
     statistic_window->setBrush(QBrush(QColor(50, 50, 50, 230)));
     scene->add_qgrectitem(statistic_window);
@@ -81,6 +91,11 @@ void LevelStatistics::set_images() {
 }
 
 void LevelStatistics::set_text() {
+    if (next_game_text) {
+        next_game_text->show();
+        next_game_text->raise();
+        return;
+    }
     next_game_text = new QLabel();
     next_game_text->setText("NEXT GAME");
     next_game_text->move(1050, 120);
@@ -89,13 +104,21 @@ void LevelStatistics::set_text() {
     next_game_text->setStyleSheet("QLabel {  color : grey; }");
     next_game_text->setAttribute(Qt::WA_TranslucentBackground);
     scene->add_text(next_game_text);
+    next_game_text->show();
 }
 
 void LevelStatistics::set_buttons() {
+    if (color_craze) {
+        color_craze->show();
+        color_craze->raise();
+        return;
+    }
     color_craze = new QPushButton("COLOR CRAZE");
     color_craze->setGeometry(QRect(QPoint(1000, 200),
                                    QSize(200, 50)));
     scene->add_button(color_craze);
+    color_craze->show();
+    connect(color_craze, &QPushButton::clicked, this, &LevelStatistics::clear_statistics);
     connect(color_craze, &QPushButton::clicked, state_machine, &StateMachine::start_level);
 }
 
@@ -107,5 +130,11 @@ void LevelStatistics::clear_statistics() {
     for (auto i: winning_pos) {
         scene->remove_item(i);
     }
+    players.clear();
+    player_statistic.clear();
     winning_pos.clear();
+    scene->remove_item(statistic_window);
+    next_game_text->hide();
+    //statistic_window->hide();
+    color_craze->hide();
 }

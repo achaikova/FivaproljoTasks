@@ -14,10 +14,12 @@ Model::Model(Scene *scene, StateMachine *state_machine) : game_scene(scene), sta
 
 
 void Model::make_new_level() { //TODO - find other way to load game
+    level_made = true, game_on = true;
     game_scene->add_background("images/background.jpg");
 
     game_scene->print_level(Utilities::LevelType::DEMO);
     game_scene->add_players(players_);
+    start_timer();
     game_scene->show();
 }
 
@@ -100,6 +102,7 @@ void Model::solve_collisions(Player *player) {
 }
 
 void Model::add_players(std::vector<Player *> &players) {
+    if (level_made) return;
     players_ = players;
     for (auto player : players_) {
         qDebug() << game_scene->get_width() << game_scene->get_width() / 25;
@@ -108,7 +111,26 @@ void Model::add_players(std::vector<Player *> &players) {
 }
 
 void Model::set_statistics() {
-    lvl_statistic = new LevelStatistics(players_, game_scene, state_machine);
+    if (!lvl_statistic)
+        lvl_statistic = new LevelStatistics(players_, game_scene, state_machine);
+    else {
+        lvl_statistic->set_players(players_);
+    }
+}
+
+void Model::clear_level() {
+    for (auto i : platform) {
+        game_scene->remove_item(i);
+    }
+    platform.clear();
+    for (auto i : players_) {
+        game_scene->remove_item(i);
+    }
+}
+
+void Model::start_timer() {
+    engine->start(10);
+    engine->setInterval(10);
 }
 
 void Model::show_statistics() {

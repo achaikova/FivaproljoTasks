@@ -8,6 +8,12 @@
 #include <QDebug>
 #include <QGraphicsView>
 #include <QWidget>
+
+#include <QJsonValue>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+
 #include <QGraphicsScene>
 #include "Block.h"
 #include "Player.h"
@@ -55,9 +61,13 @@ public:
 
     void resizeEvent(QResizeEvent *event) override;
 
-
     QGraphicsScene *scene;
+
+    void print_level(Utilities::LevelType level_type);
+
+    void print_block(Utilities::BlockType block_type, QPoint position, int block_size);
 
 private:
     Background *background = nullptr;
+    std::vector<Block *> level_blocks;
 };

@@ -39,6 +39,14 @@ namespace Utilities {
         INIT
     };
 
+    enum class LevelType{
+        DEMO
+    };
+
+    enum class BlockType{
+        EMPTY, DEFAULT
+    };
+
 } // end namespace Utilities
 
 namespace KeyPresserUtility {
@@ -48,6 +56,6 @@ namespace KeyPresserUtility {
         MENU
     };
 
-} // end namespace KeyPresserUtilitie
+} // end namespace KeyPresserUtilities
 
 #define unused(p) (void)p

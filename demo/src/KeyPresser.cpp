@@ -242,7 +242,7 @@ void KeyPresser::InetPlayerManipulator::press(Utilities::Direction dir) {
         player_->moving = true;
         player_->direction = Utilities::Direction::RIGHT;
         player_->change_skin_direction();
-    }    
+    }
 }
 
 void KeyPresser::InetPlayerManipulator::release(Utilities::Direction dir) {
@@ -268,7 +268,7 @@ void KeyPresser::InetPlayerManipulator::release(Utilities::Direction dir) {
             player_->moving = false;
             player_->direction = Utilities::Direction::UNKNOWN;
         }
-    }    
+    }
 }
 
 //========

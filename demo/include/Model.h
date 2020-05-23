@@ -30,6 +30,10 @@ public:
 
     void show_statistics();
 
+    void clear_level();
+
+    void start_timer();
+
 private slots:
 
     void advance_scene();
@@ -39,9 +43,11 @@ private slots:
 private:
     bool game_on;
     bool game_just_ended;
+    bool level_made = false;
+    std::vector<Block *> platform;
     Scene *game_scene;
     StateMachine *state_machine;
     std::vector<Player *> players_;
     QTimer *engine;
-    LevelStatistics *lvl_statistic;
+    LevelStatistics *lvl_statistic = nullptr;
 };

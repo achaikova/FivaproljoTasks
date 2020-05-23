@@ -25,6 +25,8 @@ public:
 
     void change_block_color(Block *, Player *);
 
+    void set_players(std::vector<Player *> &players);
+
     size_t get_player_statistic(Player *) const;
 
     size_t get_blocks_amount() const { return blocks_amount; };
@@ -43,10 +45,9 @@ public:
 
     void set_background();
 
-    void clear_statistics();
-
 public slots:
 
+    void clear_statistics();
     // void choose_level();
 
 signals:
@@ -56,12 +57,13 @@ signals:
 private:
     Scene *scene;
     StateMachine *state_machine;
-    QLabel *next_game_text;
-    QGraphicsRectItem *statistic_window;
+    QLabel *next_game_text = nullptr;
+    QGraphicsRectItem *statistic_window = nullptr;
     std::vector<QPushButton *> next_game_buttons;
+    // QGraphicsProxyWidget *proxy;
     std::vector<QGraphicsRectItem *> winning_pos;
     std::vector<QGraphicsPixmapItem *> player_textures;
-    QPushButton *color_craze;
+    QPushButton *color_craze = nullptr;
     std::vector<Player *> players;
     std::vector<int> player_statistic;
     size_t blocks_amount;

@@ -2,7 +2,6 @@
 #include "Player.h"
 #include <QTimer>
 
-
 Model::Model(Scene *scene, StateMachine *state_machine) : game_scene(scene), state_machine(state_machine) {
     game_just_ended = false;
     game_on = true;
@@ -14,38 +13,14 @@ Model::Model(Scene *scene, StateMachine *state_machine) : game_scene(scene), sta
 
 
 void Model::make_new_level() { //TODO - find other way to load game
+    level_made = true, game_on = true;
     game_scene->add_background("images/background.jpg");
-    QString default_block = "images/1block.jpg";
-    int block_size = ceil((double) game_scene->get_width() / 25.0);
-    //1st platform
-    game_scene->add_platform(400, 150, 9, default_block, block_size);
-    // 2nd platform
-    game_scene->add_platform(150, 250, 3, default_block, block_size);
-    // and so on
-    game_scene->add_platform(300, 300, 3, default_block, block_size);
-    game_scene->add_platform(150, 480, 4, default_block, block_size);
-    game_scene->add_platform(500, 530, 1, default_block, block_size);
-    game_scene->add_platform(550, 480, 1, default_block, block_size);
-    game_scene->add_platform(600, 430, 1, default_block, block_size);
-    game_scene->add_platform(650, 480, 1, default_block, block_size);
-    game_scene->add_platform(700, 530, 1, default_block, block_size);
-    game_scene->add_platform(1250 - 150 - 200, 480, 4, default_block, block_size);
-    game_scene->add_platform(1250 - 150 - 150, 250, 3, default_block, block_size);
-    game_scene->add_platform(1250 - 300 - 150, 300, 3, default_block, block_size);
-    //add floor
-    game_scene->add_platform(0, game_scene->get_height() - block_size, 25, default_block, block_size);
-    //add ceiling
-    game_scene->add_platform(0, 0, 25, default_block, block_size);
-    //add left wall
-    for (int i = 0; i < 12; i++) {
-        game_scene->add_platform(0, block_size + i * block_size, 1, default_block, block_size);
-    }
-    //add right wall
-    for (int i = 0; i < 12; i++) {
-        game_scene->add_platform(game_scene->get_width() - block_size, block_size + i * block_size, 1, default_block,
-                                 block_size);
-    }
+
+    Utilities::LevelType level_type = game_scene->get_random_level_type();
+
+    game_scene->print_level(level_type);
     game_scene->add_players(players_);
+    start_timer();
     game_scene->show();
 }
 
@@ -128,6 +103,7 @@ void Model::solve_collisions(Player *player) {
 }
 
 void Model::add_players(std::vector<Player *> &players) {
+    if (level_made) return;
     players_ = players;
     for (auto player : players_) {
         qDebug() << game_scene->get_width() << game_scene->get_width() / 25;
@@ -136,7 +112,21 @@ void Model::add_players(std::vector<Player *> &players) {
 }
 
 void Model::set_statistics() {
-    lvl_statistic = new LevelStatistics(players_, game_scene, state_machine);
+    if (!lvl_statistic)
+        lvl_statistic = new LevelStatistics(players_, game_scene, state_machine);
+    else {
+        lvl_statistic->set_players(players_);
+    }
+}
+
+void Model::clear_level() {
+    game_scene->clear_blocks();
+    game_scene->clear_players(players_);
+}
+
+void Model::start_timer() {
+    engine->start(10);
+    engine->setInterval(10);
 }
 
 void Model::show_statistics() {

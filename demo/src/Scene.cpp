@@ -1,6 +1,8 @@
 #include <QFile>
+#include <random>
+#include <ctime>
+#include <fstream>
 #include "Scene.h"
-
 
 Scene::Scene(QWidget *parent)
         : scene(new QGraphicsScene()), level_blocks(){
@@ -9,11 +11,12 @@ Scene::Scene(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(scene);
+    srand(std::time(nullptr));
     resize(1250, 700);
 }
 
 Scene::~Scene() {
-    setScene(nullptr); //for a faster removal
+    setScene(nullptr);
     scene->clear();
     delete (scene);
 }
@@ -22,10 +25,16 @@ namespace {
 QString get_level_file_name(Utilities::LevelType level_type){
     switch (level_type) {
         case Utilities::LevelType::DEMO:
-            return QString("/home/daniel/Desktop/FivaproljoTasks/demo/levels/demo.json"); //TODO: относительный путь.
+            return QString("levels/demo.json");
+        case Utilities::LevelType::LEVEL1:
+            return QString("levels/Level1.json");
+        case Utilities::LevelType::LEVEL2:
+            return QString("levels/Level2.json");
+        case Utilities::LevelType::HSE:
+            return QString("levels/Level_HSE.json");
         default:
-            qDebug() << "LevelType couldn't be matched to file_name. Aborting.";
-            assert(false);
+        qDebug() << "LevelType couldn't be matched to file_name. Aborting.";
+        assert(false);
     }
 }
 
@@ -71,7 +80,7 @@ void Scene::print_level(Utilities::LevelType level_type) {
 
     if (!inFile.isOpen()){
         qDebug() << "Change in gel_level_file_name to absolute path to files. At this time idk how to fix this";
-        assert(inFile.isOpen() == true);
+        assert(inFile.isOpen());
     }
 
     QByteArray data = inFile.readAll();
@@ -118,10 +127,19 @@ void Scene::add_background(const QString &image) {
 }
 
 void Scene::add_players(const std::vector<Player *> &players) { // TODO different placement.
-    for (auto player : players) {
-        player->setPos(50, scene->height() - 50 - player->boundingRect().height());
-        player->previous_position = player->pos();
-        scene->addItem(player);
+    for (int i = 0; i < players.size(); i++) {
+
+        if (players.size() == 2){
+            players[0]->setPos(50, scene->height() - 50 - players[0]->boundingRect().height());
+            players[1]->setPos(1150, scene->height() - 50 - players[0]->boundingRect().height());
+            scene->addItem(players[0]);
+            scene->addItem(players[1]);
+            return;
+        }
+
+        players[i]->setPos(50, scene->height() - 50 - players[i]->boundingRect().height());
+        players[i]->previous_position = players[i]->pos();
+        scene->addItem(players[i]);
     }
 }
 
@@ -141,10 +159,6 @@ void Scene::add_pixmap(QGraphicsPixmapItem *item) {
     scene->addItem(item);
 }
 
-void Scene::remove_item(QGraphicsItem *item) {
-    scene->removeItem(item);
-}
-
 //changes size of window
 void Scene::resizeEvent(QResizeEvent *event) {
     QGraphicsView::resizeEvent(event);
@@ -153,4 +167,39 @@ void Scene::resizeEvent(QResizeEvent *event) {
 
 void Scene::add_qgrectitem(QGraphicsRectItem *item) {
     scene->addItem(item);
+}
+
+Utilities::LevelType Scene::get_random_level_type() {
+
+    int number = rand() % AVAILABLE_LEVELS_AMOUNT + 1;
+
+    qDebug() << number;
+
+    switch (number) {
+        case 1: return Utilities::LevelType::DEMO;
+        case 2: return Utilities::LevelType::LEVEL1;
+        case 3: return Utilities::LevelType::LEVEL2;
+        case 4: return Utilities::LevelType::HSE;
+        default:
+            qDebug() << "default";
+            return Utilities::LevelType::DEMO;
+    }
+}
+
+void Scene::clear_blocks() {
+    for (auto &i : level_blocks){
+        remove_item(i);
+    }
+    level_blocks.clear();
+}
+
+void Scene::clear_players(std::vector<Player *> players) {
+    for (auto &player : players){
+        remove_item(player);
+    }
+    players.clear();
+}
+
+void Scene::remove_item(QGraphicsItem *item) {
+    scene->removeItem(item);
 }

@@ -51,8 +51,6 @@ public:
 
     void add_qgrectitem(QGraphicsRectItem *item);
 
-    void remove_item(QGraphicsItem *item);
-
     int get_width() { return scene->width(); }
 
     int get_height() { return scene->height(); }
@@ -67,7 +65,15 @@ public:
 
     void print_block(Utilities::BlockType block_type, QPoint position, int block_size);
 
+    Utilities::LevelType get_random_level_type();
+
+    void remove_item(QGraphicsItem *item);
+
+    void clear_blocks();
+
+    void clear_players(std::vector<Player *> players);
 private:
+    const size_t AVAILABLE_LEVELS_AMOUNT = 4;
     Background *background = nullptr;
     std::vector<Block *> level_blocks;
 };

@@ -40,7 +40,10 @@ namespace Utilities {
     };
 
     enum class LevelType{
-        DEMO
+        DEMO,
+        LEVEL1,
+        LEVEL2,
+        HSE
     };
 
     enum class BlockType{

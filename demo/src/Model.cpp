@@ -2,7 +2,6 @@
 #include "Player.h"
 #include <QTimer>
 
-
 Model::Model(Scene *scene, StateMachine *state_machine) : game_scene(scene), state_machine(state_machine) {
     game_just_ended = false;
     game_on = true;
@@ -17,7 +16,9 @@ void Model::make_new_level() { //TODO - find other way to load game
     level_made = true, game_on = true;
     game_scene->add_background("images/background.jpg");
 
-    game_scene->print_level(Utilities::LevelType::DEMO);
+    Utilities::LevelType level_type = game_scene->get_random_level_type();
+
+    game_scene->print_level(level_type);
     game_scene->add_players(players_);
     start_timer();
     game_scene->show();
@@ -119,13 +120,8 @@ void Model::set_statistics() {
 }
 
 void Model::clear_level() {
-    for (auto i : platform) {
-        game_scene->remove_item(i);
-    }
-    platform.clear();
-    for (auto i : players_) {
-        game_scene->remove_item(i);
-    }
+    game_scene->clear_blocks();
+    game_scene->clear_players(players_);
 }
 
 void Model::start_timer() {

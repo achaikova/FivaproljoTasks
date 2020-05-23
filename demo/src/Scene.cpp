@@ -41,7 +41,7 @@ QString get_level_file_name(Utilities::LevelType level_type){
 QString get_block_filepath(Utilities::BlockType block_type){
     switch (block_type) {
         case Utilities::BlockType::DEFAULT:
-            return QString("images/1block.jpg"); //TODO: относительный путь.
+            return QString("images/1block.jpg");
         default:
             qDebug() << "Couldn't match BLOCK_TYPE to FILE_PATH. Aborting.";
             assert(false);
@@ -79,7 +79,6 @@ void Scene::print_level(Utilities::LevelType level_type) {
     inFile.open(QIODevice::ReadOnly | QIODevice::Text);
 
     if (!inFile.isOpen()){
-        qDebug() << "Change in gel_level_file_name to absolute path to files. At this time idk how to fix this";
         assert(inFile.isOpen());
     }
 
@@ -126,7 +125,7 @@ void Scene::add_background(const QString &image) {
     scene->setBackgroundBrush(QBrush(QImage(image)));
 }
 
-void Scene::add_players(const std::vector<Player *> &players) { // TODO different placement.
+void Scene::add_players(const std::vector<Player *> &players) {
     for (int i = 0; i < players.size(); i++) {
 
         if (players.size() == 2){

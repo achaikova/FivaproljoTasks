@@ -21,6 +21,7 @@ namespace Utilities {
         MENU_NUM_OF_PLAYERS,
         MENU_MODE,
         PLAYER_SELECTION,
+        MENU_INET_TYPE,
         LEVEL_ON,
         LEVEL_STATISTICS,
         EXIT
@@ -39,14 +40,28 @@ namespace Utilities {
         INIT
     };
 
-    enum class LevelType{
+    enum class ButtonPurpose {
+        CUSTOMIZE,
+        READY,
+        BACK
+    };
+
+
+    enum class ConnectionResult {
+        SERVER_SUCCESS,
+        SERVER_FAILURE,
+        CLIENT_SUCCESS,
+        CLIENT_FAILURE
+    };
+
+    enum class LevelType {
         DEMO,
         LEVEL1,
         LEVEL2,
         HSE
     };
 
-    enum class BlockType{
+    enum class BlockType {
         EMPTY, DEFAULT
     };
 
@@ -59,6 +74,6 @@ namespace KeyPresserUtility {
         MENU
     };
 
-} // end namespace KeyPresserUtilities
+} // end namespace KeyPresserUtilitie
 
 #define unused(p) (void)p

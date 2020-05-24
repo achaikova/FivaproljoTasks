@@ -19,6 +19,11 @@ ConnectionUpdater::ConnectionUpdater(Inet::InternetConnection *&ic) : inetConnec
     std::cout << ic << std::endl;;
 }
 
+Controller::~Controller() {
+
+}
+
+
 void ConnectionUpdater::commit() {
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
     std::cout << "cyka" << std::endl;
@@ -37,15 +42,11 @@ void ConnectionUpdater::advance() {
 }
 
 Controller::Controller(int argc, char *argv[])
-    : app(argc, argv)
-    , scene_(new Scene())
-    , key_presser_(new KeyPresser(internetConnection))
-    , state_machine_(new StateMachine())
-    , model_(new Model(scene_, state_machine_))
-    , menu_(new Menu(scene_, state_machine_))
-    // , key_presser_helper_(new KeyPresserHelper(key_presser_))
-    , player_selection(new PlayerSelection(scene_))
-    , connUpd_(new ConnectionUpdater(internetConnection)) {
+        : app(argc, argv), scene_(new Scene()), key_presser_(new KeyPresser(internetConnection)),
+          state_machine_(new StateMachine()), model_(new Model(scene_, state_machine_)),
+          menu_(new Menu(scene_, state_machine_))
+        // , key_presser_helper_(new KeyPresserHelper(key_presser_))
+        , player_selection(new PlayerSelection(scene_)), connUpd_(new ConnectionUpdater(internetConnection)) {
     key_presser_->setFixedSize(QSize(scene_->get_width(), scene_->get_height()));
     scene_->addWidget(key_presser_);
     connect(state_machine_, &StateMachine::set_num_of_players, this, &Controller::set_num_of_players_for_lvl);
@@ -53,13 +54,13 @@ Controller::Controller(int argc, char *argv[])
     connect(player_selection, &PlayerSelection::start_level, state_machine_, &StateMachine::start_level);
     connect(state_machine_, &StateMachine::set_level, this, &Controller::run_level);
     connect(state_machine_, &StateMachine::set_end_level, this, &Controller::end_level);
-    connect(state_machine_, &StateMachine::set_inet_type, this, &Controller::set_inet_type);
+    //  connect(state_machine_, &StateMachine::set_inet_type, this, &Controller::set_inet_type);
+    connect(state_machine_, &StateMachine::set_client_connection, this,
+            [=] { connect_client(menu_->get_server_port()); });
+    connect(state_machine_, &StateMachine::server_connection_success, state_machine_, &StateMachine::two_players_mode);
+    connect(state_machine_, &StateMachine::client_connection_success, state_machine_, &StateMachine::two_players_mode);
+    connect(state_machine_, &StateMachine::set_server_connection, this, &Controller::connect_server);
     connect(state_machine_, &StateMachine::begin_connection_upd, connUpd_, &ConnectionUpdater::commit);
-}
-
-Controller::~Controller() {
-    player_selection->~PlayerSelection();
-    menu_->~Menu();
 }
 
 static int connect(Inet::Client *client) { // ждет ответного пакета
@@ -80,6 +81,7 @@ void Controller::set_inet_type() {
     std::cin >> inetType;
     if (inetType == "server") {
         internetConnection = new Inet::Server();
+        remoteClicker_ = new PlayerSelectionRemoteClicker(*player_selection, internetConnection);
     } else if (inetType == "client") {
         internetConnection = new Inet::Client();
         while (!localId) {
@@ -91,6 +93,7 @@ void Controller::set_inet_type() {
             if (!localId) {
                 std::cout << "Could not connect. ";
             }
+            remoteClicker_ = new PlayerSelectionRemoteClicker(*player_selection, internetConnection);
         }
     } else if (inetType == "offline") {
         // nu, bivaet, delat' niche ne nado
@@ -100,11 +103,35 @@ void Controller::set_inet_type() {
     }
 }
 
+void Controller::connect_server() {
+    internetConnection = new Inet::Server();
+    remoteClicker_ = new PlayerSelectionRemoteClicker(*player_selection, internetConnection);
+    //if(smtn went wrong) return false;
+    state_machine_->connection_result(Utilities::ConnectionResult::SERVER_SUCCESS);
+}
+
+void Controller::connect_client(unsigned short serverPort) {
+    internetConnection = new Inet::Client();
+    while (!localId) {
+        internetConnection->connect({127, 0, 0, 1, serverPort});
+        localId = ::connect(static_cast<Inet::Client *>(internetConnection));
+        if (!localId) {
+//            delete internetConnection;
+            state_machine_->connection_result(Utilities::ConnectionResult::CLIENT_FAILURE);
+            return;
+            // std::cout << "Could not connect. ";
+        }
+        remoteClicker_ = new PlayerSelectionRemoteClicker(*player_selection, internetConnection);
+    }
+    state_machine_->connection_result(Utilities::ConnectionResult::CLIENT_SUCCESS);
+}
+
 /*
  * Запускает стартововый экран с выбором количества персонажей; get_cur_state = MENU_NUM_OF_PLAYERS
  */
 int Controller::run_game() {
-    menu_->run_menu(state_machine_->get_cur_state());
+    scene_->show();
+    menu_->run_menu();
     return app.exec();
 }
 
@@ -132,6 +159,14 @@ void Controller::set_num_of_players_for_lvl(Utilities::GameNumOfPlayers num) {
 void Controller::run_player_selection() {
     menu_->clear_menu();
     player_selection->add_players(players_);
+    //only for 2 players; DOES NOT WORK
+    if (internetConnection && internetConnection->id() == 1) {
+        std::swap(players_[1], players_[0]);
+    }
+    player_selection->add_players(players_);
+    if (internetConnection && internetConnection->id() == 1) {
+        std::swap(players_[1], players_[0]);
+    }
     player_selection->run_player_selection();
 }
 
@@ -142,10 +177,13 @@ void Controller::run_level(Utilities::GameMode mode) {
     if (state_machine_->get_prev_state() == Utilities::GameState::PLAYER_SELECTION) {
         player_selection->clear_player_selection();
         menu_->clear_menu();
+        qDebug() << "oaoaoaoa";
     } else if (state_machine_->get_prev_state() == Utilities::GameState::LEVEL_STATISTICS) {
         model_->clear_level();
     }
 
+    // player_selection->clear_player_selection();
+    menu_->clear_menu();
     model_->add_players(players_);
     model_->set_statistics();
     model_->make_new_level();

@@ -111,6 +111,7 @@ void Controller::set_num_of_players_for_lvl(Utilities::GameNumOfPlayers num) {
         case Utilities::GameNumOfPlayers::TWO_PLAYERS:
             players_.push_back(new Player(Utilities::Color::GREEN));
             players_.push_back(new Player(Utilities::Color::YELLOW));
+            qDebug() << localId;
             key_presser_->add_players(players_[localId], players_[1 - localId]); // потом тупо случаи как-то разбирать
             break;
     }
@@ -125,6 +126,7 @@ void Controller::run_player_selection() {
     player_selection->add_players(players_);
     //only for 2 players; DOES NOT WORK
     if (internetConnection && internetConnection->id() == 1) {
+        qDebug() << "unix is my favourite subject";
         std::swap(players_[1], players_[0]);
     }
     player_selection->add_players(players_);

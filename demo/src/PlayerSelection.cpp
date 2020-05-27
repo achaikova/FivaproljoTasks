@@ -18,10 +18,10 @@ void PlayerSelection::add_players(const std::vector<Player *> &new_players) {
 
 void PlayerSelection::run_player_selection() {
     init_window();
+    show_buttons();
 }
 
 void PlayerSelection::init_window() {
-    //   scene->add_background("images/black_color.jpg");
     scene->add_background("images/background1.jpg");
     set_text();
     set_images();
@@ -33,13 +33,10 @@ void PlayerSelection::init_window() {
  * Sets "EMPTY SLOT" for remaining players.
  */
 void PlayerSelection::set_text() {
-    character_selection = new QLabel();
-    character_selection->setText("Character Selection");
-    character_selection->move(50, 50);
-    QFont cs_f("Arial", 30, QFont::Bold);
-    character_selection->setFont(cs_f);
-    character_selection->setAttribute(Qt::WA_TranslucentBackground);
-    scene->add_text(character_selection);
+    character_selection = new QGraphicsPixmapItem;
+    character_selection->setPixmap(QPixmap("images/character_selection.png").scaled(450, 50));
+    character_selection->setPos(50, 50);
+    scene->add_pixmap(character_selection);
 
     QFont pn_f("Arial", 25);
     for (int i = 0; i < MAX_NUM_OF_PLAYERS; i++) {
@@ -59,10 +56,8 @@ void PlayerSelection::set_text() {
                     player_num[i]->setText("Player 4");
                     break;
             }
-        } else {
-            player_num[i]->setText("EMPTY SLOT");
         }
-        player_num[i]->move(75 + 300 * i, 210);
+        player_num[i]->move(375 + 300 * i, 210);
         player_num[i]->setFont(pn_f);
         player_num[i]->setAttribute(Qt::WA_TranslucentBackground);
         scene->add_text(player_num[i]);
@@ -77,7 +72,7 @@ void PlayerSelection::set_images() {
         player_textures.push_back(new QGraphicsPixmapItem());
         player_textures[i]->setPixmap(QPixmap(available_skins[0]).scaled(200, 200));
         player_textures_index.push_back(0);
-        player_textures[i]->setPos(75 + 300 * i, 250);
+        player_textures[i]->setPos(375 + 300 * i, 250);
         scene->add_pixmap(player_textures[i]);
     }
 }
@@ -95,10 +90,12 @@ void PlayerSelection::clear_player_selection() {
     }
     //players.clear();
     player_textures_index.clear();
-    for (int i = 0; i < MAX_NUM_OF_PLAYERS; i++) {
+    for (int i = 0; i < num_of_players; i++) {
         for (auto button : buttons_player[i]) {
             button->hide();
         }
+        not_ready_text[i]->hide();
+        ready_text[i]->hide();
     }
 }
 
@@ -107,9 +104,23 @@ void PlayerSelection::clear_player_selection() {
  */
 void PlayerSelection::set_buttons() {
     for (int i = 0; i < num_of_players; i++) {
-        set_buttons_player(i, 75 + 300 * i);
+        set_buttons_player(i, 375 + 300 * i);
     }
 }
+
+void PlayerSelection::show_buttons() {
+    if (id_ != -1) {
+        customize_player[id_]->show();
+        ready_player[id_]->show();
+        not_ready_text[1 - id_]->show();
+    } else {
+        for (int i = 0; i < num_of_players; i++) {
+            customize_player[i]->show();
+            ready_player[i]->show();
+        }
+    };
+}
+
 
 /*
  * Changes texture of selected player when button @Customize is clicked.
@@ -137,12 +148,25 @@ void PlayerSelection::change_image(int player_number) {
  */
 void PlayerSelection::increase_ready_num_impl(int player_number) {
     if (++num_of_ready == num_of_players) {
-        for (int i = 0; i < num_of_players; i++) {
-            players[i]->set_player_skin(available_skins[player_textures_index[i]]);
+        if (id_ == 1) {
+            for (int i = 0; i < num_of_players; i++) {
+                players[1 - i]->set_player_skin(available_skins[player_textures_index[i]]);
+            }
+        } else {
+            for (int i = 0; i < num_of_players; i++) {
+                players[i]->set_player_skin(available_skins[player_textures_index[i]]);
+            }
         }
         clear_player_selection();
         emit start_level();
     } else {
+        if (id_ != -1) {
+            if (player_number - 1 != id_) {
+                not_ready_text[player_number - 1]->hide();
+                ready_text[player_number - 1]->show();
+                return;
+            }
+        }
         customize_player[player_number - 1]->hide();
         ready_player[player_number - 1]->hide();
         back_player[player_number - 1]->show();
@@ -155,11 +179,19 @@ void PlayerSelection::increase_ready_num(int player_number) {
     }
     increase_ready_num_impl(player_number);
 }
+
 /*
  * Decreases the number of players that are ready, when @Back is clicked.
  */
 void PlayerSelection::decrease_ready_num_impl(int player_number) {
     --num_of_ready;
+    if (id_ != -1) {
+        if (player_number - 1 != id_) {
+            ready_text[player_number - 1]->hide();
+            not_ready_text[player_number - 1]->show();
+            return;
+        }
+    }
     customize_player[player_number - 1]->show();
     ready_player[player_number - 1]->show();
     back_player[player_number - 1]->hide();
@@ -183,11 +215,25 @@ void PlayerSelection::set_buttons_player(int index, int xPos) {
     customize_player[index]->setGeometry(QRect(QPoint(xPos, 460),
                                                QSize(200, 50)));
     connect(customize_player[index], &QPushButton::clicked, this, [=] { change_image(index + 1); });
+    customize_player[index]->hide();
 
     ready_player[index] = new QPushButton("Ready");
     ready_player[index]->setGeometry(QRect(QPoint(xPos, 520),
                                            QSize(200, 50)));
     connect(ready_player[index], &QPushButton::clicked, this, [=] { increase_ready_num(index + 1); });
+    ready_player[index]->hide();
+
+    ready_text[index] = new QGraphicsPixmapItem();
+    ready_text[index]->setPixmap(QPixmap("images/ready.png").scaled(200, 50));
+    ready_text[index]->setPos(xPos, 510);
+    scene->add_pixmap(ready_text[index]);
+    ready_text[index]->hide();
+
+    not_ready_text[index] = new QGraphicsPixmapItem();
+    not_ready_text[index]->setPixmap(QPixmap("images/not_ready.png").scaled(200, 50));
+    not_ready_text[index]->setPos(xPos, 510);
+    scene->add_pixmap(not_ready_text[index]);
+    not_ready_text[index]->hide();
 
     back_player[index] = new QPushButton("Back");
     back_player[index]->setGeometry(QRect(QPoint(xPos, 580),

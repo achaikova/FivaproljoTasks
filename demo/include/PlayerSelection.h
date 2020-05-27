@@ -28,6 +28,7 @@ public:
     void set_buttons();
     void set_images();
     void set_buttons_player(int index, int xPos);
+    void show_buttons();
 
 
 public slots:
@@ -47,13 +48,17 @@ private:
     bool initialized = false;
     static constexpr int MAX_NUM_OF_PLAYERS = 4;
 
-    QLabel *character_selection;
+ //   QLabel *character_selection;
+    QGraphicsPixmapItem *character_selection;
     std::vector<QLabel *> player_num;
 
     std::vector<QPushButton *> buttons_player[MAX_NUM_OF_PLAYERS];
     QPushButton *customize_player[MAX_NUM_OF_PLAYERS] = { [0 ... MAX_NUM_OF_PLAYERS - 1] = nullptr };
     QPushButton *ready_player[MAX_NUM_OF_PLAYERS] = { [0 ... MAX_NUM_OF_PLAYERS - 1] = nullptr };
     QPushButton *back_player[MAX_NUM_OF_PLAYERS] = { [0 ... MAX_NUM_OF_PLAYERS - 1] = nullptr };
+
+    QGraphicsPixmapItem *not_ready_text[MAX_NUM_OF_PLAYERS] = { [0 ... MAX_NUM_OF_PLAYERS - 1] = nullptr };
+    QGraphicsPixmapItem *ready_text[MAX_NUM_OF_PLAYERS] = { [0 ... MAX_NUM_OF_PLAYERS - 1] = nullptr };
 
     std::vector<QString> available_skins{"images/demo_player.png", "images/demo_player_2.png"};
     std::vector<QGraphicsPixmapItem *> player_textures;

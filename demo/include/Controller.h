@@ -61,14 +61,10 @@ private slots:
 
     void run_level(Utilities::GameMode mode);
 
-    void set_inet_type();
-
 
 signals:
 
     void set_run_level();
-
-    //void set_player_selection();
 
 private:
     Application app;

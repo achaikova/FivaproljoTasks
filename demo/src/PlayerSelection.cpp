@@ -21,7 +21,7 @@ void PlayerSelection::run_player_selection() {
 }
 
 void PlayerSelection::init_window() {
- //   scene->add_background("images/black_color.jpg");
+    //   scene->add_background("images/black_color.jpg");
     scene->add_background("images/background1.jpg");
     set_text();
     set_images();
@@ -226,4 +226,3 @@ void PlayerSelectionRemoteClicker::click(int id, Utilities::ButtonPurpose purpos
 void PlayerSelectionRemoteClicker::sendClick(Utilities::ButtonPurpose purpose) {
     inetConnection_->send(inetConnection_->buildPacket(purpose).data());
 }
-

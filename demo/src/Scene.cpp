@@ -124,7 +124,8 @@ void Scene::print_level(Utilities::LevelType level_type) {
 }
 
 void Scene::add_background(const QString &image) {
-    scene->setBackgroundBrush(QBrush(QImage(image)));
+    scene->setBackgroundBrush(QBrush(QImage(image).scaled(1250, 700)));
+
 }
 
 void Scene::add_players(const std::vector<Player *> &players) {
